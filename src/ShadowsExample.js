@@ -1,5 +1,7 @@
 
 import * as BABYLON from 'babylonjs';
+import DiffuseTexture from './img/checker.png';
+import NormalTexture from './img/normals.png';
 
 export class ShadowsExample {
     constructor(engine, canvas) {
@@ -17,6 +19,12 @@ export class ShadowsExample {
 
         let sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         sphere.position.y = 1;
+
+        let textureMaterial = new BABYLON.StandardMaterial("textureMaterial", this.scene);
+        textureMaterial.diffuseTexture = new BABYLON.Texture(DiffuseTexture, this.scene);
+        textureMaterial.bumpTexture = new BABYLON.Texture(NormalTexture, this.scene);
+
+        sphere.material = textureMaterial;
 
         let sphere2 = BABYLON.Mesh.CreateSphere('sphere2', 16, 2, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         sphere2.position.x = 1; 

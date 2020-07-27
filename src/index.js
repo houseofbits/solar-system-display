@@ -11,8 +11,8 @@ let shadowExample = new ShadowsExample(engine, canvas);
 let guiExample = new GuiExample(engine, canvas);
 
 engine.runRenderLoop(function(){
-    //shadowExample.render();
-    guiExample.render();
+    shadowExample.render();
+    //guiExample.render();
 });
 
 window.addEventListener('resize', function(){

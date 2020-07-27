@@ -1,6 +1,8 @@
 
 import * as BABYLON from 'babylonjs';
 import * as GUI from 'babylonjs-gui';
+import DiffuseTexture from './img/checker.png';
+import NormalTexture from './img/normals.png';
 
 export class GuiExample {
     constructor(engine, canvas) {
@@ -14,6 +16,12 @@ export class GuiExample {
 
         let sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         sphere.position.y = 1;
+
+        let textureMaterial = new BABYLON.StandardMaterial("textureMaterial", this.scene);
+        textureMaterial.diffuseTexture = new BABYLON.Texture(DiffuseTexture, this.scene);
+        textureMaterial.bumpTexture = new BABYLON.Texture(NormalTexture, this.scene);
+
+        sphere.material = textureMaterial;
 
         let light = new BABYLON.DirectionalLight("DirectionalLight", new BABYLON.Vector3(0, -1, 0), this.scene);
         light.intensity = 3;
