@@ -49,6 +49,11 @@ export class ShadowsExample {
         //shadowGenerator.useBlurExponentialShadowMap = true;
         //shadowGenerator.blurBoxOffset = 2.0; 
         
+        let godrays = new BABYLON.VolumetricLightScatteringPostProcess('godrays', 1.0, arcCamera, null, 100, BABYLON.Texture.BILINEAR_SAMPLINGMODE, engine, false);
+
+        godrays.useDiffuseColor = true;
+        godrays.mesh.material.diffuseColor = new BABYLON.Color3(0.0, 1.0, 0.0);
+
         // light.shadowMinZ = 0;
         // light.shadowMaxZ = 500;
         // shadowGenerator.depthScale = 500;
