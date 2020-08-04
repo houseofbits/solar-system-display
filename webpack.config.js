@@ -15,7 +15,11 @@ module.exports = {
           use: [
             'file-loader'
           ]
-        }
+        },
+        {
+          test: /\.fx$/i,
+          use: 'raw-loader',
+        },        
        ],
      },
     performance: { hints: false },
