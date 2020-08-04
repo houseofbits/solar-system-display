@@ -15,11 +15,6 @@ export class EarthModel {
 
         this.scene = scene;
 
-        let arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), this.scene);
-        arcCamera.setPosition(new BABYLON.Vector3(0, 1, 10));
-        arcCamera.target = new BABYLON.Vector3(0, 1, 0);
-        arcCamera.attachControl(canvas, false);  
-
         BABYLON.Effect.ShadersStore["earthVertexShader"] = EarthVertexShader;
         BABYLON.Effect.ShadersStore["earthFragmentShader"] = EarthFragmentShader;
         BABYLON.Effect.ShadersStore["earthShellVertexShader"] = EarthShellVertexShader;
@@ -83,12 +78,17 @@ export class EarthModel {
     getScene(){
         return this.scene;
     }
-    render(){
-        
+    setPosition(x,y,z){
+        this.sphere.position.x = x;
+        this.sphereOuter.position.x = x;            
+        this.sphere.position.y = y;
+        this.sphereOuter.position.y = y;        
+        this.sphere.position.z = z;
+        this.sphereOuter.position.z = z;                        
+    }
+    update(){        
         this.earthShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
         this.earthShellShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
-
-        this.getScene().render();
     }
   }
 
