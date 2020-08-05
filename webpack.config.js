@@ -2,7 +2,7 @@
 const path = require('path');
 
 module.exports = {    
-    entry: './src/index.js',    
+    entry: './src/main.js',    
     output: {
       filename: 'main.js',
       publicPath: '/dist/',
@@ -30,7 +30,14 @@ module.exports = {
           use: {
             loader: "babel-loader"
           }
-        }              
+        },
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader'
+          ],
+        },                      
        ],
      },
     performance: { hints: false },
