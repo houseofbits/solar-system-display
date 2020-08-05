@@ -16,7 +16,7 @@ uniform vec3 cameraPosition;
 
 void main(void) {
 
-    vec3 lightVectorW = normalize(vSunDirection);
+    vec3 lightVectorW = -normalize(vSunDirection);
 
     vec3 viewDirectionW = normalize(cameraPosition - vPositionW);
 
@@ -41,7 +41,7 @@ void main(void) {
     //float ft2 = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
 
     float ftfin = (ft1 + ft1 + ft1);
-    if(ftfin > 0.65)ftfin = 0.;
+    //if(ftfin > 0.65)ftfin = 0.;
 
     gl_FragColor = vec4(vec3(ftfin), 1.);
 

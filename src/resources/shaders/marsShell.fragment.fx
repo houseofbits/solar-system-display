@@ -16,19 +16,21 @@ uniform vec3 cameraPosition;
 
 void main(void) {
 
-    vec3 lightVectorW = normalize(vSunDirection);
+    vec3 normal = vNormalW;
+
+    vec3 lightVectorW = -normalize(vSunDirection);
 
     vec3 viewDirectionW = normalize(cameraPosition - vPositionW);
 
     // Fresnel
-	float fresnelTerm = dot(viewDirectionW, vNormalW);
+	float fresnelTerm = dot(viewDirectionW, normal);
 	float fresnelTermPow = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
 
-    float ndlFren = max(0., dot(vNormalW + (lightVectorW * 0.4), lightVectorW));
+    float ndlFren = max(0., dot(normal + (lightVectorW * 0.4), lightVectorW));
 
     // specular
     vec3 angleW = normalize(viewDirectionW + lightVectorW);
-    float specComp = max(0., dot(vNormalW, angleW));
+    float specComp = max(0., dot(normal, angleW));
     specComp = pow(specComp, max(1., 12.)) * 2.;
 
     //Blue atmosferic effect
@@ -41,7 +43,7 @@ void main(void) {
     //float ft2 = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
 
     float ftfin = (ft1 + ft1 + ft1);
-    if(ftfin > 0.65)ftfin = 0.;
+   // if(ftfin > 0.65)ftfin = 0.;
 
     gl_FragColor = vec4(vec3(ftfin), 1.);
 

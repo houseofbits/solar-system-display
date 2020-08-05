@@ -1,14 +1,15 @@
 
 import * as BABYLON from 'babylonjs';
-import MarsVertexShader from './shaders/mars.vertex.fx';
-import MarsFragmentShader from './shaders/mars.fragment.fx';
-import MarsShellVertexShader from './shaders/marsShell.vertex.fx';
-import MarsShellFragmentShader from './shaders/marsShell.fragment.fx';
-import MarsDiffuse from './img/mars/mars.jpg'
-import MarsNormalmap from './img/mars/mars_normal.jpg'
+import MarsVertexShader from '../resources/shaders/mars.vertex.fx';
+import MarsFragmentShader from '../resources/shaders/mars.fragment.fx';
+import MarsShellVertexShader from '../resources/shaders/marsShell.vertex.fx';
+import MarsShellFragmentShader from '../resources/shaders/marsShell.fragment.fx';
+import MarsDiffuse from '../resources/img/mars/mars.jpg'
+import MarsNormalmap from '../resources/img/mars/mars_normal.jpg'
 
-export class MarsModel {
-    constructor(engine, scene, canvas) {
+export default
+class MarsModel {
+    constructor(engine, scene, canvas, size) {
 
         this.scene = scene;
 
@@ -36,7 +37,7 @@ export class MarsModel {
         this.shaderMaterial.setVector3("cameraPosition", BABYLON.Vector3.Zero());
         this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
         
-        this.sphere = BABYLON.Mesh.CreateSphere('marsSphere', 26, 4, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.sphere = BABYLON.Mesh.CreateSphere('marsSphere', 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.sphere.position.y = 2;
         this.sphere.position.x = -2.5;          
         this.sphere.alphaIndex = 1;
@@ -60,7 +61,7 @@ export class MarsModel {
         this.shellShaderMaterial.setVector3("objectPosition", this.sphere.position);        
         this.shellShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));          
    
-        this.sphereOuter = BABYLON.Mesh.CreateSphere('marsSphere2', 26, 4.5, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.sphereOuter = BABYLON.Mesh.CreateSphere('marsSphere2', 26, size * 1.125, this.scene, false, BABYLON.Mesh.BACKSIDE);
         this.sphereOuter.position.y = 2;
         this.sphereOuter.position.x = -2.5;  
         this.sphereOuter.alphaIndex = 2;

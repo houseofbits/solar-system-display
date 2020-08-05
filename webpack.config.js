@@ -12,14 +12,25 @@ module.exports = {
       rules: [
         {
           test: /\.(png|svg|jpg|gif)$/,
-          use: [
-            'file-loader'
-          ]
+          use: [{
+            loader:'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'images/'
+            }            
+          }]
         },
         {
           test: /\.fx$/i,
           use: 'raw-loader',
-        },        
+        },  
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: {
+            loader: "babel-loader"
+          }
+        }              
        ],
      },
     performance: { hints: false },
@@ -28,5 +39,6 @@ module.exports = {
       compress: true,
       port: 8080,
       watchContentBase: true
-    }    
+    }
   };
+  

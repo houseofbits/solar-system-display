@@ -1,17 +1,18 @@
 
 import * as BABYLON from 'babylonjs';
-import EarthVertexShader from './shaders/earth.vertex.fx';
-import EarthFragmentShader from './shaders/earth.fragment.fx';
-import EarthShellVertexShader from './shaders/earthShell.vertex.fx';
-import EarthShellFragmentShader from './shaders/earthShell.fragment.fx';
-import EarthDiffuseDay from './img/earth/earth_daymap.jpg'
-import EarthDiffuseNight from './img/earth/earth_nightmap.jpg'
-import EarthNormalmap from './img/earth/earth_normal_map.png'
-import EarthSpecular from './img/earth/earth_specular_map.png'
-import EarthClouds from './img/earth/earth_clouds.jpg'
+import EarthVertexShader from '../resources/shaders/earth.vertex.fx';
+import EarthFragmentShader from '../resources/shaders/earth.fragment.fx';
+import EarthShellVertexShader from '../resources/shaders/earthShell.vertex.fx';
+import EarthShellFragmentShader from '../resources/shaders/earthShell.fragment.fx';
+import EarthDiffuseDay from '../resources/img/earth/earth_daymap.jpg'
+import EarthDiffuseNight from '../resources/img/earth/earth_nightmap.jpg'
+import EarthNormalmap from '../resources/img/earth/earth_normal_map.png'
+import EarthSpecular from '../resources/img/earth/earth_specular_map.png'
+import EarthClouds from '../resources/img/earth/earth_clouds.jpg'
 
-export class EarthModel {
-    constructor(engine, scene, canvas) {
+export default
+class EarthModel {
+    constructor(engine, scene, canvas, size) {
 
         this.scene = scene;
 
@@ -45,7 +46,7 @@ export class EarthModel {
         this.earthShaderMaterial.setVector3("cameraPosition", BABYLON.Vector3.Zero());
         this.earthShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
         
-        this.sphere = BABYLON.Mesh.CreateSphere('sphere1', 26, 4, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.sphere = BABYLON.Mesh.CreateSphere('sphere1', 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.sphere.position.y = 2;
         this.sphere.position.x = -2.5;          
         this.sphere.alphaIndex = 1;
@@ -69,11 +70,12 @@ export class EarthModel {
         this.earthShellShaderMaterial.setVector3("objectPosition", this.sphere.position);        
         this.earthShellShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));          
    
-        this.sphereOuter = BABYLON.Mesh.CreateSphere('sphere2', 26, 4.5, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.sphereOuter = BABYLON.Mesh.CreateSphere('sphere2', 26, size * 1.125, this.scene, false, BABYLON.Mesh.BACKSIDE);
         this.sphereOuter.position.y = 2;
         this.sphereOuter.position.x = -2.5;  
         this.sphereOuter.alphaIndex = 2;
         this.sphereOuter.material = this.earthShellShaderMaterial;
+        
     }
     getScene(){
         return this.scene;
