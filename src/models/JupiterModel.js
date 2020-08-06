@@ -1,18 +1,42 @@
-
 import * as BABYLON from 'babylonjs';
+import PlanetVertexShader from '../resources/shaders/planet.vertex.fx';
+import PlanetFragmentShader from '../resources/shaders/planet.fragment.fx';
+
+import PlanetDiffuse from '../resources/img/mars/mars.jpg'
+import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
 
 export default
 class JupiterModel {
     constructor(engine, scene, canvas, size) {
 
+        this.name = "jupiter";
+
         this.scene = scene;
 
-        this.sphere = BABYLON.Mesh.CreateSphere('venusSphere', 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
-       
-        var material = new BABYLON.StandardMaterial(this.scene);
-        material.emissiveColor = new BABYLON.Color3(0.5,0.5,0);
-        material.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
-        this.sphere.material = material;
+        BABYLON.Effect.ShadersStore["planetVertexShader"] = PlanetVertexShader;
+        BABYLON.Effect.ShadersStore["planetFragmentShader"] = PlanetFragmentShader;
+
+        this.shaderMaterial = new BABYLON.ShaderMaterial(this.name+"Shader", this.scene, 
+            {
+                vertex: "planet",
+                fragment: "planet",
+            },            
+            {
+                attributes: ["position", "normal", "uv"],
+                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
+            });
+
+        this.shaderMaterial.setTexture("diffuseMap", new BABYLON.Texture(PlanetDiffuse, this.scene));        
+        this.shaderMaterial.setTexture("normalMap", new BABYLON.Texture(PlanetNormalmap, this.scene));      
+
+        this.shaderMaterial.setVector3("cameraPosition", BABYLON.Vector3.Zero());
+        this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
+
+        this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.sphere.alphaIndex = 1;
+        this.sphere.material = this.shaderMaterial;  
+
+        this.shaderMaterial.setVector3("objectPosition", this.sphere.position);
     }
     getScene(){
         return this.scene;
@@ -23,7 +47,8 @@ class JupiterModel {
         this.sphere.position.z = z;
     }     
     update(){
-    
+        this.shaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
+       // this.shellShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
     }
   }
 

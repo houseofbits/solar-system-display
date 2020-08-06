@@ -1,52 +1,40 @@
 
 import * as BABYLON from 'babylonjs';
-import MarsVertexShader from '../resources/shaders/mars.vertex.fx';
-import MarsFragmentShader from '../resources/shaders/mars.fragment.fx';
+import PlanetMaterial from './PlanetMaterial.js';
 import MarsShellVertexShader from '../resources/shaders/marsShell.vertex.fx';
 import MarsShellFragmentShader from '../resources/shaders/marsShell.fragment.fx';
-import MarsDiffuse from '../resources/img/mars/mars.jpg'
-import MarsNormalmap from '../resources/img/mars/mars_normal.jpg'
+import PlanetDiffuse from '../resources/img/mars/mars.jpg'
+import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
+import PlanetSpecular from '../resources/img/mars/SpecularMap.png'
 
 export default
 class MarsModel {
     constructor(engine, scene, canvas, size) {
 
+        this.name = "mars";
+
         this.scene = scene;
 
-        BABYLON.Effect.ShadersStore["marsVertexShader"] = MarsVertexShader;
-        BABYLON.Effect.ShadersStore["marsFragmentShader"] = MarsFragmentShader;
         BABYLON.Effect.ShadersStore["marsShellVertexShader"] = MarsShellVertexShader;
         BABYLON.Effect.ShadersStore["marsShellFragmentShader"] = MarsShellFragmentShader;        
-
-        this.shaderMaterial = new BABYLON.ShaderMaterial("marsShader", this.scene, 
-            {
-                vertex: "mars",
-                fragment: "mars",
-            },            
-            {
-                attributes: ["position", "normal", "uv"],
-                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
-            });
-
-        let marsDiffuseTexture = new BABYLON.Texture(MarsDiffuse, this.scene);
-        let marsNormalTexture = new BABYLON.Texture(MarsNormalmap, this.scene);
-
-        this.shaderMaterial.setTexture("diffuseMap", marsDiffuseTexture);        
-        this.shaderMaterial.setTexture("normalMap", marsNormalTexture);      
-
-        this.shaderMaterial.setVector3("cameraPosition", BABYLON.Vector3.Zero());
-        this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
         
-        this.sphere = BABYLON.Mesh.CreateSphere('marsSphere', 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.planetMaterial = new PlanetMaterial(this.scene, this.name, {specularMapEnable:1});
+
+        this.planetMaterial.setDiffuseMap(PlanetDiffuse);
+        this.planetMaterial.setNormalMap(PlanetNormalmap);
+        this.planetMaterial.setSpecularMap(PlanetSpecular);
+        this.planetMaterial.setLightBleedPow(5.0);
+        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.0), 8.0);
+
+        this.sphere = BABYLON.Mesh.CreateSphere(this.name + "Sphere", 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.sphere.position.y = 2;
         this.sphere.position.x = -2.5;          
         this.sphere.alphaIndex = 1;
-        this.sphere.material = this.shaderMaterial;  
+        this.sphere.material = this.planetMaterial.shaderMaterial;  
 
-        this.shaderMaterial.setVector3("objectPosition", this.sphere.position);        
+        this.planetMaterial.setObjectPosition(this.sphere.position);
 
-
-        this.shellShaderMaterial = new BABYLON.ShaderMaterial("marsShader2", this.scene, 
+        this.shellShaderMaterial = new BABYLON.ShaderMaterial(this.name + "Shader2", this.scene, 
             {
                 vertex: "marsShell",
                 fragment: "marsShell",
@@ -61,7 +49,7 @@ class MarsModel {
         this.shellShaderMaterial.setVector3("objectPosition", this.sphere.position);        
         this.shellShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));          
    
-        this.sphereOuter = BABYLON.Mesh.CreateSphere('marsSphere2', 26, size * 1.125, this.scene, false, BABYLON.Mesh.BACKSIDE);
+        this.sphereOuter = BABYLON.Mesh.CreateSphere(this.name + "Sphere2", 26, size * 1.125, this.scene, false, BABYLON.Mesh.BACKSIDE);
         this.sphereOuter.position.y = 2;
         this.sphereOuter.position.x = -2.5;  
         this.sphereOuter.alphaIndex = 2;
@@ -79,10 +67,8 @@ class MarsModel {
         this.sphereOuter.position.z = z;                        
     }    
     update(){
-        
-        this.shaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
+        this.planetMaterial.setCameraPosition(this.scene.activeCamera.position);
         this.shellShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
-
     }
   }
 

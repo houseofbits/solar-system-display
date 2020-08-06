@@ -1,18 +1,30 @@
-
 import * as BABYLON from 'babylonjs';
+import PlanetMaterial from './PlanetMaterial.js';
+import PlanetDiffuse from '../resources/img/mercury/mercury.jpg'
+import PlanetNormalmap from '../resources/img/mercury/NormalMap.png'
+import PlanetSpecular from '../resources/img/mercury/SpecularMap.png'
+import PlanetOcclusion from '../resources/img/mercury/AmbientOcclusionMap.png'
 
 export default
 class MercuryModel {
     constructor(engine, scene, canvas, size) {
 
+        this.name = "mercury";
+
         this.scene = scene;
 
-        this.sphere = BABYLON.Mesh.CreateSphere('mercurySphere', 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
-       
-        var material = new BABYLON.StandardMaterial(this.scene);
-        material.emissiveColor = new BABYLON.Color3(0.5,0.5,0);
-        material.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
-        this.sphere.material = material;
+        this.planetMaterial = new PlanetMaterial(this.scene, this.name, {aoEnable:1,specularMapEnable:1});
+
+        this.planetMaterial.setDiffuseMap(PlanetDiffuse);
+        this.planetMaterial.setNormalMap(PlanetNormalmap);
+        this.planetMaterial.setSpecularMap(PlanetSpecular);
+        this.planetMaterial.setAoMap(PlanetOcclusion);
+
+        this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.sphere.alphaIndex = 1;
+        this.sphere.material = this.planetMaterial.shaderMaterial;  
+
+        this.planetMaterial.setObjectPosition(this.sphere.position);
     }
     getScene(){
         return this.scene;
@@ -23,7 +35,8 @@ class MercuryModel {
         this.sphere.position.z = z;
     }     
     update(){
-    
+        this.planetMaterial.setCameraPosition(this.scene.activeCamera.position);
+       // this.shellShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
     }
   }
 
