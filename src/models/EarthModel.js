@@ -14,6 +14,8 @@ export default
 class EarthModel {
     constructor(engine, scene, canvas, size) {
 
+        this.name = "earth";
+
         this.scene = scene;
 
         BABYLON.Effect.ShadersStore["earthVertexShader"] = EarthVertexShader;
@@ -76,6 +78,8 @@ class EarthModel {
         this.sphereOuter.alphaIndex = 2;
         this.sphereOuter.material = this.earthShellShaderMaterial;
         
+        this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
+        this.sphere.parent = this.centerNode;        
     }
     getScene(){
         return this.scene;

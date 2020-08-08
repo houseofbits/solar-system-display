@@ -29,6 +29,9 @@ class VenusModel {
         this.sphere.material = this.planetMaterial.shaderMaterial;  
 
         this.planetMaterial.setObjectPosition(this.sphere.position);
+
+        this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
+        this.sphere.parent = this.centerNode;        
     }
     getScene(){
         return this.scene;

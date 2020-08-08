@@ -19,40 +19,41 @@ class SolarSystemModel {
 
         this.scene.clearColor = new BABYLON.Color3(0, 0, 0.1);
 
-        let arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 1, 0.8, 10, new BABYLON.Vector3(0, 0, 0), this.scene);
-        arcCamera.setPosition(new BABYLON.Vector3(110, 0, -15));
-        arcCamera.target = new BABYLON.Vector3(110, 0, 0);
+        let arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 0,0,0, new BABYLON.Vector3(0, 0, 0), this.scene);
+        arcCamera.setPosition(new BABYLON.Vector3(370, 80, -180));
+        arcCamera.target = new BABYLON.Vector3(400, 0, 0);      
+        arcCamera.fov = 77. * (Math.PI/180.);   //Radians
         arcCamera.attachControl(this.canvas, false); 
 
         this.models = {};
 
-        this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 70);
+        this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 532); //70
 
-        this.models.mercuryModel = new MercuryModel(this.engine, this.scene, this.canvas, 4.8);
-        this.models.mercuryModel.setPosition(50,0,0);
+        this.models.mercuryModel = new MercuryModel(this.engine, this.scene, this.canvas, 14);
+        this.models.mercuryModel.setPosition(292,0,0);
         
-        this.models.venusModel = new VenusModel(this.engine, this.scene, this.canvas, 12.1);
-        this.models.venusModel.setPosition(68,0,0);
+        this.models.venusModel = new VenusModel(this.engine, this.scene, this.canvas, 26);
+        this.models.venusModel.setPosition(324,0,0);
         
-        // this.models.earthModel = new EarthModel(this.engine, this.scene, this.canvas, 12.7);
-        // this.models.earthModel.setPosition(90,0,0);
+        this.models.earthModel = new EarthModel(this.engine, this.scene, this.canvas, 39);
+        this.models.earthModel.setPosition(367,0,0);
         
-        this.models.marsModel = new MarsModel(this.engine, this.scene, this.canvas, 6.7);
-        this.models.marsModel.setPosition(110,0,0);
+        this.models.marsModel = new MarsModel(this.engine, this.scene, this.canvas, 27);
+        this.models.marsModel.setPosition(410,0,0);
         
         //Set up Asteroid belt
         
-        // this.models.jupiterModel = new JupiterModel(this.engine, this.scene, this.canvas, 6.7);
-        // this.models.jupiterModel.setPosition(150,0,0);
+        this.models.jupiterModel = new JupiterModel(this.engine, this.scene, this.canvas, 105);
+        this.models.jupiterModel.setPosition(516,0,0);
         
-        // this.models.saturnModel = new SaturnModel(this.engine, this.scene, this.canvas, 6.7);
-        // this.models.saturnModel.setPosition(170,0,0);
+        this.models.saturnModel = new SaturnModel(this.engine, this.scene, this.canvas, 75);
+        this.models.saturnModel.setPosition(639,0,0);
         
-        // this.models.uranusModel = new UranusModel(this.engine, this.scene, this.canvas, 6.7);
-        // this.models.uranusModel.setPosition(190,0,0);
+        this.models.uranusModel = new UranusModel(this.engine, this.scene, this.canvas, 51);
+        this.models.uranusModel.setPosition(747,0,0);
         
-        // this.models.neptuneModel = new NeptuneModel(this.engine, this.scene, this.canvas, 6.7);
-        // this.models.neptuneModel.setPosition(210,0,0);
+        this.models.neptuneModel = new NeptuneModel(this.engine, this.scene, this.canvas, 39);
+        this.models.neptuneModel.setPosition(832,0,0);
         
         //Set up Kuiper belt        
 

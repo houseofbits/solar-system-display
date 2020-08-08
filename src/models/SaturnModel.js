@@ -37,6 +37,9 @@ class SaturnModel {
         this.sphere.material = this.shaderMaterial;  
 
         this.shaderMaterial.setVector3("objectPosition", this.sphere.position);
+
+        this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
+        this.sphere.parent = this.centerNode;        
     }
     getScene(){
         return this.scene;

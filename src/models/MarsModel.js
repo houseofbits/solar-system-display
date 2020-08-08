@@ -54,6 +54,9 @@ class MarsModel {
         this.sphereOuter.position.x = -2.5;  
         this.sphereOuter.alphaIndex = 2;
         this.sphereOuter.material = this.shellShaderMaterial;
+
+        this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
+        this.sphere.parent = this.centerNode;        
     }
     getScene(){
         return this.scene;
