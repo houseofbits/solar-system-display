@@ -22,7 +22,7 @@ module.exports = {
         {
           test: /\.fx$/i,
           use: 'raw-loader',
-        },  
+        },         
         {
           test: /\.js$/,
           exclude: /node_modules/,

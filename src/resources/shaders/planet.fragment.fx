@@ -22,6 +22,7 @@ uniform float specularPow;
 uniform float frensnelPow;
 
 uniform sampler2D diffuseMap;
+uniform sampler2D diffuseNightMap;
 uniform sampler2D normalMap;
 uniform sampler2D specularMap;
 uniform sampler2D aoMap;
@@ -32,6 +33,8 @@ Defines
     AO_MAP_ENABLE (aoMap)
     SPECULAR_MAP_ENABLE (specularMap)
     THICK_CLOUDS_OVERLAY_ENABLE (cloudsMap)
+    NIGHT_MAP_ENABLE
+    CLOUDS_OVERLAY_ENABLE
 */
 
 mat3 cotangent_frame(vec3 normal, vec3 p, vec2 uv)
@@ -60,6 +63,11 @@ void main(void) {
 
     float normalScale = 1.0;
 
+    vec3 cloudsOver = vec3(0,0,0);
+    #ifdef CLOUDS_OVERLAY_ENABLE
+        cloudsOver = texture2D(cloudsMap, vUV).rgb;        
+    #endif
+
     //Normal map normal    
     vec3 bumpNormal = texture2D(normalMap, vUV).xyz * 2.0 - 1.0;
     vec3 normalW = normalize(vNormalW);
@@ -77,7 +85,7 @@ void main(void) {
 
     vec3 lightVectorW = normalize(vSunDirection);
     //vec3 color = vec3(1,1,1);
-    vec3 color = texture2D(diffuseMap, vUV).rgb;
+    vec3 color = texture2D(diffuseMap, vUV).rgb + cloudsOver;
     
     // diffuse
     float ndl = max(0., dot(normalW, lightVectorW));
@@ -114,7 +122,7 @@ void main(void) {
 
     // Fake ambient light
     lightVectorW = -normalize(vSunDirection);
-    color = texture2D(diffuseMap, vUV).rgb * ambientColor;                          //ambientColor
+    color = (texture2D(diffuseMap, vUV).rgb + cloudsOver) * ambientColor;                          //ambientColor
     
     // diffuse
     ndl = max(0., dot(normalW, lightVectorW)) * 0.3;
@@ -131,5 +139,10 @@ void main(void) {
         ao = texture2D(aoMap, vUV).rgb;
     #endif
 
-    gl_FragColor = vec4(ao * (ambientFragColor + sunFragColor) + atmosphere, 1.);
+    vec3 nightColor = vec3(0,0,0);
+    #ifdef NIGHT_MAP_ENABLE
+        nightColor = texture2D(diffuseNightMap, vUV).rgb;
+    #endif
+
+    gl_FragColor = vec4(nightColor + (ao * (ambientFragColor + sunFragColor) + atmosphere), 1.);
 }

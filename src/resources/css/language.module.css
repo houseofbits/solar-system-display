@@ -1,0 +1,39 @@
+.languageFrame{
+    position: absolute;
+    left:0;
+    top:10px;
+    width: 100px;
+    height: 200px;
+}
+.flag{
+    display: block;
+    width:70px;
+    height:45px;
+    background-repeat: round;
+    transition: width 400ms, height 400ms, opacity 400ms, margin 400ms;
+    box-shadow: 1px 0px 8px 0px rgba(0,0,0,0.75);
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;    
+    opacity:0.5;
+    border: solid 1px green;
+    margin-top: 10px;
+    margin-left: -20px;
+}
+.lv{
+    background-image: url("../../resources/img/lv_flag.png");
+}
+.ru{
+    background-image: url("../../resources/img/ru_flag.png");
+}
+.en{
+    background-image: url("../../resources/img/en_flag.png");
+}
+.active{
+    width:90px;
+    height:60px;
+    transition: width 400ms, height 400ms, opacity 400ms, margin 400ms;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;  
+    opacity:1;
+    margin-left: -30px;
+}

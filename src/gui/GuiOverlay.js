@@ -1,14 +1,16 @@
 import React from 'react';
-import GuiStyle from '../resources/gui.module.css';
+import GuiStyle from '../resources/css/gui.module.css';
 import Button from './Button'
 import Details from './Details'
+import Language from './Language'
 
 export default
 class GuiOverlay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedDetail:null
+            selectedDetail:null,
+            language:'lv'
         };
     }
     selectDetail = (name) => {
@@ -16,11 +18,16 @@ class GuiOverlay extends React.Component {
         if(name == 'all')name = null;
         this.setState({selectedDetail: name});
     };
+    selectLanguage = (name) => {
+        this.setState({language: name});
+    }
     render() {
 
         return <div className={GuiStyle.frame}>
-            <Details selectedDetail={this.state.selectedDetail} />
+            <Language language={this.state.language} clickHandler={this.selectLanguage}/>
+            <Details language={this.state.language} selectedDetail={this.state.selectedDetail} />
             <div className={GuiStyle.buttonsFrame}>
+                <Button selectedDetail={this.state.selectedDetail} clickHandler={this.selectDetail} name="sun"/>  
                 <Button selectedDetail={this.state.selectedDetail} clickHandler={this.selectDetail} name="mercury"/>        
                 <Button selectedDetail={this.state.selectedDetail} clickHandler={this.selectDetail} name="venus"/>        
                 <Button selectedDetail={this.state.selectedDetail} clickHandler={this.selectDetail} name="earth"/>        

@@ -1,100 +1,61 @@
-
 import * as BABYLON from 'babylonjs';
-import EarthVertexShader from '../resources/shaders/earth.vertex.fx';
-import EarthFragmentShader from '../resources/shaders/earth.fragment.fx';
-import EarthShellVertexShader from '../resources/shaders/earthShell.vertex.fx';
-import EarthShellFragmentShader from '../resources/shaders/earthShell.fragment.fx';
-import EarthDiffuseDay from '../resources/img/earth/earth_daymap.jpg'
-import EarthDiffuseNight from '../resources/img/earth/earth_nightmap.jpg'
-import EarthNormalmap from '../resources/img/earth/earth_normal_map.png'
-import EarthSpecular from '../resources/img/earth/earth_specular_map.png'
-import EarthClouds from '../resources/img/earth/earth_clouds.jpg'
+import PlanetModel from './PlanetModel.js';
+import PlanetMaterial from './PlanetMaterial.js';
+import AtmVertexShader from '../resources/shaders/atm.vertex.fx';
+import AtmFragmentShader from '../resources/shaders/atm.fragment.fx';
+import DiffuseDay from '../resources/img/earth/earth_daymap.jpg'
+import DiffuseNight from '../resources/img/earth/earth_nightmap.jpg'
+import PlanetNormalmap from '../resources/img/earth/earth_normal_map.png'
+import PlanetSpecular from '../resources/img/earth/earth_specular_map.png'
+import PlanetClouds from '../resources/img/earth/earth_clouds.jpg'
 
 export default
-class EarthModel {
+class EarthModel extends PlanetModel{
     constructor(engine, scene, canvas, size) {
+        super("earth", scene, size);
 
-        this.name = "earth";
-
-        this.scene = scene;
-
-        BABYLON.Effect.ShadersStore["earthVertexShader"] = EarthVertexShader;
-        BABYLON.Effect.ShadersStore["earthFragmentShader"] = EarthFragmentShader;
-        BABYLON.Effect.ShadersStore["earthShellVertexShader"] = EarthShellVertexShader;
-        BABYLON.Effect.ShadersStore["earthShellFragmentShader"] = EarthShellFragmentShader;        
-
-        this.earthShaderMaterial = new BABYLON.ShaderMaterial("earthShader", this.scene, 
-            {
-                vertex: "earth",
-                fragment: "earth",
-            },            
-            {
-                attributes: ["position", "normal", "uv"],
-                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
-            });          
-
-        let earthDiffuseDayTexture = new BABYLON.Texture(EarthDiffuseDay, this.scene);
-        let earthDiffuseNightTexture = new BABYLON.Texture(EarthDiffuseNight, this.scene);
-        let earthNormalTexture = new BABYLON.Texture(EarthNormalmap, this.scene);
-        let earthSpecularTexture = new BABYLON.Texture(EarthSpecular, this.scene);
-        let earthCloudsTexture = new BABYLON.Texture(EarthClouds, this.scene);
-
-        this.earthShaderMaterial.setTexture("diffuseMap", earthDiffuseDayTexture);        
-        this.earthShaderMaterial.setTexture("diffuseMap2", earthDiffuseNightTexture);                
-        this.earthShaderMaterial.setTexture("normalMap", earthNormalTexture);      
-        this.earthShaderMaterial.setTexture("specularMap", earthSpecularTexture);              
-        this.earthShaderMaterial.setTexture("cloudsMap", earthCloudsTexture);              
-
-        this.earthShaderMaterial.setVector3("cameraPosition", BABYLON.Vector3.Zero());
-        this.earthShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
+        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {nightMapEnable:1, overlayCloudsEnable:1, specularMapEnable:1}));
+        this.planetMaterial.setDiffuseMap(DiffuseDay);
+        this.planetMaterial.setDiffuseNightMap(DiffuseNight);        
+        this.planetMaterial.setNormalMap(PlanetNormalmap);
+        this.planetMaterial.setSpecularMap(PlanetSpecular);
+        this.planetMaterial.setCloudsMap(PlanetClouds);
+        this.planetMaterial.setLightBleedPow(3.0);
+        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1,1,0.2), new BABYLON.Vector3(0, 0, 1.0), 6.0);    
+        this.planetMaterial.setSpecular(2.0, 64.0);
         
-        this.sphere = BABYLON.Mesh.CreateSphere('sphere1', 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
-        this.sphere.position.y = 2;
-        this.sphere.position.x = -2.5;          
-        this.sphere.alphaIndex = 1;
-        this.sphere.material = this.earthShaderMaterial;  
+        this.createAtmosphericMesh(size, 1.125);
 
-        this.earthShaderMaterial.setVector3("objectPosition", this.sphere.position);        
+        /////////////////////////////////////////////////////////////////////////////////////
 
+        if(typeof BABYLON.Effect.ShadersStore["atmVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["atmVertexShader"] = AtmVertexShader;
+        if(typeof BABYLON.Effect.ShadersStore["atmFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["atmFragmentShader"] = AtmFragmentShader;
 
-        this.earthShellShaderMaterial = new BABYLON.ShaderMaterial("earthShader2", this.scene, 
-            {
-                vertex: "earthShell",
-                fragment: "earthShell",
-            },              
+        this.atmShaderMaterial = new BABYLON.ShaderMaterial(name+"AtmShader", this.scene, 
+            { vertex: "atm",fragment: "atm" },            
             {   
                 needAlphaBlending: true,
                 attributes: ["position", "normal", "uv"],
                 uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
-            }); 
+            });
 
-        this.earthShellShaderMaterial.setVector3("cameraPosition", BABYLON.Vector3.Zero());
-        this.earthShellShaderMaterial.setVector3("objectPosition", this.sphere.position);        
-        this.earthShellShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));          
-   
-        this.sphereOuter = BABYLON.Mesh.CreateSphere('sphere2', 26, size * 1.125, this.scene, false, BABYLON.Mesh.BACKSIDE);
-        this.sphereOuter.position.y = 2;
-        this.sphereOuter.position.x = -2.5;  
-        this.sphereOuter.alphaIndex = 2;
-        this.sphereOuter.material = this.earthShellShaderMaterial;
-        
-        this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
-        this.sphere.parent = this.centerNode;        
+        this.atmShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
+        this.atmShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
+        this.atmShaderMaterial.setVector3("objectPosition", this.sphere.position);
+
+        this.atmosphereMesh.material = this.atmShaderMaterial;
     }
-    getScene(){
-        return this.scene;
-    }
-    setPosition(x,y,z){
-        this.sphere.position.x = x;
-        this.sphereOuter.position.x = x;            
-        this.sphere.position.y = y;
-        this.sphereOuter.position.y = y;        
-        this.sphere.position.z = z;
-        this.sphereOuter.position.z = z;                        
-    }
-    update(){        
-        this.earthShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
-        this.earthShellShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
-    }
+    setOrbitDistance(distance){
+        this.sphere.position.x = distance;
+        this.sphere.position.y = 0;
+        this.sphere.position.z = 0;
+
+        this.atmosphereMesh.position.x = distance;        
+        this.atmosphereMesh.position.y = 0;        
+        this.atmosphereMesh.position.z = 0;        
+    }      
+    update(){   }
+
+
   }
 

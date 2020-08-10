@@ -1,5 +1,5 @@
 import React from 'react';
-import GuiStyle from '../resources/gui.module.css';
+import GuiStyle from '../resources/css/gui.module.css';
 
 export default
 class Button extends React.Component {

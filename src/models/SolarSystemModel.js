@@ -30,16 +30,16 @@ class SolarSystemModel {
         this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 532); //70
 
         this.models.mercuryModel = new MercuryModel(this.engine, this.scene, this.canvas, 14);
-        this.models.mercuryModel.setPosition(292,0,0);
+        this.models.mercuryModel.setOrbitDistance(292);
         
         this.models.venusModel = new VenusModel(this.engine, this.scene, this.canvas, 26);
-        this.models.venusModel.setPosition(324,0,0);
+        this.models.venusModel.setOrbitDistance(324);
         
         this.models.earthModel = new EarthModel(this.engine, this.scene, this.canvas, 39);
-        this.models.earthModel.setPosition(367,0,0);
+        this.models.earthModel.setOrbitDistance(367);
         
         this.models.marsModel = new MarsModel(this.engine, this.scene, this.canvas, 27);
-        this.models.marsModel.setPosition(410,0,0);
+        this.models.marsModel.setOrbitDistance(410);
         
         //Set up Asteroid belt
         
