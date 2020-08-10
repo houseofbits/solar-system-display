@@ -18,8 +18,13 @@ class VenusModel extends PlanetModel{
         this.planetMaterial.setAoMap(PlanetOcclusion);
         this.planetMaterial.setCloudsMap(PlanetClouds);
         this.planetMaterial.setLightBleedPow(5.0);
-        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.0), 8.0);    
+        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.0), 8.0);   
+        
+        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
+        this.rotationAxis.normalize();        
     }
-    update(){   }
+    update(){
+        this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);    
+    }
   }
 

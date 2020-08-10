@@ -44,6 +44,9 @@ class EarthModel extends PlanetModel{
         this.atmShaderMaterial.setVector3("objectPosition", this.sphere.position);
 
         this.atmosphereMesh.material = this.atmShaderMaterial;
+        
+        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
+        this.rotationAxis.normalize();
     }
     setOrbitDistance(distance){
         this.sphere.position.x = distance;
@@ -54,7 +57,9 @@ class EarthModel extends PlanetModel{
         this.atmosphereMesh.position.y = 0;        
         this.atmosphereMesh.position.z = 0;        
     }      
-    update(){   }
+    update(){ 
+        this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);
+    }
 
 
   }

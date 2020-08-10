@@ -15,7 +15,12 @@ class MercuryModel extends PlanetModel{
         this.planetMaterial.setNormalMap(PlanetNormalmap);
         this.planetMaterial.setSpecularMap(PlanetSpecular);
         this.planetMaterial.setAoMap(PlanetOcclusion);
+
+        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
+        this.rotationAxis.normalize();        
     } 
-    update(){   }
+    update(){ 
+        this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);
+    }
   }
 

@@ -9,6 +9,8 @@ class PlanetModel{
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
         this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.sphere.parent = this.centerNode;
+
+        this.sphere.rotation.z = Math.PI;
     }
     setAngle(angle){
         this.centerNode.rotation.y = angle * (Math.PI/180.);
