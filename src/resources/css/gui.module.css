@@ -1,9 +1,10 @@
 @font-face {
     font-family: "customFont";
-    src: url("../font.ttf");
+    src: url("../fonts/font.ttf");
 }
 body{
     font-family: "customFont";
+    user-select: none;
 }
 .frame{
     display:block;
@@ -17,6 +18,7 @@ body{
     pointer-events: none;
 }
 .buttonsFrame{
+    pointer-events: auto;
     position: absolute;
     bottom:0;
     left:0;

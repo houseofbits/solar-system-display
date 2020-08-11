@@ -7,7 +7,7 @@ class PlanetModel{
         this.scene = scene;
         this.size = size;
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
-        this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 36, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.sphere.parent = this.centerNode;
 
         this.sphere.rotation.z = Math.PI;
@@ -33,7 +33,32 @@ class PlanetModel{
         this.atmosphereMesh = BABYLON.Mesh.CreateSphere(this.name + "Sphere2", 26, size * thickness, this.scene, false, BABYLON.Mesh.BACKSIDE);        
     }
 
+    focusCameraOnPlanet(){
+        
+        let fov = 60.;
+        let angle = 25.;
 
+        let target = new BABYLON.Vector3(this.size * 0.5, -2., 0);
+
+        let matrix = BABYLON.Matrix.RotationAxis(BABYLON.Axis.Y, angle * (Math.PI/180.));
+        let v2 = BABYLON.Vector3.TransformCoordinates(target, matrix);
+
+        let vd = v2.cross(BABYLON.Axis.Y);
+        vd.normalize();
+        vd.negateInPlace();
+        
+        let dst = this.size * Math.tan((fov * 0.5) * (Math.PI/180.));
+
+        vd.scaleInPlace(dst * 2.4);
+
+        v2.addInPlace(this.sphere.position);
+        vd.addInPlace(this.sphere.position)
+
+        this.scene.activeCamera.target = v2;
+        this.scene.activeCamera.setPosition(vd);
+        this.scene.activeCamera.fov = fov * (Math.PI/180.);
+
+    }
 
 
 

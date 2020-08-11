@@ -1,4 +1,5 @@
 .languageFrame{
+    pointer-events: auto;
     position: absolute;
     left:0;
     top:10px;

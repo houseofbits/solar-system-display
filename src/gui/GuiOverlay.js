@@ -14,9 +14,9 @@ class GuiOverlay extends React.Component {
         };
     }
     selectDetail = (name) => {
-        this.props.ssModel.action();
         if(name == 'all')name = null;
         this.setState({selectedDetail: name});
+        this.props.ssModel.action(name);
     };
     selectLanguage = (name) => {
         this.setState({language: name});

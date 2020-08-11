@@ -21,8 +21,13 @@ class SolarSystemModel {
 
         let arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 0,0,0, new BABYLON.Vector3(0, 0, 0), this.scene);
         arcCamera.setPosition(new BABYLON.Vector3(370, 80, -180));
-        arcCamera.target = new BABYLON.Vector3(400, 0, 0);      
+        arcCamera.target = new BABYLON.Vector3(400, 0, 0);   
         arcCamera.fov = 77. * (Math.PI/180.);   //Radians
+        
+        // arcCamera.setPosition(new BABYLON.Vector3(367+18, -3, -50));
+        // arcCamera.target = new BABYLON.Vector3(367+18, -3, 0);          
+        // arcCamera.fov = 60. * (Math.PI/180.);   //Radians
+
         arcCamera.attachControl(this.canvas, false); 
 
         this.models = {};
@@ -72,8 +77,23 @@ class SolarSystemModel {
         this.scene.render();
     }
 
-    action(){
+    action(planetName){
         console.log("action");
+        
+        let model = this.getPlanetModel(planetName);
+        if(model){
+            model.focusCameraOnPlanet();
+        }else{
+            
+        }
+    }
+
+    getPlanetModel(name){
+        let key = name.toLowerCase() + "Model";
+        if(typeof this.models[key] != 'undefined'){
+            return this.models[key];
+        }
+        return null;
     }
 }
 

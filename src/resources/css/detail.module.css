@@ -1,12 +1,13 @@
 .detailsFrame{
     display:block;
     position: absolute;
-    background-color: rgba(100, 100, 100, 0.4);
+    background-color: rgba(100, 100, 100, 0.5);
     top:15px;
     bottom:165px;
     left:500px;
     right:15px; 
-    border-radius: 20px;
+    border-radius: 30px;
+    border-top-left-radius: 0;
     opacity:0;
     visibility: hidden;
     transition: opacity 500ms linear, visibility 500ms;
@@ -18,29 +19,60 @@
  }
  .detailsTitle{
     margin-top:10px;
-    margin-left:30px;
+    margin-left:50px;
     font-size: 60px;
     width:600px;
     line-height: 60px;
  }
- .detailsTitle span{
+ .detailSymbol{
+     position: absolute;
+     display: inline-block;
+     top:0px;
+     left:-50px;
+     overflow: hidden;
+     width:60px;
+     height:60px;
+     margin:0;
+     padding:20px;
+     vertical-align: middle;
+     text-align: center;     
+ }
+ .symbolFrame{
+    display:block;
+    position: absolute;
+    top:0;
+    left:0;
+    width:50px;
+    height:100px;
+    background-color: rgba(100, 100, 100, 0.5);
+    left:-50px;
+    border-top-left-radius: 60px;
+    border-bottom-left-radius: 60px;    
+}
+ .titleGradient{
     display: inline;
     background: linear-gradient(to top, #81cdff, white);
     -webkit-background-clip: text;
     background-clip: text; 
     -webkit-text-fill-color: transparent;      
-    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452));
-    padding-right: 10px;
+    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452));    
+}
+.iconGradient{
+    display: inline;
+    background: linear-gradient(to bottom, #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); 
+    -webkit-background-clip: text;
+    background-clip: text; 
+    -webkit-text-fill-color: transparent;      
+    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452));    
 }
  .detailsDescription{
     text-align: left;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 24px;
     position:absolute;
-    top:90px;
-    left:20px;
-    width:90%;
-    padding-left: 30px;
+    top:100px;
+    left:30px;
+    right:30px;
  }
  .detailsDescription span{
     display: inline;
@@ -51,20 +83,40 @@
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.452));    
 }
 .detailsList{
-    position:absolute;
     margin:0;
     padding:0;
     padding-left: 30px;
-    bottom:20px;
-    left:20px;
     list-style-type: none;
     color: white;
-    font-size: 18px;
+    font-size: 20px;
     filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.452));
 }
 .detailsList li span:nth-child(1){
-    color:gray;
+    display: inline;
+    background: linear-gradient(to bottom, #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); 
+    -webkit-background-clip: text;
+    background-clip: text; 
+    -webkit-text-fill-color: transparent;      
+    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452));    
 }
 .detailsList li span:nth-child(2){
-    color:white;
+    display: inline;
+    background: linear-gradient(to top, #81cdff, white);
+    -webkit-background-clip: text;
+    background-clip: text; 
+    -webkit-text-fill-color: transparent;      
+    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452)); 
+}
+.detailsListLeft{
+    position:absolute;
+    bottom:20px;
+    left:0px;    
+}
+.detailsListRight{
+    position:absolute;
+    bottom:20px;
+    left:50%;    
+}
+.detailsList li span sup{
+    font-size: 13px;
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import Style from '../resources/css/detail.module.css';
+import '../resources/css/symbols.css';
 import TextLV from '../resources/text/text-lv.json';
 import TextEN from '../resources/text/text-en.json';
 import TextRU from '../resources/text/text-ru.json';
@@ -44,18 +45,35 @@ class Details extends React.Component {
             detailsClass += ' ' + Style.detailsFrameVisible;
         }
 
+        let planetIcon = [Style.iconGradient, Style.detailSymbol, " icon-" + this.props.selectedDetail].join(' ');
+
+        let distanceItem = null;
+        if(planetText.distance){
+            distanceItem = <li><span>{commonText.distance}</span>: <span dangerouslySetInnerHTML={{__html: planetText.distance}}></span></li>;
+        }
+        let satelitesItem = null;
+        if(planetText.satelites){
+            satelitesItem = <li><span>{commonText.satelites}</span>: <span dangerouslySetInnerHTML={{__html: planetText.satelites}}></span></li>;
+        }
+
         return <div className={detailsClass}>
-            <div className={Style.detailsTitle}><span>{planetText.title}</span></div>
-            <div className={Style.detailsDescription}><span>{planetText.description}</span></div>
-            <ul className={Style.detailsList}>
-                <li><span>{commonText.distance}</span>: <span>{planetText.distance}</span></li>
-                <li><span>{commonText.period}</span>: <span>{planetText.period}</span></li>
-                <li><span>{commonText.radius}</span>: <span>{planetText.radius}</span></li>
-                <li><span>{commonText.mass}</span>: <span>{planetText.mass}</span></li>  
-                <li><span>{commonText.density}</span>: <span>{planetText.density}</span></li>  
-                <li><span>{commonText.satelites}</span>: <span>{planetText.satelites}</span></li>                
-                <li><span>{commonText.rings}</span>: <span>{planetText.rings}</span></li>  
+            <div className={Style.detailsTitle}>
+                <div className={Style.symbolFrame}></div>                
+                <span className={Style.titleGradient}>{planetText.title}</span>
+                <div className={planetIcon}></div>
+            </div>
+            <div className={Style.detailsDescription}><span dangerouslySetInnerHTML={{__html: planetText.description}}></span></div>
+            <ul className={[Style.detailsList, Style.detailsListLeft].join(' ')}>
+                {distanceItem}
+                <li><span>{commonText.radius}</span>: <span dangerouslySetInnerHTML={{__html: planetText.radius}}></span></li>
+                <li><span>{commonText.mass}</span>: <span dangerouslySetInnerHTML={{__html: planetText.mass}}></span></li>  
+                <li><span>{commonText.density}</span>: <span dangerouslySetInnerHTML={{__html: planetText.density}}></span></li>  
             </ul>
+            <ul className={[Style.detailsList, Style.detailsListRight].join(' ')}>
+                <li><span>{commonText.period}</span>: <span dangerouslySetInnerHTML={{__html: planetText.period}}></span></li>
+                {satelitesItem}      
+                <li><span>{commonText.rings}</span>: <span dangerouslySetInnerHTML={{__html: planetText.rings}}></span></li>  
+            </ul>            
         </div>;
     }
 }
