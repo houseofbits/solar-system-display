@@ -6,7 +6,8 @@
         "mass":"Mass",
         "density":"Density",
         "satelites":"Number of moons",
-        "rings":"Rings"
+        "rings":"Rings",
+        "all":"Solar system"
     },
     "planets":{
         "sun":{

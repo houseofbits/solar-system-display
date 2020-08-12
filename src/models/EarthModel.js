@@ -13,7 +13,7 @@ export default
 class EarthModel extends PlanetModel{
     constructor(engine, scene, canvas, size) {
         super("earth", scene, size);
-
+        this.createPlanetNode();
         this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {nightMapEnable:1, overlayCloudsEnable:1, specularMapEnable:1}));
         this.planetMaterial.setDiffuseMap(DiffuseDay);
         this.planetMaterial.setDiffuseNightMap(DiffuseNight);        

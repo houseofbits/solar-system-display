@@ -8,6 +8,7 @@ import JupiterModel from './JupiterModel.js';
 import SaturnModel from './SaturnModel.js';
 import UranusModel from './UranusModel.js';
 import NeptuneModel from './NeptuneModel.js';
+import SpaceModel from './SpaceModel.js';
 
 export default 
 class SolarSystemModel {
@@ -20,8 +21,9 @@ class SolarSystemModel {
         this.scene.clearColor = new BABYLON.Color3(0, 0, 0.1);
 
         let arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 0,0,0, new BABYLON.Vector3(0, 0, 0), this.scene);
-        arcCamera.setPosition(new BABYLON.Vector3(370, 80, -180));
-        arcCamera.target = new BABYLON.Vector3(400, 0, 0);   
+
+        arcCamera.setPosition(new BABYLON.Vector3(0, 0, -480));
+        arcCamera.target = new BABYLON.Vector3(0, 0, 0);   
         arcCamera.fov = 77. * (Math.PI/180.);   //Radians
         
         // arcCamera.setPosition(new BABYLON.Vector3(367+18, -3, -50));
@@ -32,7 +34,10 @@ class SolarSystemModel {
 
         this.models = {};
 
-        this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 532); //70
+        this.models.spaceModel = new SpaceModel(this.engine, this.scene, this.canvas, 2000);
+        this.models.spaceModel.setPosition(this.scene.activeCamera.target);
+
+        this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 532);
 
         this.models.mercuryModel = new MercuryModel(this.engine, this.scene, this.canvas, 14);
         this.models.mercuryModel.setOrbitDistance(292);
@@ -69,6 +74,8 @@ class SolarSystemModel {
     }
 
     renderLoop(){
+        
+        this.models.spaceModel.setPosition(this.scene.activeCamera.target);
 
         for (const key of Object.keys(this.models)) {
             this.models[key].update();
@@ -89,9 +96,11 @@ class SolarSystemModel {
     }
 
     getPlanetModel(name){
-        let key = name.toLowerCase() + "Model";
-        if(typeof this.models[key] != 'undefined'){
-            return this.models[key];
+        if(name){
+            let key = name.toLowerCase() + "Model";
+            if(typeof this.models[key] != 'undefined'){
+                return this.models[key];
+            }
         }
         return null;
     }

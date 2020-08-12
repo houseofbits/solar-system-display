@@ -14,7 +14,8 @@ class MarsModel extends PlanetModel{
 
         // BABYLON.Effect.ShadersStore["marsShellVertexShader"] = MarsShellVertexShader;
         // BABYLON.Effect.ShadersStore["marsShellFragmentShader"] = MarsShellFragmentShader;        
-        
+
+        this.createPlanetNode();
         this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {specularMapEnable:1}));
         this.planetMaterial.setDiffuseMap(PlanetDiffuse);
         this.planetMaterial.setNormalMap(PlanetNormalmap);

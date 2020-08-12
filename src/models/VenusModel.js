@@ -11,6 +11,7 @@ export default
 class VenusModel extends PlanetModel{
     constructor(engine, scene, canvas, size) {
         super("venus", scene, size);
+        this.createPlanetNode();
         this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {thickCloudsEnable:1,specularMapEnable:1}));
         this.planetMaterial.setDiffuseMap(PlanetDiffuse);
         this.planetMaterial.setNormalMap(PlanetNormalmap);

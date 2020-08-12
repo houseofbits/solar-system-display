@@ -18,6 +18,6 @@ class Button extends React.Component {
             buttonClass += ' ' + GuiStyle.selectedButton;
         }
 
-        return <div className={buttonClass} onClick={this.click}>{this.props.name}</div>;
+        return <div className={buttonClass} onClick={this.click}>{this.props.title}</div>;
     }
 }

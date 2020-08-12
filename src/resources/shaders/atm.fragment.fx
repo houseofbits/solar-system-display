@@ -43,7 +43,13 @@ void main(void) {
     float ftfin = (ft1 + ft1 + ft1);
     //if(ftfin > 0.65)ftfin = 0.;
 
-    gl_FragColor = vec4(vec3(ftfin), 1.);
+    // float dotl = dot(viewDirectionW, lightVectorW);
+
+    // vec3 pn = (vPositionW);
+
+    // float dotv = dot(pn, viewDirectionW);
+
+   // gl_FragColor = vec4(vec3(dotv), 1.);
 
     gl_FragColor = vec4(lightSide, ftfin);
 }

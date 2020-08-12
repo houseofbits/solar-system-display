@@ -6,7 +6,8 @@
         "mass":"Masa",
         "density":"Blīvums",
         "satelites":"Pavadoņu skaits",
-        "rings":"Gredzeni"
+        "rings":"Gredzeni",
+        "all":"Saules sistēma"
     },
     "planets":{
         "sun":{

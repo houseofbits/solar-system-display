@@ -1,44 +1,17 @@
 import React from 'react';
 import Style from '../resources/css/detail.module.css';
 import '../resources/css/symbols.css';
-import TextLV from '../resources/text/text-lv.json';
-import TextEN from '../resources/text/text-en.json';
-import TextRU from '../resources/text/text-ru.json';
 
 export default
 class Details extends React.Component {
     constructor(props) {
         super(props);
         this.state = {  };
-    }
-    getPlanetText = () => {
-        
-        let text = null;
-        if(this.props.language == 'lv')text = TextLV;
-        else if(this.props.language == 'en')text = TextEN;
-        else if(this.props.language == 'ru')text = TextRU;
-
-        if(text 
-            && typeof this.props.selectedDetail != 'undefined' 
-            && typeof text.planets[this.props.selectedDetail] != 'undefined'){
-                return text.planets[this.props.selectedDetail];
-        }
-        return TextLV.planets.earth;
-    }
-    getCommonText = () => {
-        
-        let text = null;
-        if(this.props.language == 'lv')text = TextLV;
-        else if(this.props.language == 'en')text = TextEN;
-        else if(this.props.language == 'ru')text = TextRU;
-
-        if(text)return text.common;
-        return TextLV.common;
-    }    
+    }  
     render() {
 
-        let planetText = this.getPlanetText();
-        let commonText = this.getCommonText();
+        let planetText = this.props.planetText;
+        let commonText = this.props.commonText;
 
         let detailsClass = Style.detailsFrame;
         if(this.props.selectedDetail !== null){

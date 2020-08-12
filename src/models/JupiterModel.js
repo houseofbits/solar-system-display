@@ -1,4 +1,6 @@
 import * as BABYLON from 'babylonjs';
+import PlanetModel from './PlanetModel.js';
+
 import PlanetVertexShader from '../resources/shaders/planet.vertex.fx';
 import PlanetFragmentShader from '../resources/shaders/planet.fragment.fx';
 
@@ -6,12 +8,9 @@ import PlanetDiffuse from '../resources/img/mars/mars.jpg'
 import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
 
 export default
-class JupiterModel {
+class JupiterModel extends PlanetModel{
     constructor(engine, scene, canvas, size) {
-
-        this.name = "jupiter";
-
-        this.scene = scene;
+        super("jupiter", scene, size);
 
         BABYLON.Effect.ShadersStore["planetVertexShader"] = PlanetVertexShader;
         BABYLON.Effect.ShadersStore["planetFragmentShader"] = PlanetFragmentShader;

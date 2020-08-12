@@ -16,7 +16,6 @@
     border-top-right-radius: 7px;
     border-bottom-right-radius: 7px;    
     opacity:0.5;
-    border: solid 1px green;
     margin-top: 10px;
     margin-left: -20px;
 }
@@ -32,7 +31,7 @@
 .active{
     width:90px;
     height:60px;
-    transition: width 400ms, height 400ms, opacity 400ms, margin 400ms;
+    transition: width 200ms, height 200ms, opacity 200ms, margin 200ms;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;  
     opacity:1;

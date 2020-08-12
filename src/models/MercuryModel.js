@@ -10,6 +10,7 @@ export default
 class MercuryModel extends PlanetModel{
     constructor(engine, scene, canvas, size) {
         super("mercury", scene, size);
+        this.createPlanetNode();
         this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {aoEnable:1,specularMapEnable:1}));
         this.planetMaterial.setDiffuseMap(PlanetDiffuse);
         this.planetMaterial.setNormalMap(PlanetNormalmap);
