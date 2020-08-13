@@ -57,7 +57,7 @@ class SpaceModel extends PlanetModel{
         this.shaderMaterialInner2.setTexture("diffuseMap", new BABYLON.Texture(MilkyWay, this.scene));
         this.shaderMaterialInner2.setVector3("cameraPosition", this.scene.activeCamera.position);
         this.shaderMaterialInner2.setVector3("objectPosition", this.centerNode.position);
-        this.sphereInner2 = BABYLON.Mesh.CreateSphere(this.name+"SphereInner2", 46, size*0.7, this.scene, false, BABYLON.Mesh.BACKSIDE);
+        this.sphereInner2 = BABYLON.Mesh.CreateSphere(this.name+"SphereInner2", 46, size*0.8, this.scene, false, BABYLON.Mesh.BACKSIDE);
         this.sphereInner2.parent = this.centerNode; 
         this.sphereInner2.material = this.shaderMaterialInner2;        
 

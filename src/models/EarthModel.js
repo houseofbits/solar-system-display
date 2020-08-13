@@ -60,7 +60,10 @@ class EarthModel extends PlanetModel{
     update(){ 
         this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);
     }
-
+    setVisible(visibility){
+        super.setVisible(visibility);
+        this.atmosphereMesh.visibility = visibility;
+    }
 
   }
 

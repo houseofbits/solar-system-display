@@ -85,13 +85,18 @@ class SolarSystemModel {
     }
 
     action(planetName){
-        console.log("action");
-        
         let model = this.getPlanetModel(planetName);
         if(model){
-            model.focusCameraOnPlanet();
+            for (const key of Object.keys(this.models)) {
+                this.models[key].setVisible(false);
+            }      
+            model.setVisible(true);
+            this.models.sunModel.setVisible(true);
+            model.focusCameraOnPlanet();    
         }else{
-            
+            for (const key of Object.keys(this.models)) {
+                this.models[key].setVisible(true);
+            }  
         }
     }
 

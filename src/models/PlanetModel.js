@@ -61,10 +61,9 @@ class PlanetModel{
 
     }
 
-
-
-
-
+    setVisible(visibility){
+        this.sphere.visibility = visibility;
+    }
 
     createRing(size, thickness){
         let vertices=[];

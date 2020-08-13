@@ -144,5 +144,11 @@ void main(void) {
         nightColor = texture2D(diffuseNightMap, vUV).rgb;
     #endif
 
-    gl_FragColor = vec4(nightColor + (ao * (ambientFragColor + sunFragColor) + atmosphere), 1.);
+    float ldv = dot(viewDirectionW, lightVectorW);
+
+    vec3 finalColor = nightColor + (ao * (ambientFragColor + sunFragColor) + atmosphere);
+
+    finalColor = finalColor + (ldv * ((1. - finalColor) * vec3(1,1,0.5) * 0.2));
+
+    gl_FragColor = vec4(finalColor, 1.);
 }

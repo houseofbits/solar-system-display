@@ -68,6 +68,11 @@ class SunModel extends PlanetModel{
         this.animation.y += 0.01;
     }
 
+    setVisible(visibility){
+        super.setVisible(visibility);
+        this.rays.visibility = visibility;
+    }
+
     createLightRays(size, segments, length, frontSide){
 
         let radius = size * 0.5;
@@ -142,7 +147,6 @@ class SunModel extends PlanetModel{
 
             }
         }
-        /**/
         //Vertical bands
         for (let yRotationStep = 0; yRotationStep <= totalYRotationSteps; yRotationStep++) {
             let normalizedY = yRotationStep / totalYRotationSteps;
@@ -183,7 +187,6 @@ class SunModel extends PlanetModel{
                 indexCounter+=2;
             }
             indexCounter = indexCounter;
-
             for(let i=0; i<indexCounter-2; i+=2){
  
                 indices.push(indexSize + ((i + 1)%indexCounter));
@@ -203,7 +206,6 @@ class SunModel extends PlanetModel{
                 indices.push(indexSize + ((i + 2)%indexCounter));                
             }
         }        
-
         // Result
         var vertexData = new BABYLON.VertexData();
         
