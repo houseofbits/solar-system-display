@@ -11,6 +11,13 @@ class SunModel extends PlanetModel{
     constructor(engine, scene, canvas, size) {
         
         super("sun", scene, size);
+        
+        this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
+
+        this.animation = new BABYLON.Vector2;
+
+        this.rotationAxis = new BABYLON.Vector3(0.5,1,0);
+        this.rotationAxis.normalize();
 
         BABYLON.Effect.ShadersStore["sunVertexShader"] = SunVertexShader;
         BABYLON.Effect.ShadersStore["sunFragmentShader"] = SunFragmentShader;
@@ -18,71 +25,195 @@ class SunModel extends PlanetModel{
         this.shaderMaterial = new BABYLON.ShaderMaterial(this.name+"Shader", this.scene, 
             { vertex: "sun",fragment: "sun" },            
             {   
-                needAlphaBlending: true,
-                attributes: ["position", "normal", "uv"],
+                attributes: ["position", "normal", "uv", "color"],
                 uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
             });
 
         this.shaderMaterial.setTexture("diffuseMap", new BABYLON.Texture(SunMap, this.scene));
         this.shaderMaterial.setTexture("diffuseMap2", new BABYLON.Texture(SunMapTile, this.scene));
         this.shaderMaterial.setTexture("diffuseMap3", new BABYLON.Texture(SunMapTile2, this.scene));
-
         this.shaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
-
-        this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 46, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
-       
-        this.sphere.material = this.shaderMaterial;
-
-        this.animation = new BABYLON.Vector2;       
-        
         this.shaderMaterial.setVector2("animation", this.animation);
 
-        this.rotationAxis = new BABYLON.Vector3(0,1,0);
-        this.rotationAxis.normalize();
+        this.shaderRaysMaterial = new BABYLON.ShaderMaterial(this.name+"RaysShader", this.scene, 
+            { vertex: "sun",fragment: "sun" },            
+            {   
+                defines:["#define RAYS 1"],
+                needAlphaBlending: true,
+                attributes: ["position", "normal", "uv", "color"],
+                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
+            });
 
-        //this.shaderMaterial.setFloat("transparency", 0.5);
+        this.shaderRaysMaterial.setTexture("diffuseMap", new BABYLON.Texture(SunMap, this.scene));
+        this.shaderRaysMaterial.setTexture("diffuseMap2", new BABYLON.Texture(SunMapTile, this.scene));
+        this.shaderRaysMaterial.setTexture("diffuseMap3", new BABYLON.Texture(SunMapTile2, this.scene));
+        this.shaderRaysMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);        
+        this.shaderRaysMaterial.setVector2("animation", this.animation);
 
-        // let meshes = [];
-        
-        // for(let i=0; i<100; i++){
+        this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 46, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);    
+        this.sphere.material = this.shaderMaterial;       
+        this.sphere.parent = this.centerNode;
 
-        //     let sphere = BABYLON.MeshBuilder.CreateSphere("sphere"+i, {diameter: size * (1.+ (0.004 * i)), segments: 10}, this.scene);
-        //     meshes.push(sphere);
-        //     // this["sphereShell"+i] = BABYLON.Mesh.CreateSphere(this.name+"Sphere2" + i, 10, size * (1.+ (0.004 * i)), this.scene, false, BABYLON.Mesh.FRONTSIDE);              
-        //     // this["sphereShell"+i].material = this.shaderMaterial;             
+        let vertexData = this.createLightRays(this.size, 8, 450., true);
 
-        // }
-
-        // var mesh = BABYLON.Mesh.MergeMeshes(meshes);
-        // mesh.material = this.shaderMaterial;  
-
-        // this.sphere2 = BABYLON.Mesh.CreateSphere(this.name+"Sphere2", 20, size * 1.002, this.scene, false, BABYLON.Mesh.DOUBLESIDE);              
-        // this.sphere2.material = this.shaderMaterial;     
-        
-        // this.sphere3 = BABYLON.Mesh.CreateSphere(this.name+"Sphere2", 20, size * 1.02, this.scene, false, BABYLON.Mesh.DOUBLESIDE);              
-        // this.sphere3.material = this.shaderMaterial;     
-        
-        // this.sphere4 = BABYLON.Mesh.CreateSphere(this.name+"Sphere2", 20, size * 1.03, this.scene, false, BABYLON.Mesh.DOUBLESIDE);              
-        // this.sphere4.material = this.shaderMaterial;             
-
-        // this.sphere5 = BABYLON.Mesh.CreateSphere(this.name+"Sphere2", 20, size * 1.04, this.scene, false, BABYLON.Mesh.DOUBLESIDE);              
-        // this.sphere5.material = this.shaderMaterial;             
-
-        // this.sphere6 = BABYLON.Mesh.CreateSphere(this.name+"Sphere2", 20, size * 1.05, this.scene, false, BABYLON.Mesh.DOUBLESIDE);              
-        // this.sphere6.material = this.shaderMaterial;             
-
-
-        // this.sphere.onBeforeDrawObservable.add(function(mesh){
-        //     mesh.material.setFloat("transparency", 1.0);
-        // });        
-        // this.sphere2.onBeforeDrawObservable.add(function(mesh){
-        //     mesh.material.setFloat("transparency", 0.5);
-        // });
+        this.rays = new BABYLON.Mesh(this.name + "Rays", this.scene);
+        vertexData.applyToMesh(this.rays);
+        this.rays.parent = this.centerNode;
+        this.rays.material = this.shaderRaysMaterial;
     } 
     update(){
-       // this.sphere.rotate(this.rotationAxis, 0.001, BABYLON.Space.LOCAL);
+        
+        this.centerNode.rotate(this.rotationAxis, 0.001, BABYLON.Space.LOCAL);
         this.animation.x += 0.01;
         this.animation.y += 0.01;
     }
+
+    createLightRays(size, segments, length, frontSide){
+
+        let radius = size * 0.5;
+    
+        let totalZRotationSteps = 2 + segments;
+        let totalYRotationSteps = 2 * totalZRotationSteps;
+    
+        let indices = [];
+        let positions = [];
+        let normals = [];
+        let uvs = [];
+        let colors = [];
+
+        //Horizontal bands
+
+        for (let zRotationStep = 0; zRotationStep <= totalZRotationSteps; zRotationStep++) {            
+            let indexSize = positions.length / 3;
+            let normalizedZ = zRotationStep / totalZRotationSteps;
+            let angleZ = normalizedZ * Math.PI;
+            let indexCounter = 0;
+            for (let yRotationStep = 0; yRotationStep <= totalYRotationSteps; yRotationStep++) {
+                let normalizedY = yRotationStep / totalYRotationSteps;
+
+                let angleY = normalizedY * Math.PI * 2.;
+
+                let uvx = normalizedY;
+                let uvy = normalizedZ;
+                let rotationZ = BABYLON.Matrix.RotationZ(-angleZ);
+                let rotationY = BABYLON.Matrix.RotationY(angleY);
+
+                let afterRotZ = BABYLON.Vector3.TransformCoordinates(BABYLON.Axis.Y, rotationZ);
+                let complete = BABYLON.Vector3.TransformCoordinates(afterRotZ, rotationY);
+
+                let vertex = complete.scale(radius);
+                let normal = complete.normalize();
+                let color = new BABYLON.Vector4(1,1,0,1);
+                
+                positions.push(vertex.x, vertex.y, vertex.z);
+                normals.push(normal.x, normal.y, normal.z);
+                uvs.push(uvx, uvy);
+                colors.push(color.x, color.y, color.z, color.w);          
+
+                vertex = vertex.add(normal.scale(length));
+                color = new BABYLON.Vector4(1,0,0,0);
+                
+                positions.push(vertex.x, vertex.y, vertex.z);
+                normals.push(normal.x, normal.y, normal.z);
+                uvs.push(uvx, uvy + 0.1);
+                colors.push(color.x, color.y, color.z, color.w);
+
+                indexCounter+=2;
+            }
+            indexCounter = indexCounter;
+
+            for(let i=0; i<indexCounter-2; i+=2){
+
+                    indices.push(indexSize + i);
+                    indices.push(indexSize + ((i + 1)%indexCounter));
+                    indices.push(indexSize + ((i + 3)%indexCounter));
+
+                    indices.push(indexSize + i);
+                    indices.push(indexSize + ((i + 3)%indexCounter));           
+                    indices.push(indexSize + ((i + 2)%indexCounter));
+
+                    indices.push(indexSize + ((i + 1)%indexCounter));
+                    indices.push(indexSize + i);
+                    indices.push(indexSize + ((i + 3)%indexCounter));
+
+                    indices.push(indexSize + ((i + 3)%indexCounter));                           
+                    indices.push(indexSize + i);
+                    indices.push(indexSize + ((i + 2)%indexCounter));                
+
+            }
+        }
+        /**/
+        //Vertical bands
+        for (let yRotationStep = 0; yRotationStep <= totalYRotationSteps; yRotationStep++) {
+            let normalizedY = yRotationStep / totalYRotationSteps;
+            let angleY = normalizedY * Math.PI * 2.;
+            let indexCounter = 0;
+            let indexSize = positions.length / 3;
+
+            for (let zRotationStep = 0; zRotationStep <= totalZRotationSteps; zRotationStep++) {            
+                
+                let normalizedZ = zRotationStep / totalZRotationSteps;
+                let angleZ = normalizedZ * Math.PI;
+
+                let uvx = normalizedY;
+                let uvy = normalizedZ;
+                let rotationZ = BABYLON.Matrix.RotationZ(-angleZ);
+                let rotationY = BABYLON.Matrix.RotationY(angleY);
+
+                let afterRotZ = BABYLON.Vector3.TransformCoordinates(BABYLON.Axis.Y, rotationZ);
+                let complete = BABYLON.Vector3.TransformCoordinates(afterRotZ, rotationY);
+
+                let vertex = complete.scale(radius);
+                let normal = complete.normalize();
+                let color = new BABYLON.Vector4(1,1,0,1);
+                
+                positions.push(vertex.x, vertex.y, vertex.z);
+                normals.push(normal.x, normal.y, normal.z);
+                uvs.push(uvx, uvy);
+                colors.push(color.x, color.y, color.z, color.w);          
+
+                vertex = vertex.add(normal.scale(length));
+                color = new BABYLON.Vector4(1,0,0,0);
+                
+                positions.push(vertex.x, vertex.y, vertex.z);
+                normals.push(normal.x, normal.y, normal.z);
+                uvs.push(uvx, uvy+0.1);
+                colors.push(color.x, color.y, color.z, color.w);
+
+                indexCounter+=2;
+            }
+            indexCounter = indexCounter;
+
+            for(let i=0; i<indexCounter-2; i+=2){
+ 
+                indices.push(indexSize + ((i + 1)%indexCounter));
+                indices.push(indexSize + i);
+                indices.push(indexSize + ((i + 3)%indexCounter));
+
+                indices.push(indexSize + ((i + 3)%indexCounter));           
+                indices.push(indexSize + i);
+                indices.push(indexSize + ((i + 2)%indexCounter));
+                
+                indices.push(indexSize + i);
+                indices.push(indexSize + ((i + 1)%indexCounter));
+                indices.push(indexSize + ((i + 3)%indexCounter));
+        
+                indices.push(indexSize + i);
+                indices.push(indexSize + ((i + 3)%indexCounter));   
+                indices.push(indexSize + ((i + 2)%indexCounter));                
+            }
+        }        
+
+        // Result
+        var vertexData = new BABYLON.VertexData();
+        
+        vertexData.indices = indices;
+        vertexData.positions = positions;
+        vertexData.normals = normals;
+        vertexData.uvs = uvs;
+        vertexData.colors = colors;
+
+        return vertexData;  
+    }    
   }
 

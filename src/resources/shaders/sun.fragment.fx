@@ -9,6 +9,7 @@ varying vec3 vPositionW;
 varying vec3 vNormal;
 varying vec3 vNormalW;
 varying vec2 vUV;
+varying vec4 vColor;
 
 // Uniforms
 uniform mat4 world;
@@ -24,8 +25,28 @@ uniform vec2 animation;
 
 uniform float transparency;
 
-void main(void) {
+float exponentialEasing (float x, float a){
+  
+  float epsilon = 0.00001;
+  float min_param_a = 0.0 + epsilon;
+  float max_param_a = 1.0 - epsilon;
+  a = max(min_param_a, min(max_param_a, a));
+  
+  if (a < 0.5){
+    // emphasis
+    a = 2.0*(a);
+    float y = pow(x, a);
+    return y;
+  } else {
+    // de-emphasis
+    a = 2.0*(a-0.5);
+    float y = pow(x, 1.0/(1.-a));
+    return y;
+  }
+}
 
+void main(void) {
+    
 	vec2 uv1 = vUV;
 	float n1 = sin(animation.x + (uv1.y * M_PI * 20.)) * 0.005;
 	uv1.x -= n1;
@@ -46,7 +67,6 @@ void main(void) {
     vec3 map = texture2D(diffuseMap, uv3).xyz;
     vec3 map2 = texture2D(diffuseMap2, uv1 * 3.).xyz;
     vec3 map21 = texture2D(diffuseMap2, uv2 * 6.).xyz;
-
     vec3 map3 = texture2D(diffuseMap3, (uv3 * 6.)).xyz;
 
     vec3 viewDirectionW = normalize(cameraPosition - vPositionW);
@@ -60,23 +80,16 @@ void main(void) {
 
     vec3 color = fresnelTermPow3 + map21 * ((layer1 * map3) + layer2) + map;
 
-    gl_FragColor = vec4(color, 1.);
-/**/
+    float alpha = 1.;
+    #ifdef RAYS 
+        float decay = exponentialEasing(vColor.a, 0.95);
+        float alphaMap = (map.x + map.y + map.z) * 0.33;
+        alpha = decay * pow(alphaMap, 2.);
+        float glow = fresnelTermPow3 * exponentialEasing(vColor.a, 0.99);
+        gl_FragColor = vec4(vec3(color), glow+alpha);
+        return;
 
-    /*
-    vec3 map = texture2D(diffuseMap, uv1).xyz;
+    #endif
 
-    float alpha = (map.x + map.y + map.z) * 0.33;
-
-    vec3 color = map * map;
-
-    alpha = pow(alpha, 5.);
-
-    // float opacity = 1.;
-    // if(transparency < 1.0){
-    //     opacity = transparency;
-    // }
-
-    gl_FragColor = vec4(color, alpha);
-    */
+    gl_FragColor = vec4(vec3(color), alpha);
 }
