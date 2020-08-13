@@ -97,6 +97,10 @@ class SolarSystemModel {
             for (const key of Object.keys(this.models)) {
                 this.models[key].setVisible(true);
             }  
+
+            this.scene.activeCamera.setPosition(new BABYLON.Vector3(0, 0, -480));
+            this.scene.activeCamera.target = new BABYLON.Vector3(0, 0, 0);   
+            this.scene.activeCamera.fov = 77. * (Math.PI/180.);   //Radians            
         }
     }
 
