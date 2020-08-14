@@ -31,9 +31,13 @@ void main(void) {
 
     vec3 color = ambientFragColor + (map * ndotl) + ambientFragColor;
 
-    float ldv = dot(viewDirectionW, lightVectorW);
+    float ldv = clamp(dot(viewDirectionW, -lightVectorW), 0., 1.);
 
-    //color = color + (ldv * ((1. - color) * vec3(1.,1.,0.5) * 0.2));
+    vec3 colorInv = clamp((1. - color), vec3(0.), vec3(1.));
+
+    vec3 lv = (ldv * (colorInv * vec3(1.,1.,0.5) * 0.2));
+
+    color = color + (ldv * ((1. - color) * vec3(1.,1.,0.5) * 0.2));
 
     gl_FragColor = vec4(vec3(color), 1.);
 }

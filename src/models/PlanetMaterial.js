@@ -27,7 +27,7 @@ class PlanetMaterial {
                 uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
             });
         
-        this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));     
+        this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));
         this.setSpecular(1.0, 10.0);
         this.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.8), 3.0);
         this.setLightBleedPow(2.0);

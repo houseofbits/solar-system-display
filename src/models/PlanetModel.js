@@ -53,8 +53,11 @@ class PlanetModel{
 
         vd.scaleInPlace(dst * 2.4);
 
-        v2.addInPlace(this.sphere.position);
-        vd.addInPlace(this.sphere.position)
+        let worldMatrix = this.centerNode.getWorldMatrix();
+        let global_position = BABYLON.Vector3.TransformCoordinates(this.sphere.position, worldMatrix);
+
+        v2.addInPlace(global_position);
+        vd.addInPlace(global_position);
 
         this.scene.activeCamera.target = v2;
         this.scene.activeCamera.setPosition(vd);

@@ -23,11 +23,11 @@ class AsteroidBeltModel extends PlanetModel{
 
         this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
         this.shaderMaterial.setTexture("diffuseMap", new BABYLON.Texture(Diffuse, this.scene));    
-        this.shaderMaterial.setVector3("cameraPosition", this.scene.activeCamera);        
+        this.shaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);        
 
         this.rockMesh = null;
 
-        let parent = this;
+        var parent = this;
 
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
 
@@ -35,18 +35,12 @@ class AsteroidBeltModel extends PlanetModel{
 
         BABYLON.SceneLoader.ImportMesh("", "./", "./objects/rock1.obj", this.scene, function (newMeshes) {
             parent.rockMesh = newMeshes[0];
-            parent.rockMesh.material = parent.shaderMaterial;   //myMaterial2;
-            //parent.rockMesh.position.x = orbit;
-            //parent.rockMesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
-            //parent.rockMesh.parent = parent.centerNode;
+            parent.rockMesh.material = parent.shaderMaterial;
             parent.rockMesh.isVisible = false;
 
             for (let index = 0; index < 500; index++) {
 
                 var newInstance = newMeshes[0].createInstance("i" + index);               
-
-                //console.log(newInstance);
-
                 let angle = (Math.random() * 360.0) * (Math.PI/180.);
 
                 let pos = new BABYLON.Vector3(Math.cos(angle), 0, Math.sin(angle));
@@ -55,16 +49,19 @@ class AsteroidBeltModel extends PlanetModel{
 
                 pos.normalize();
                 pos.scaleInPlace(orbit + zvar);
+                pos.y = 10.0 - (Math.random() * 20.0);
 
                 newInstance.scaling = new BABYLON.Vector3(scale, scale, scale);
                 newInstance.rotation.x = Math.random() * Math.PI;
                 newInstance.rotation.y = Math.random() * Math.PI;
                 newInstance.rotation.z = Math.random() * Math.PI;
                 newInstance.position = new BABYLON.Vector3(pos.x, pos.y, pos.z);
-
             }
-
         });
+
+    }
+    setVisible(visible){
+        this.rockMesh.visibility = visible;
     }
     update(){
 
