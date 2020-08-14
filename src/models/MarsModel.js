@@ -3,9 +3,9 @@ import PlanetModel from './PlanetModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
 // import MarsShellVertexShader from '../resources/shaders/marsShell.vertex.fx';
 // import MarsShellFragmentShader from '../resources/shaders/marsShell.fragment.fx';
-import PlanetDiffuse from '../resources/img/mars/mars.jpg'
-import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
-import PlanetSpecular from '../resources/img/mars/SpecularMap.png'
+import PlanetDiffuse from '../resources/img/mars/mars_lo.jpg'
+import PlanetNormalmap from '../resources/img/mars/mars_normal_lo.jpg'
+import PlanetSpecular from '../resources/img/mars/specularmap_lo.png'
 
 export default
 class MarsModel extends PlanetModel{

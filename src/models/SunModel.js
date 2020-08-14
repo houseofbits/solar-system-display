@@ -4,7 +4,7 @@ import SunVertexShader from '../resources/shaders/sun.vertex.fx';
 import SunFragmentShader from '../resources/shaders/sun.fragment.fx';
 import SunMap from '../resources/img/sun/sun.jpg'
 import SunMapTile from '../resources/img/sun/suntile.jpg'
-import SunMapTile2 from '../resources/img/sun/suntile2.jpg'
+import SunMapTile2 from '../resources/img/sun/suntile2_lo.jpg'
 
 export default 
 class SunModel extends PlanetModel{

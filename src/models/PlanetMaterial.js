@@ -12,13 +12,13 @@ class PlanetMaterial {
         if(typeof BABYLON.Effect.ShadersStore["planetFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["planetFragmentShader"] = PlanetFragmentShader;
 
         let defines = [];
-
-        if(typeof options['aoEnable'] != 'undefined')defines.push("#define AO_MAP_ENABLE 1");
-        if(typeof options['specularMapEnable'] != 'undefined')defines.push("#define SPECULAR_MAP_ENABLE 1");
-        if(typeof options['thickCloudsEnable'] != 'undefined')defines.push("#define THICK_CLOUDS_OVERLAY_ENABLE 1");
-        if(typeof options['nightMapEnable'] != 'undefined')defines.push("#define NIGHT_MAP_ENABLE 1");
-        if(typeof options['overlayCloudsEnable'] != 'undefined')defines.push("#define CLOUDS_OVERLAY_ENABLE 1");                
-
+        if(typeof options != 'undefined'){
+            if(typeof options['aoEnable'] != 'undefined')defines.push("#define AO_MAP_ENABLE 1");
+            if(typeof options['specularMapEnable'] != 'undefined')defines.push("#define SPECULAR_MAP_ENABLE 1");
+            if(typeof options['thickCloudsEnable'] != 'undefined')defines.push("#define THICK_CLOUDS_OVERLAY_ENABLE 1");
+            if(typeof options['nightMapEnable'] != 'undefined')defines.push("#define NIGHT_MAP_ENABLE 1");
+            if(typeof options['overlayCloudsEnable'] != 'undefined')defines.push("#define CLOUDS_OVERLAY_ENABLE 1");                
+        }
         this.shaderMaterial = new BABYLON.ShaderMaterial(name+"Shader", this.scene, 
             { vertex: "planet",fragment: "planet" },            
             {   

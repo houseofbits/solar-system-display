@@ -1,10 +1,10 @@
 import * as BABYLON from 'babylonjs';
 import PlanetModel from './PlanetModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
-import PlanetDiffuse from '../resources/img/mercury/mercury.jpg'
-import PlanetNormalmap from '../resources/img/mercury/NormalMap.png'
-import PlanetSpecular from '../resources/img/mercury/SpecularMap.png'
-import PlanetOcclusion from '../resources/img/mercury/AmbientOcclusionMap.png'
+import PlanetDiffuse from '../resources/img/mercury/mercury_lo.jpg'
+import PlanetNormalmap from '../resources/img/mercury/normal_map_lo.png'
+import PlanetSpecular from '../resources/img/mercury/specular_map_lo.png'
+import PlanetOcclusion from '../resources/img/mercury/AmbientOcclusionMap_lo.png'
 
 export default
 class MercuryModel extends PlanetModel{

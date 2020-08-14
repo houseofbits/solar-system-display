@@ -1,10 +1,7 @@
 import * as BABYLON from 'babylonjs';
 import PlanetModel from './PlanetModel.js';
-
-import PlanetVertexShader from '../resources/shaders/planet.vertex.fx';
-import PlanetFragmentShader from '../resources/shaders/planet.fragment.fx';
-
-import PlanetDiffuse from '../resources/img/mars/mars.jpg'
+import PlanetMaterial from './PlanetMaterial.js';
+import PlanetDiffuse from '../resources/img/jupiter/jupiter_lo.jpg'
 import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
 
 export default
@@ -12,45 +9,19 @@ class JupiterModel extends PlanetModel{
     constructor(engine, scene, canvas, size) {
         super("jupiter", scene, size);
 
-        BABYLON.Effect.ShadersStore["planetVertexShader"] = PlanetVertexShader;
-        BABYLON.Effect.ShadersStore["planetFragmentShader"] = PlanetFragmentShader;
-
-        this.shaderMaterial = new BABYLON.ShaderMaterial(this.name+"Shader", this.scene, 
-            {
-                vertex: "planet",
-                fragment: "planet",
-            },            
-            {
-                attributes: ["position", "normal", "uv"],
-                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
-            });
-
-        this.shaderMaterial.setTexture("diffuseMap", new BABYLON.Texture(PlanetDiffuse, this.scene));        
-        this.shaderMaterial.setTexture("normalMap", new BABYLON.Texture(PlanetNormalmap, this.scene));      
-
-        this.shaderMaterial.setVector3("cameraPosition", BABYLON.Vector3.Zero());
-        this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
-
-        this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 26, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
-        this.sphere.alphaIndex = 1;
-        this.sphere.material = this.shaderMaterial;  
-
-        this.shaderMaterial.setVector3("objectPosition", this.sphere.position);
-
-        this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
-        this.sphere.parent = this.centerNode;        
-    }
-    getScene(){
-        return this.scene;
-    }  
-    setPosition(x,y,z){
-        this.sphere.position.x = x;
-        this.sphere.position.y = y;
-        this.sphere.position.z = z;
-    }     
+        this.createPlanetNode();
+        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name));
+        this.planetMaterial.setDiffuseMap(PlanetDiffuse);
+        this.planetMaterial.setNormalMap(PlanetNormalmap);
+        this.planetMaterial.setSpecular(0.1, 1.0);
+        this.planetMaterial.setLightBleedPow(5.0);
+        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.0), 8.0);   
+        
+        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
+        this.rotationAxis.normalize();        
+    }   
     update(){
-        this.shaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
-       // this.shellShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
+       this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);  
     }
   }
 

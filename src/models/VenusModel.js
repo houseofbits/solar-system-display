@@ -1,11 +1,11 @@
 import * as BABYLON from 'babylonjs';
 import PlanetModel from './PlanetModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
-import PlanetDiffuse from '../resources/img/venus/venus.jpg'
+import PlanetDiffuse from '../resources/img/venus/venus_lo.jpg'
 import PlanetNormalmap from '../resources/img/venus/NormalMap.png'
-import PlanetSpecular from '../resources/img/venus/SpecularMap.png'
+import PlanetSpecular from '../resources/img/venus/SpecularMap_lo.png'
 import PlanetOcclusion from '../resources/img/venus/AmbientOcclusionMap.png'
-import PlanetClouds from '../resources/img/venus/venus_atmosphere.jpg'
+import PlanetClouds from '../resources/img/venus/venus_atmosphere_lo.jpg'
 
 export default
 class VenusModel extends PlanetModel{

@@ -23,12 +23,12 @@ class SolarSystemModel {
         let arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 0,0,0, new BABYLON.Vector3(0, 0, 0), this.scene);
 
         arcCamera.setPosition(new BABYLON.Vector3(0, 0, -480));
-        arcCamera.target = new BABYLON.Vector3(0, 0, 0);   
+        arcCamera.target = new BABYLON.Vector3(0, 0, 0);
         arcCamera.fov = 77. * (Math.PI/180.);   //Radians
         
-        // arcCamera.setPosition(new BABYLON.Vector3(367+18, -3, -50));
-        // arcCamera.target = new BABYLON.Vector3(367+18, -3, 0);          
-        // arcCamera.fov = 60. * (Math.PI/180.);   //Radians
+        arcCamera.setPosition(new BABYLON.Vector3(288,160,-152));
+        arcCamera.target = new BABYLON.Vector3(680,-350,365);          
+        arcCamera.fov = 50. * (Math.PI/180.);
 
         arcCamera.attachControl(this.canvas, false); 
 
@@ -54,16 +54,16 @@ class SolarSystemModel {
         //Set up Asteroid belt
         
         this.models.jupiterModel = new JupiterModel(this.engine, this.scene, this.canvas, 105);
-        this.models.jupiterModel.setPosition(516,0,0);
+        this.models.jupiterModel.setOrbitDistance(516);
         
         this.models.saturnModel = new SaturnModel(this.engine, this.scene, this.canvas, 75);
-        this.models.saturnModel.setPosition(639,0,0);
+        this.models.saturnModel.setOrbitDistance(639);
         
         this.models.uranusModel = new UranusModel(this.engine, this.scene, this.canvas, 51);
-        this.models.uranusModel.setPosition(747,0,0);
+        this.models.uranusModel.setOrbitDistance(747);
         
         this.models.neptuneModel = new NeptuneModel(this.engine, this.scene, this.canvas, 39);
-        this.models.neptuneModel.setPosition(832,0,0);
+        this.models.neptuneModel.setOrbitDistance(832);
         
         //Set up Kuiper belt        
 
