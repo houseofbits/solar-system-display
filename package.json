@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "babylonjs": "^4.1.0",
+    "babylonjs-loaders": "^4.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   }

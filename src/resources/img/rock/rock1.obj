@@ -1,10 +1,8 @@
 # 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
 # File Created: 14.08.2020 06:42:57
 
-mtllib rock1.mtl
-
 #
-# object Box007
+# object Rock1
 #
 
 v  -27.1234 18.8588 46.4425

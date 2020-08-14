@@ -11,7 +11,7 @@ module.exports = {
     module: {
       rules: [
         {
-          test: /\.(png|svg|jpg|gif)$/,
+          test: /\.(png|svg|jpg|gif|obj)$/,
           use: [{
             loader:'file-loader',
             options: {
@@ -19,6 +19,16 @@ module.exports = {
             }            
           }]
         },
+        {
+          test: /\.obj$/,
+          use: [{
+            loader:'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'objects/'
+            }           
+          }]
+        },        
         {
           test: /\.fx$/i,
           use: 'raw-loader',

@@ -9,6 +9,7 @@ import SaturnModel from './SaturnModel.js';
 import UranusModel from './UranusModel.js';
 import NeptuneModel from './NeptuneModel.js';
 import SpaceModel from './SpaceModel.js';
+import AsteroidBeltModel from './AsteroidBeltModel.js';
 
 export default 
 class SolarSystemModel {
@@ -26,8 +27,8 @@ class SolarSystemModel {
         arcCamera.target = new BABYLON.Vector3(0, 0, 0);
         arcCamera.fov = 77. * (Math.PI/180.);   //Radians
         
-        arcCamera.setPosition(new BABYLON.Vector3(288,160,-152));
-        arcCamera.target = new BABYLON.Vector3(680,-350,365);          
+        arcCamera.setPosition(new BABYLON.Vector3(280,138,-168));
+        arcCamera.target = new BABYLON.Vector3(714,-353,332);          
         arcCamera.fov = 50. * (Math.PI/180.);
 
         arcCamera.attachControl(this.canvas, false); 
@@ -41,30 +42,41 @@ class SolarSystemModel {
 
         this.models.mercuryModel = new MercuryModel(this.engine, this.scene, this.canvas, 14);
         this.models.mercuryModel.setOrbitDistance(292);
+        this.models.mercuryModel.setAngle(4.0);
         
         this.models.venusModel = new VenusModel(this.engine, this.scene, this.canvas, 26);
         this.models.venusModel.setOrbitDistance(324);
-        
+        this.models.venusModel.setAngle(0.0);
+
         this.models.earthModel = new EarthModel(this.engine, this.scene, this.canvas, 39);
         this.models.earthModel.setOrbitDistance(367);
-        
+        this.models.earthModel.setAngle(-3.0);
+
         this.models.marsModel = new MarsModel(this.engine, this.scene, this.canvas, 27);
         this.models.marsModel.setOrbitDistance(410);
-        
+        this.models.marsModel.setAngle(-4.0);
+
+        this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 15);
+
         //Set up Asteroid belt
         
         this.models.jupiterModel = new JupiterModel(this.engine, this.scene, this.canvas, 105);
         this.models.jupiterModel.setOrbitDistance(516);
-        
+        this.models.jupiterModel.setAngle(-8.0);
+
         this.models.saturnModel = new SaturnModel(this.engine, this.scene, this.canvas, 75);
         this.models.saturnModel.setOrbitDistance(639);
-        
+        this.models.saturnModel.setAngle(-5.0);        
+
         this.models.uranusModel = new UranusModel(this.engine, this.scene, this.canvas, 51);
         this.models.uranusModel.setOrbitDistance(747);
-        
+        this.models.uranusModel.setAngle(-2.0);        
+
         this.models.neptuneModel = new NeptuneModel(this.engine, this.scene, this.canvas, 39);
         this.models.neptuneModel.setOrbitDistance(832);
-        
+        this.models.neptuneModel.setAngle(1.0);        
+
+
         //Set up Kuiper belt        
 
         let self = this;
@@ -85,23 +97,27 @@ class SolarSystemModel {
     }
 
     action(planetName){
-        let model = this.getPlanetModel(planetName);
-        if(model){
-            for (const key of Object.keys(this.models)) {
-                this.models[key].setVisible(false);
-            }      
-            model.setVisible(true);
-            this.models.sunModel.setVisible(true);
-            model.focusCameraOnPlanet();    
-        }else{
-            for (const key of Object.keys(this.models)) {
-                this.models[key].setVisible(true);
-            }  
+        // let model = this.getPlanetModel(planetName);
+        // if(model){
+        //     for (const key of Object.keys(this.models)) {
+        //         this.models[key].setVisible(false);
+        //     }      
+        //     model.setVisible(true);
+        //     this.models.sunModel.setVisible(true);
+        //     model.focusCameraOnPlanet();    
+        // }else{
+        //     for (const key of Object.keys(this.models)) {
+        //         this.models[key].setVisible(true);
+        //     }  
 
-            this.scene.activeCamera.setPosition(new BABYLON.Vector3(0, 0, -480));
-            this.scene.activeCamera.target = new BABYLON.Vector3(0, 0, 0);   
-            this.scene.activeCamera.fov = 77. * (Math.PI/180.);   //Radians            
-        }
+        //     this.scene.activeCamera.setPosition(new BABYLON.Vector3(0, 0, -480));
+        //     this.scene.activeCamera.target = new BABYLON.Vector3(0, 0, 0);   
+        //     this.scene.activeCamera.fov = 77. * (Math.PI/180.);   //Radians            
+        // }
+        console.log("camera -------------------");
+        console.log(this.scene.activeCamera.position);
+        console.log(this.scene.activeCamera.target);
+
     }
 
     getPlanetModel(name){

@@ -31,7 +31,8 @@ class PlanetModel{
         this.sphere.position.z = 0;
     }      
     createAtmosphericMesh(size, thickness){
-        this.atmosphereMesh = BABYLON.Mesh.CreateSphere(this.name + "Sphere2", 26, size * thickness, this.scene, false, BABYLON.Mesh.BACKSIDE);        
+        this.atmosphereMesh = BABYLON.Mesh.CreateSphere(this.name + "Sphere2", 26, size * thickness, this.scene, false, BABYLON.Mesh.BACKSIDE);   
+        this.atmosphereMesh.parent = this.centerNode;     
     }
 
     focusCameraOnPlanet(){

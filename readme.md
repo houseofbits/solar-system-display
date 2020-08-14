@@ -3,21 +3,17 @@ WIP - Solar System Model for Educational display
 Run dev server
 
 ``
+npm install
 npm run serve
 ``
 
-src/
+Build production version
 
-models/ - Babylon.js 3d portion of display
-
-gui/ - React overlay for GUI
-
-resources/ - Images, shaders, fonts and texts
+``
+npm run build
+``
 
 
-Note: https://cpetry.github.io/NormalMap-Online/
 
-camera1:
-fov:77
-pos:288,-258,152
-target:661,335,-365
+
+Quick normal map tool: https://cpetry.github.io/NormalMap-Online/
