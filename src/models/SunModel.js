@@ -57,7 +57,7 @@ class SunModel extends PlanetModel{
         let vertexData = this.createLightRays(this.size, 8, 450., true);
 
         this.rays = new BABYLON.Mesh(this.name + "Rays", this.scene);
-        vertexData.applyToMesh(this.rays);
+        //vertexData.applyToMesh(this.rays);
         this.rays.parent = this.centerNode;
         this.rays.material = this.shaderRaysMaterial;
     } 

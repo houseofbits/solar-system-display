@@ -34,8 +34,8 @@ class SolarSystemModel {
 
         this.models = {};
 
-        this.models.spaceModel = new SpaceModel(this.engine, this.scene, this.canvas, 2000);
-        this.models.spaceModel.setPosition(this.scene.activeCamera.target);
+        //this.models.spaceModel = new SpaceModel(this.engine, this.scene, this.canvas, 2000);
+        //this.models.spaceModel.setPosition(this.scene.activeCamera.target);
 
         this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 532);
 
@@ -75,7 +75,7 @@ class SolarSystemModel {
 
     renderLoop(){
         
-        this.models.spaceModel.setPosition(this.scene.activeCamera.target);
+        //this.models.spaceModel.setPosition(this.scene.activeCamera.target);
 
         for (const key of Object.keys(this.models)) {
             this.models[key].update();
@@ -91,7 +91,7 @@ class SolarSystemModel {
                 this.models[key].setVisible(false);
             }      
             model.setVisible(true);
-            this.models.sunModel.setVisible(true);
+            //this.models.sunModel.setVisible(true);
             model.focusCameraOnPlanet();    
         }else{
             for (const key of Object.keys(this.models)) {

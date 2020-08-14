@@ -69,14 +69,14 @@ void main(void) {
     #endif
 
     //Normal map normal    
-    vec3 bumpNormal = texture2D(normalMap, vUV).xyz * 2.0 - 1.0;
+    //vec3 bumpNormal = texture2D(normalMap, vUV).xyz * 2.0 - 1.0;
     vec3 normalW = normalize(vNormalW);
 
     //Tangent space matrix
-    mat3 TBN = cotangent_frame(normalW * normalScale, vPositionW, vUV);
+//    mat3 TBN = cotangent_frame(normalW * normalScale, vPositionW, vUV);
 
     //World space normal
-    normalW = TBN * bumpNormal;
+  //  normalW = TBN * bumpNormal;
     
     // World values
     vec3 vPositionW = vec3(world * vec4(vPosition, 1.0));

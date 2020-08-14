@@ -65,6 +65,10 @@ void main(void) {
 	uv3.x -= n1;
 
     vec3 map = texture2D(diffuseMap, uv3).xyz;
+
+
+    gl_FragColor = vec4(vec3(map), 1.);return;
+
     vec3 map2 = texture2D(diffuseMap2, uv1 * 3.).xyz;
     vec3 map21 = texture2D(diffuseMap2, uv2 * 6.).xyz;
     vec3 map3 = texture2D(diffuseMap3, (uv3 * 6.)).xyz;
