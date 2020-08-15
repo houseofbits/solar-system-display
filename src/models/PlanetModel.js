@@ -6,6 +6,7 @@ class PlanetModel{
         this.name = name;
         this.scene = scene;
         this.size = size;
+        this.defaultCameraAngle = 20;
     }
     createPlanetNode(){
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
@@ -18,7 +19,7 @@ class PlanetModel{
     }      
     getCenterNode(){
         return this.centerNode;
-    }  
+    }
     setPlanetMaterial(material){
         this.planetMaterial = material;
         this.sphere.material = this.planetMaterial.shaderMaterial; 
@@ -41,13 +42,15 @@ class PlanetModel{
         this.atmosphereMesh = BABYLON.Mesh.CreateSphere(this.name + "Sphere2", 26, size * thickness, this.scene, false, BABYLON.Mesh.BACKSIDE);   
         this.atmosphereMesh.parent = this.centerNode;     
     }
+    getPosition(){
+        return this.sphere.position;
+    }
+    getCameraConfiguration(){
 
-    focusCameraOnPlanet(){
-        
         let fov = 60.;
-        let angle = 25.;
+        let angle = this.defaultCameraAngle;
 
-        let target = new BABYLON.Vector3(this.size * 0.5, -2., 0);
+        let target = new BABYLON.Vector3(this.size * 0.5, 0., 0);
 
         let matrix = BABYLON.Matrix.RotationAxis(BABYLON.Axis.Y, angle * (Math.PI/180.));
         let v2 = BABYLON.Vector3.TransformCoordinates(target, matrix);
@@ -59,17 +62,19 @@ class PlanetModel{
         let dst = this.size * Math.tan((fov * 0.5) * (Math.PI/180.));
 
         vd.scaleInPlace(dst * 2.4);
+        vd.y += (dst * 0.2);
 
         let worldMatrix = this.centerNode.getWorldMatrix();
-        let global_position = BABYLON.Vector3.TransformCoordinates(this.sphere.position, worldMatrix);
+        let global_position = BABYLON.Vector3.TransformCoordinates(this.getPosition(), worldMatrix);
 
         v2.addInPlace(global_position);
-        vd.addInPlace(global_position);
+        vd.addInPlace(global_position);        
 
-        this.scene.activeCamera.target = v2;
-        this.scene.activeCamera.setPosition(vd);
-        this.scene.activeCamera.fov = fov * (Math.PI/180.);
-
+        return {
+            position: vd,
+            target: v2,
+            fovDeg: 60.
+        };
     }
 
     setVisible(visibility){
@@ -83,8 +88,8 @@ class PlanetModel{
         let indices = [];
         let indexCounter = 0;
         let innerRadius = size * 0.5;
-        let outerRadius = innerRadius + thickness;        
-        let step = (2.*Math.PI) / 36;
+        let outerRadius = innerRadius + thickness;
+        let step = (2.*Math.PI) / 46;
         for(let a = 0; a <= (2.*Math.PI); a += step){
 
             let x = Math.cos(a);
@@ -128,14 +133,27 @@ class PlanetModel{
             indices.push((i + 2)%indexCounter);
         }
 
+        for(let i=0; i<indexCounter-1; i+=2){
+
+            indices.push((i + 1)%indexCounter);
+            indices.push(i);
+            indices.push((i + 3)%indexCounter);
+            
+            indices.push((i + 3)%indexCounter);           
+            indices.push(i);
+            indices.push((i + 2)%indexCounter);
+        }        
+
         let vertexData = new BABYLON.VertexData();
         
         vertexData.positions = vertices;
         vertexData.uvs = uvs;
         vertexData.indices = indices;    
         vertexData.normals = normals;
-        
-        this.atmosphereMesh = new BABYLON.Mesh(this.name + "Atm", this.scene);
-        vertexData.applyToMesh(this.atmosphereMesh);
+    
+        return vertexData;
+
+        // this.atmosphereMesh = new BABYLON.Mesh(this.name + "Atm", this.scene);
+        // vertexData.applyToMesh(this.atmosphereMesh);
     }    
 }

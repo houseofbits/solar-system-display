@@ -49,8 +49,8 @@ class MarsModel extends PlanetModel{
 
         // this.shellShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);      
     }      
-    update(){
-        this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);
+    update(dt){
+        this.sphere.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);
     }
   }
 

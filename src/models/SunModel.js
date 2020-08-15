@@ -12,6 +12,8 @@ class SunModel extends PlanetModel{
         
         super("sun", scene, size);
         
+        this.defaultCameraAngle = -60.;
+
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
 
         this.animation = new BABYLON.Vector2;
@@ -61,11 +63,11 @@ class SunModel extends PlanetModel{
         this.rays.parent = this.centerNode;
         this.rays.material = this.shaderRaysMaterial;
     } 
-    update(){
-        
-        this.centerNode.rotate(this.rotationAxis, 0.001, BABYLON.Space.LOCAL);
-        this.animation.x += 0.01;
-        this.animation.y += 0.01;
+    update(dt){
+        let anim = dt * 0.5;
+        this.centerNode.rotate(this.rotationAxis, dt * 0.05, BABYLON.Space.LOCAL);
+        this.animation.x += anim;
+        this.animation.y += anim;
     }
     setSimplifiedShader(set){
 

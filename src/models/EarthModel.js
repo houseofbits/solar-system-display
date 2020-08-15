@@ -57,8 +57,8 @@ class EarthModel extends PlanetModel{
         // this.atmosphereMesh.position.y = 0;        
         // this.atmosphereMesh.position.z = 0;        
     }      
-    update(){ 
-        this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);
+    update(dt){ 
+        this.sphere.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);
     }
     setVisible(visibility){
         super.setVisible(visibility);

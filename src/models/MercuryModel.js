@@ -20,8 +20,8 @@ class MercuryModel extends PlanetModel{
         this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
         this.rotationAxis.normalize();        
     } 
-    update(){ 
-        this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);
+    update(dt){ 
+        this.sphere.rotate(this.rotationAxis, dt * 0.1, BABYLON.Space.LOCAL);
     }
   }
 

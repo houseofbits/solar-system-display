@@ -25,7 +25,7 @@ void main(void) {
 
     float ndotl = dot(vNormalW, lightVectorW);
 
-    float ndotl2 = max(0., dot(vNormalW, -lightVectorW)) * 0.3;
+    float ndotl2 = max(0., dot(vNormalW, -lightVectorW)) * 0.4;
 
     vec3 ambientFragColor = vec3(1., 1., 0.8) * ndotl2;
 
