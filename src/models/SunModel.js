@@ -67,9 +67,14 @@ class SunModel extends PlanetModel{
         this.animation.x += 0.01;
         this.animation.y += 0.01;
     }
+    setSimplifiedShader(set){
 
+    }
     setVisible(visibility){
         super.setVisible(visibility);
+        this.rays.visibility = visibility;
+    }
+    setRaysVisible(visibility){
         this.rays.visibility = visibility;
     }
 

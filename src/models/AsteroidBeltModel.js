@@ -7,9 +7,8 @@ import Diffuse from '../resources/img/rock/rock_diffuse_sm.png'
 
 export default
 class AsteroidBeltModel extends PlanetModel{
-    constructor(engine, scene, canvas, size) {
+    constructor(engine, scene, canvas, size, width) {
         super("asteroidBelt", scene, size);
-
 
         if(typeof BABYLON.Effect.ShadersStore["rockVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["rockVertexShader"] = RockVertexShader;
         if(typeof BABYLON.Effect.ShadersStore["rockFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["rockFragmentShader"] = RockFragmentShader;
@@ -31,7 +30,7 @@ class AsteroidBeltModel extends PlanetModel{
 
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
 
-        let orbit = 450;
+        let orbit = size;
 
         BABYLON.SceneLoader.ImportMesh("", "./", "./objects/rock1.obj", this.scene, function (newMeshes) {
             parent.rockMesh = newMeshes[0];
@@ -44,7 +43,7 @@ class AsteroidBeltModel extends PlanetModel{
                 let angle = (Math.random() * 360.0) * (Math.PI/180.);
 
                 let pos = new BABYLON.Vector3(Math.cos(angle), 0, Math.sin(angle));
-                let zvar = 25.0 - (Math.random() * 50.0);
+                let zvar = (width * 0.5) - (Math.random() * width);
                 let scale = 0.05 + (Math.random() * 0.1);
 
                 pos.normalize();
@@ -63,6 +62,9 @@ class AsteroidBeltModel extends PlanetModel{
     setVisible(visible){
         this.rockMesh.visibility = visible;
     }
+    setSimplifiedShader(set){
+
+    }       
     update(){
 
     }

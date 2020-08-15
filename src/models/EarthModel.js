@@ -22,28 +22,28 @@ class EarthModel extends PlanetModel{
         this.planetMaterial.setCloudsMap(PlanetClouds);
         this.planetMaterial.setLightBleedPow(3.0);
         this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1,1,0.2), new BABYLON.Vector3(0, 0, 1.0), 6.0);    
-        this.planetMaterial.setSpecular(2.0, 64.0);
+        this.planetMaterial.setSpecular(1.0, 24.0);
         
-        this.createAtmosphericMesh(size, 1.125);
+        //this.createAtmosphericMesh(size, 1.125);
 
         /////////////////////////////////////////////////////////////////////////////////////
 
-        if(typeof BABYLON.Effect.ShadersStore["atmVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["atmVertexShader"] = AtmVertexShader;
-        if(typeof BABYLON.Effect.ShadersStore["atmFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["atmFragmentShader"] = AtmFragmentShader;
+        // if(typeof BABYLON.Effect.ShadersStore["atmVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["atmVertexShader"] = AtmVertexShader;
+        // if(typeof BABYLON.Effect.ShadersStore["atmFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["atmFragmentShader"] = AtmFragmentShader;
 
-        this.atmShaderMaterial = new BABYLON.ShaderMaterial(name+"AtmShader", this.scene, 
-            { vertex: "atm",fragment: "atm" },            
-            {   
-                needAlphaBlending: true,
-                attributes: ["position", "normal", "uv"],
-                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
-            });
+        // this.atmShaderMaterial = new BABYLON.ShaderMaterial(name+"AtmShader", this.scene, 
+        //     { vertex: "atm",fragment: "atm" },            
+        //     {   
+        //         needAlphaBlending: true,
+        //         attributes: ["position", "normal", "uv"],
+        //         uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
+        //     });
 
-        this.atmShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
-        this.atmShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
-        this.atmShaderMaterial.setVector3("objectPosition", this.sphere.position);
+        // this.atmShaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));  
+        // this.atmShaderMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);
+        // this.atmShaderMaterial.setVector3("objectPosition", this.sphere.position);
 
-        this.atmosphereMesh.material = this.atmShaderMaterial;
+        // this.atmosphereMesh.material = this.atmShaderMaterial;
         
         this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
         this.rotationAxis.normalize();
@@ -53,16 +53,16 @@ class EarthModel extends PlanetModel{
         this.sphere.position.y = 0;
         this.sphere.position.z = 0;
 
-        this.atmosphereMesh.position.x = distance;        
-        this.atmosphereMesh.position.y = 0;        
-        this.atmosphereMesh.position.z = 0;        
+        // this.atmosphereMesh.position.x = distance;        
+        // this.atmosphereMesh.position.y = 0;        
+        // this.atmosphereMesh.position.z = 0;        
     }      
     update(){ 
         this.sphere.rotate(this.rotationAxis, 0.003, BABYLON.Space.LOCAL);
     }
     setVisible(visibility){
         super.setVisible(visibility);
-        this.atmosphereMesh.visibility = visibility;
+        //this.atmosphereMesh.visibility = visibility;
     }
 
   }

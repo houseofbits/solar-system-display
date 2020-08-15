@@ -33,6 +33,10 @@ class SolarSystemModel {
 
         arcCamera.attachControl(this.canvas, false); 
 
+        this.cameraTargetTarget = new BABYLON.Vector3(arcCamera.target);
+        this.cameraPositionTarget = new BABYLON.Vector3(arcCamera.position);
+        this.cameraFovTarget = new BABYLON.Vector3(arcCamera.fov);
+
         this.models = {};
 
         this.models.spaceModel = new SpaceModel(this.engine, this.scene, this.canvas, 2000);
@@ -56,7 +60,7 @@ class SolarSystemModel {
         this.models.marsModel.setOrbitDistance(410);
         this.models.marsModel.setAngle(-4.0);
 
-        this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 15);
+        this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 450, 50);
 
         //Set up Asteroid belt
         
@@ -76,17 +80,22 @@ class SolarSystemModel {
         this.models.neptuneModel.setOrbitDistance(832);
         this.models.neptuneModel.setAngle(1.0);        
 
-
-        //Set up Kuiper belt        
+        //Set up Kuiper belt     
+        
+        this.models.asteroidBelt2 = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 900, 100);
 
         let self = this;
         this.engine.runRenderLoop(function(){
             self.renderLoop();
-        });        
+        }); 
+        
+        this.divFps = document.getElementById("fps");
     }
 
     renderLoop(){
         
+        this.divFps.innerHTML = this.engine.getFps().toFixed() + " fps";
+
         this.models.spaceModel.setPosition(this.scene.activeCamera.target);
 
         for (const key of Object.keys(this.models)) {
@@ -104,6 +113,7 @@ class SolarSystemModel {
             }      
             model.setVisible(true);
             this.models.sunModel.setVisible(true);
+            this.models.spaceModel.setVisible(true);
             model.focusCameraOnPlanet();    
         }else{
             for (const key of Object.keys(this.models)) {
@@ -129,6 +139,26 @@ class SolarSystemModel {
             }
         }
         return null;
+    }
+    setDeveloperOption(name, value){
+        if(name == "ateroids"){
+            this.models.asteroidBelt.setVisible(value);
+            this.models.asteroidBelt2.setVisible(value);
+        }
+        if(name == "sunrays"){
+            this.models.sunModel.setRaysVisible(value);
+        }
+        if(name == "sun"){
+            this.models.sunModel.setVisible(value);
+        }        
+        if(name == "space"){
+            this.models.spaceModel.setVisible(value);
+        } 
+        if(name == "planet_lo"){
+            for (const key of Object.keys(this.models)) {
+                this.models[key].setSimplifiedShader(value);
+            } 
+        }                
     }
 }
 

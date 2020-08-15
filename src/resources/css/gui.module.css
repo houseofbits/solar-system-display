@@ -13,7 +13,6 @@ body{
     position: absolute;
     top:0;
     left:0;
-    border: solid blue 1px;
     visibility: visible;
     pointer-events: none;
 }
@@ -56,4 +55,33 @@ body{
     filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452));    
     font-size: 24px;
     line-height: 20px;
+}
+
+.devTools{
+    position: absolute;
+    top:50px;
+    right:10px;
+    width:224px;
+    height:400px;
+    border: solid 2px red;
+    background-color: rgba(0, 0, 0, 0.452);
+}
+.checkbox{
+    pointer-events: auto;
+    display:block;
+    position: relative;
+    width:200px;
+    height:25px;
+    line-height: 25px;
+    color:gray;
+    text-align: center;
+    background-color: rgba(0, 0, 100, 0.5);
+    border: solid 2px darkblue;
+    border-radius: 5px;
+    margin:10px;
+}
+.checkboxActive{
+    background-color: rgba(0, 200, 0, 0.5);
+    border: solid 2px darkgreen;
+    color:yellow;
 }

@@ -3,6 +3,7 @@ import GuiStyle from '../resources/css/gui.module.css';
 import Button from './Button'
 import Details from './Details'
 import Language from './Language'
+import DeveloperTools from './DeveloperTools'
 import TextLV from '../resources/text/text-lv.json';
 import TextEN from '../resources/text/text-en.json';
 import TextRU from '../resources/text/text-ru.json';
@@ -68,7 +69,8 @@ class GuiOverlay extends React.Component {
     }  
     render() {
         
-        return <div className={GuiStyle.frame}>
+        return <div className={GuiStyle.frame} fps={this.props.ssModel.fps}>
+            <DeveloperTools ssModel={this.props.ssModel}/>
             <Language language={this.state.language} clickHandler={this.selectLanguage}/>
             <Details language={this.state.language} selectedDetail={this.state.selectedDetail} commonText={this.getCommonText()} planetText={this.getPlanetText()}/>
             <div className={GuiStyle.buttonsFrame}>

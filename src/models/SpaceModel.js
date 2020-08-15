@@ -31,21 +31,6 @@ class SpaceModel extends PlanetModel{
         this.sphere.parent = this.centerNode;    
         this.sphere.material = this.shaderMaterial;
 
-
-        // this.shaderMaterialInner = new BABYLON.ShaderMaterial(this.name+"Shader2", this.scene, 
-        //     { vertex: "space",fragment: "space" },            
-        //     {   
-        //         defines:["#define OPACITY 1"],
-        //         needAlphaBlending: true,
-        //         attributes: ["position", "normal", "uv"],
-        //         uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
-        //     });        
-        // this.shaderMaterialInner.setTexture("diffuseMap", new BABYLON.Texture(Stars1, this.scene));
-        // this.sphereInner = BABYLON.Mesh.CreateSphere(this.name+"SphereInner", 46, size*0.8, this.scene, false, BABYLON.Mesh.BACKSIDE);
-        // this.sphereInner.parent = this.centerNode; 
-        // this.sphereInner.material = this.shaderMaterialInner;
-        // this.sphereInner.rotation.z = Math.PI / 8.;
-
         this.shaderMaterialInner2 = new BABYLON.ShaderMaterial(this.name+"Shader3", this.scene, 
             { vertex: "space",fragment: "space" },            
             {   
@@ -57,14 +42,21 @@ class SpaceModel extends PlanetModel{
         this.shaderMaterialInner2.setTexture("diffuseMap", new BABYLON.Texture(MilkyWay, this.scene));
         this.shaderMaterialInner2.setVector3("cameraPosition", this.scene.activeCamera.position);
         this.shaderMaterialInner2.setVector3("objectPosition", this.centerNode.position);
-        this.sphereInner2 = BABYLON.Mesh.CreateSphere(this.name+"SphereInner2", 8, size*0.8, this.scene, false, BABYLON.Mesh.BACKSIDE);
-        this.sphereInner2.parent = this.centerNode; 
-        this.sphereInner2.material = this.shaderMaterialInner2;        
+        this.sphereInner = BABYLON.Mesh.CreateSphere(this.name+"SphereInner2", 8, size*0.8, this.scene, false, BABYLON.Mesh.BACKSIDE);
+        this.sphereInner.parent = this.centerNode; 
+        this.sphereInner.material = this.shaderMaterialInner2;        
 
     } 
+    setVisible(visible){
+        this.sphere.visibility = visible;
+        this.sphereInner.visibility = visible;
+    }    
     setPosition(pos){
         this.centerNode.position = pos;
     }
+    setSimplifiedShader(set){
+
+    }    
     update(){
     
     }
