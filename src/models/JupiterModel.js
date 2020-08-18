@@ -1,9 +1,10 @@
 import * as BABYLON from 'babylonjs';
 import PlanetModel from './PlanetModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
+import PlanetRingMaterial from './PlanetRingMaterial.js';
 import PlanetDiffuse from '../resources/img/jupiter/jupiter_lo.jpg'
 import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
-import Rings from '../resources/img/saturn_ring_alpha.png';
+import RingsMap from '../resources/img/saturn_ring_alpha.png';
 
 export default
 class JupiterModel extends PlanetModel{
@@ -27,11 +28,10 @@ class JupiterModel extends PlanetModel{
         this.ringMesh.parent = this.centerNode;
         vertexData.applyToMesh(this.ringMesh);
         
-        let material = new BABYLON.StandardMaterial(this.name + "Ring", this.scene);
-        material.emissiveColor = new BABYLON.Vector3(1,1,1);
-        material.diffuseTexture = new BABYLON.Texture(Rings, this.scene);
-        material.diffuseTexture.hasAlpha = true;
-        this.ringMesh.material = material;
+        this.planetRingMaterial = new PlanetRingMaterial(this.scene, this.name);
+        this.planetRingMaterial.setDiffuseMap(RingsMap);
+        this.planetRingMaterial.setCameraPosition(this.scene.activeCamera.position);
+        this.ringMesh.material = this.planetRingMaterial.shaderMaterial;
 
         this.transformNode = new BABYLON.TransformNode(this.name + "PlanetTs"); 
         this.sphere.parent = this.transformNode;
@@ -41,10 +41,14 @@ class JupiterModel extends PlanetModel{
     }  
     getPosition(){
         return this.transformNode.position;
-    }     
+    }  
+    setRingsVisible(visibility){
+        this.ringMesh.visibility = visibility;
+    }       
     setOrbitDistance(distance){
         this.transformNode.position.x = distance;
         this.planetMaterial.setObjectPosition(this.transformNode.position);
+        this.planetRingMaterial.setObjectPosition(this.transformNode.position);        
     }     
     update(dt){
        this.transformNode.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);  

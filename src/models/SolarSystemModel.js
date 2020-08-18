@@ -209,7 +209,12 @@ class SolarSystemModel {
             for (const key of Object.keys(this.models)) {
                 this.models[key].setSimplifiedShader(value);
             } 
-        }                
+        } 
+        if(name == "ring"){
+            for (const key of Object.keys(this.models)) {
+                this.models[key].setRingsVisible(value);
+            } 
+        }                        
     }
 }
 

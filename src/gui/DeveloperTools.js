@@ -18,6 +18,7 @@ class DeveloperTools extends React.Component {
                 <Checkbox name="sunrays" title="Hide sun rays" clickHandler={this.toggleHandler}/>
                 <Checkbox name="space" title="Hide space" clickHandler={this.toggleHandler}/>
                 <Checkbox name="sun" title="Hide sun" clickHandler={this.toggleHandler}/>
+                <Checkbox name="ring" title="Hide rings" clickHandler={this.toggleHandler}/>
             </div>;
     }
 }

@@ -80,7 +80,9 @@ class PlanetModel{
     setVisible(visibility){
         this.sphere.visibility = visibility;
     }
+    setRingsVisible(visibility){
 
+    }
     createRing(size, thickness){
         let vertices=[];
         let normals=[];
@@ -89,7 +91,7 @@ class PlanetModel{
         let indexCounter = 0;
         let innerRadius = size * 0.5;
         let outerRadius = innerRadius + thickness;
-        let step = (2.*Math.PI) / 46;
+        let step = (2.*Math.PI) / 66;
         for(let a = 0; a <= (2.*Math.PI); a += step){
 
             let x = Math.cos(a);

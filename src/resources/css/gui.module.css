@@ -17,6 +17,7 @@ body{
     pointer-events: none;
 }
 .buttonsFrame{
+    display:block;
     pointer-events: auto;
     position: absolute;
     bottom:0;
@@ -57,7 +58,7 @@ body{
     line-height: 20px;
 }
 .devTools{
-    display:none;
+    display:block;
     position: absolute;
     top:50px;
     right:10px;

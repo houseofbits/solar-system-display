@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "webpack --mode=development",
+    "build": "webpack --mode=production",
     "serve": "webpack-dev-server"
   },
   "author": "",
