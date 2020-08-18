@@ -1,24 +1,43 @@
-.button{
+
+.buttonInner{
+    position: absolute;
+    background-color: tomato;
+    left:2px;
+    top:2px;
+    right:2px;
+    bottom:2px;
+    border-radius: 13px;
+ }
+ .buttonOuter 
+ {
     display: inline-block;    
+    position: relative;
     width:116px;
     height:114px;
     margin:5px;
     border-radius: 15px;
-    background-color: rgba(50, 50, 50, 0.5);
     color:white;
     vertical-align: bottom;
     cursor: hand;
-    box-sizing: border-box;
-    transition: background-color 1000ms linear;    
+    box-sizing: border-box; 
     text-align: center;
     padding-top:20px;
-    box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
- }
+    box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75); 
+    border:none;
+    background: linear-gradient(to bottom, #a8a8a8 0%,#455da8 100%);
+}
+
  .selectedButton{
-    background-color: rgba(200, 200, 0, 0.5);
-    transition: background-color 500ms linear;
+    background: linear-gradient(to bottom, #ffd900 0%,#00a868 100%);
  }
- 
+ .selectedButton div:after{
+    content: '';
+    position: absolute;
+    border-radius: 13px;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: linear-gradient(to bottom, #eeff0067 0%,#5f700000 100%);
+ }
+
  .buttonTextGradient{
     display: inline;
     background: linear-gradient(to bottom, #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); 
@@ -28,6 +47,7 @@
     filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 1.0));    
     font-size: 24px;
     line-height: 20px;
+
 }
 
 .sun{

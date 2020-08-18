@@ -12,13 +12,15 @@ class Button extends React.Component {
     };
     render() {
 
-        let buttonClass = Style.button + ' ' + Style[this.props.name];
+        let buttonClass = Style.buttonOuter;
+        let buttonInnerClass = Style.buttonInner + ' ' + Style[this.props.name];
 
         if(this.props.selectedDetail == this.props.name || (this.props.name == 'all' && this.props.selectedDetail == null)){
             buttonClass += ' ' + Style.selectedButton;
         }
 
         return <div className={buttonClass} onClick={this.click}>
+                <div className={buttonInnerClass}></div>
                 <span className={Style.buttonTextGradient}>{this.props.title}</span>
             </div>;
     }
