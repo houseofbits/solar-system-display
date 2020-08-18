@@ -1,5 +1,5 @@
 import React from 'react';
-import GuiStyle from '../resources/css/gui.module.css';
+import Style from '../resources/css/buttons.module.css';
 
 export default
 class Button extends React.Component {
@@ -12,14 +12,14 @@ class Button extends React.Component {
     };
     render() {
 
-        let buttonClass = GuiStyle.button;
-        
+        let buttonClass = Style.button + ' ' + Style[this.props.name];
+
         if(this.props.selectedDetail == this.props.name || (this.props.name == 'all' && this.props.selectedDetail == null)){
-            buttonClass += ' ' + GuiStyle.selectedButton;
+            buttonClass += ' ' + Style.selectedButton;
         }
 
         return <div className={buttonClass} onClick={this.click}>
-                <span className={GuiStyle.buttonTextGradient}>{this.props.title}</span>
+                <span className={Style.buttonTextGradient}>{this.props.title}</span>
             </div>;
     }
 }

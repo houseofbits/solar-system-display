@@ -27,36 +27,7 @@ body{
     /*background-color: rgba(255, 255, 255, 0.3);*/
     text-align: center;
 }
-.button{
-    display: inline-block;    
-    width:115px;
-    height:115px;
-    margin:5px;
-    border-radius: 15px;
-    background-color: rgba(50, 50, 50, 0.5);
-    color:white;
-    vertical-align: bottom;
-    cursor: hand;
-    box-sizing: border-box;
-    transition: background-color 1000ms linear;    
-    text-align: center;
-    padding-top:20px;
- }
- .selectedButton{
-    background-color: rgba(200, 200, 0, 0.5);
-    transition: background-color 500ms linear;
- }
- 
- .buttonTextGradient{
-    display: inline;
-    background: linear-gradient(to bottom, #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); 
-    -webkit-background-clip: text;
-    background-clip: text; 
-    -webkit-text-fill-color: transparent;      
-    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452));    
-    font-size: 24px;
-    line-height: 20px;
-}
+
 .devTools{
     display:block;
     position: absolute;

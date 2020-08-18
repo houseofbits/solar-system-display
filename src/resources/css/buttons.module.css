@@ -1,0 +1,62 @@
+.button{
+    display: inline-block;    
+    width:116px;
+    height:114px;
+    margin:5px;
+    border-radius: 15px;
+    background-color: rgba(50, 50, 50, 0.5);
+    color:white;
+    vertical-align: bottom;
+    cursor: hand;
+    box-sizing: border-box;
+    transition: background-color 1000ms linear;    
+    text-align: center;
+    padding-top:20px;
+    box-shadow: 0px 2px 6px 2px rgba(0,0,0,0.75);
+ }
+ .selectedButton{
+    background-color: rgba(200, 200, 0, 0.5);
+    transition: background-color 500ms linear;
+ }
+ 
+ .buttonTextGradient{
+    display: inline;
+    background: linear-gradient(to bottom, #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); 
+    -webkit-background-clip: text;
+    background-clip: text; 
+    -webkit-text-fill-color: transparent;      
+    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 1.0));    
+    font-size: 24px;
+    line-height: 20px;
+}
+
+.sun{
+    background-image: url("../img/buttons/icon_sun.jpg");
+}
+.mercury{
+    background-image: url("../img/buttons/icon_mercury.jpg");
+}
+.venus{
+    background-image: url("../img/buttons/icon_venus.jpg");
+}
+.earth{
+    background-image: url("../img/buttons/icon_earth.jpg");
+}
+.mars{
+    background-image: url("../img/buttons/icon_mars.jpg");
+}
+.jupiter{
+    background-image: url("../img/buttons/icon_jupiter.jpg");
+}
+.saturn{
+    background-image: url("../img/buttons/icon_saturn.jpg");
+}
+.uranus{
+    background-image: url("../img/buttons/icon_uranus.jpg");
+}
+.neptune{
+    background-image: url("../img/buttons/icon_neptune.jpg");
+}
+.all{
+    background-image: url("../img/buttons/icon_solar.jpg");
+}
