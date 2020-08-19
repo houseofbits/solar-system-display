@@ -3,11 +3,11 @@ import PlanetModel from './PlanetModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
 import AtmVertexShader from '../resources/shaders/atm.vertex.fx';
 import AtmFragmentShader from '../resources/shaders/atm.fragment.fx';
-import DiffuseDay from '../resources/img/earth/earth_daymap_lo.jpg'
-import DiffuseNight from '../resources/img/earth/earth_nightmap_lo.jpg'
-import PlanetNormalmap from '../resources/img/earth/earth_normal_map_lo.png'
+import DiffuseDay from '../resources/img/earth/earth_daymap.jpg'
+import DiffuseNight from '../resources/img/earth/earth_nightmap.jpg'
+import PlanetNormalmap from '../resources/img/earth/NormalMap_2.png'
 import PlanetSpecular from '../resources/img/earth/earth_specular_map_lo.png'
-import PlanetClouds from '../resources/img/earth/earth_clouds_lo.jpg'
+import PlanetClouds from '../resources/img/earth/earth_clouds.jpg'
 
 export default
 class EarthModel extends PlanetModel{

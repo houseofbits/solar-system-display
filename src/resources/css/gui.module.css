@@ -24,12 +24,11 @@ body{
     left:0;
     width:100%;
     height:130px;
-    /*background-color: rgba(255, 255, 255, 0.3);*/
     text-align: center;
 }
 
 .devTools{
-    display:block;
+    display:none;
     position: absolute;
     top:50px;
     right:10px;

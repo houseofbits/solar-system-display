@@ -1,7 +1,6 @@
 import * as BABYLON from 'babylonjs';
 import PlanetModel from './PlanetModel.js';
-import Stars1 from '../resources/img/stars_milky_way_lo.jpg'
-//import Stars2 from '../resources/img/stars.jpg'
+import Stars1 from '../resources/img/stars_milky_way.jpg'
 import MilkyWay from '../resources/img/milky_way_lo.jpg'
 import SpaceVertexShader from '../resources/shaders/space.vertex.fx';
 import SpaceFragmentShader from '../resources/shaders/space.fragment.fx';

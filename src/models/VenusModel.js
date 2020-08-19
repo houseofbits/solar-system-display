@@ -1,7 +1,7 @@
 import * as BABYLON from 'babylonjs';
 import PlanetModel from './PlanetModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
-import PlanetDiffuse from '../resources/img/venus/venus_lo.jpg'
+import PlanetDiffuse from '../resources/img/venus/venus.jpg'
 import PlanetNormalmap from '../resources/img/venus/NormalMap.png'
 import PlanetSpecular from '../resources/img/venus/SpecularMap_lo.png'
 import PlanetOcclusion from '../resources/img/venus/AmbientOcclusionMap.png'
