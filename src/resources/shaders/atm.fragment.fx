@@ -14,6 +14,7 @@ uniform mat4 world;
 // Refs
 uniform vec3 cameraPosition;
 
+
 void main(void) {
 
     vec3 lightVectorW = -normalize(vSunDirection);
@@ -35,7 +36,7 @@ void main(void) {
     fresnelTermPow = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
     vec3 atmosphere = 0.5 * fresnelTermPow * vec3(0,0,1);
 
-    vec3 lightSide = vec3(specComp) + vec3(fresnelTermPow * ndlFren) + atmosphere;
+    vec3 color = vec3(specComp) + vec3(fresnelTermPow * ndlFren) + atmosphere;
 
     float ft1 = pow(clamp(fresnelTerm, 0., 1.), 2.);
     //float ft2 = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
@@ -51,5 +52,5 @@ void main(void) {
 
    // gl_FragColor = vec4(vec3(dotv), 1.);
 
-    gl_FragColor = vec4(lightSide, ftfin);
+    gl_FragColor = vec4(color, ftfin);
 }

@@ -7,6 +7,14 @@
     "build": "webpack --mode=production",
     "serve": "webpack-dev-server"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/houseofbits/solar-system-display.git"
+  },  
+  "bugs": {
+    "url": "https://github.com/houseofbits/solar-system-display/issues"
+  },
+  "homepage": "https://github.com/houseofbits/solar-system-display#readme",  
   "author": "",
   "license": "ISC",
   "devDependencies": {
