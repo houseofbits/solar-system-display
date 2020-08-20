@@ -38,7 +38,7 @@ npm run build
 docker-compose up -d
 ```
 
-3) Enjoy some of the finest planets found in our solar system:  http://docker.local:81
+4) Enjoy some of the finest planets found in our solar system:  http://docker.local:81/
 
 **Dependencies**
 - Babylon.js
@@ -51,7 +51,7 @@ Krists Pudzens©2020
 kpudzens@gmail.com
 
 
-TODO:
+**TODO:**
 
 * [x] Planet rings shadows
 * [ ] Atmosphere shader
