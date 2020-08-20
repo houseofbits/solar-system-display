@@ -45,6 +45,11 @@ class PlanetModel{
     getPosition(){
         return this.sphere.position;
     }
+    getGlobalPosition(){
+        let worldMatrix = this.centerNode.getWorldMatrix();
+        let global_position = BABYLON.Vector3.TransformCoordinates(this.getPosition(), worldMatrix);
+        return global_position;
+    }
     getCameraConfiguration(){
 
         let fov = 60.;

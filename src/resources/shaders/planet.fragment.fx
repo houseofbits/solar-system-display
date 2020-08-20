@@ -6,6 +6,7 @@ varying vec3 vPositionW;
 varying vec3 vNormal;
 varying vec3 vNormalW;
 varying vec2 vUV;
+varying vec4 vUV2;
 varying vec3 vSunDirection;
 
 // Uniforms
@@ -27,7 +28,7 @@ uniform sampler2D normalMap;
 uniform sampler2D specularMap;
 uniform sampler2D aoMap;
 uniform sampler2D cloudsMap;
-
+uniform sampler2D shadowMap;
 /*
 Defines
     AO_MAP_ENABLE (aoMap)
@@ -36,6 +37,44 @@ Defines
     NIGHT_MAP_ENABLE
     CLOUDS_OVERLAY_ENABLE
 */
+
+float boxBlur (sampler2D source, vec2 uv, float offset) {
+
+	vec2 texOffset = vec2(offset, offset);
+	
+	float edgeOffset = 0.1;
+	vec2 edgeDistMult = vec2(1);
+	if(uv.s <= edgeOffset)texOffset.s *= (uv.s / edgeOffset);	
+	if(uv.t <= edgeOffset)texOffset.t *= (uv.t / edgeOffset);	
+	if(uv.s >= (1.0-edgeOffset))texOffset.s *= ((1.0-uv.s) / edgeOffset);	
+	if(uv.t >= (1.0-edgeOffset))texOffset.t *= ((1.0-uv.t) / edgeOffset);	
+	
+	vec2 tc0 = uv.st + vec2(-texOffset.s, -texOffset.t);
+	vec2 tc1 = uv.st + vec2(         0.0, -texOffset.t);
+	vec2 tc2 = uv.st + vec2(+texOffset.s, -texOffset.t);
+	vec2 tc3 = uv.st + vec2(-texOffset.s,          0.0);
+	vec2 tc4 = uv.st + vec2(         0.0,          0.0);
+	vec2 tc5 = uv.st + vec2(+texOffset.s,          0.0);
+	vec2 tc6 = uv.st + vec2(-texOffset.s, +texOffset.t);
+	vec2 tc7 = uv.st + vec2(         0.0, +texOffset.t);
+	vec2 tc8 = uv.st + vec2(+texOffset.s, +texOffset.t);
+	
+	float col0 = texture2D(source, tc0).r;
+	float col1 = texture2D(source, tc1).r;
+	float col2 = texture2D(source, tc2).r;
+	float col3 = texture2D(source, tc3).r;
+	float col4 = texture2D(source, tc4).r;
+	float col5 = texture2D(source, tc5).r;
+	float col6 = texture2D(source, tc6).r;
+	float col7 = texture2D(source, tc7).r;
+	float col8 = texture2D(source, tc8).r;
+
+	float sum = (1.0 * col0 + 2.0 * col1 + 1.0 * col2 + 
+	            2.0 * col3 + 4.0 * col4 + 2.0 * col5 +
+	            1.0 * col6 + 2.0 * col7 + 1.0 * col8) / 16.0; 
+	            
+	return sum;	            
+}
 
 mat3 cotangent_frame(vec3 normal, vec3 p, vec2 uv)
 {
@@ -90,6 +129,12 @@ void main(void) {
     // diffuse
     float ndl = max(0., dot(normalW, lightVectorW));
     
+    #ifdef SHADOW_MAP_ENABLE
+        vec3 projCoords = (vUV2.xyz / vUV2.w)*0.5+0.5;
+        float shadow = boxBlur(shadowMap, projCoords.xy, 0.003);
+        ndl = ndl * shadow;
+    #endif
+
     // specular
     float specular = 1.0;
     #ifdef SPECULAR_MAP_ENABLE

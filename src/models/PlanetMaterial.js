@@ -23,7 +23,8 @@ class PlanetMaterial {
             if(typeof options['specularMapEnable'] != 'undefined')defines.push("#define SPECULAR_MAP_ENABLE 1");
             if(typeof options['thickCloudsEnable'] != 'undefined')defines.push("#define THICK_CLOUDS_OVERLAY_ENABLE 1");
             if(typeof options['nightMapEnable'] != 'undefined')defines.push("#define NIGHT_MAP_ENABLE 1");
-            if(typeof options['overlayCloudsEnable'] != 'undefined')defines.push("#define CLOUDS_OVERLAY_ENABLE 1");                
+            if(typeof options['overlayCloudsEnable'] != 'undefined')defines.push("#define CLOUDS_OVERLAY_ENABLE 1");   
+            if(typeof options['shadowMapEnable'] != 'undefined')defines.push("#define SHADOW_MAP_ENABLE 1");                
         }
         this.shaderMaterial = new BABYLON.ShaderMaterial(name+"Shader", this.scene, 
             { vertex: "planet",fragment: "planet" },            

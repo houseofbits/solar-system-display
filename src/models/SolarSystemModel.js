@@ -23,9 +23,9 @@ class SolarSystemModel {
 
         let arcCamera = new BABYLON.ArcRotateCamera("ArcRotateCamera", 0,0,0, new BABYLON.Vector3(0, 0, 0), this.scene);
 
-        // arcCamera.setPosition(new BABYLON.Vector3(0, 0, -480));
-        // arcCamera.target = new BABYLON.Vector3(0, 0, 0);
-        // arcCamera.fov = 77. * (Math.PI/180.);   //Radians
+        // arcCamera.setPosition(new BABYLON.Vector3(0, 0, 0));
+        // arcCamera.target = new BABYLON.Vector3(516, 0, 0);
+        // arcCamera.fov = 15. * (Math.PI/180.);   //Radians
         
         arcCamera.setPosition(new BABYLON.Vector3(280,138,-168));
         arcCamera.target = new BABYLON.Vector3(714,-353,332);          
@@ -91,10 +91,26 @@ class SolarSystemModel {
         
         this.divFps = document.getElementById("fps");
         this.deltaTime = 0.0;
+
+
+
+
+
     }
 
     renderLoop(){
         
+        // for (const key of Object.keys(this.models)) {
+        //     this.models[key].setVisible(false);
+        //     this.models[key].setRingsVisible(false);
+        // } 
+        // //this.models.sunModel.setVisible(true);
+        // this.models.saturnModel.setVisible(true);
+        // this.models.saturnModel.setRingsVisible(true);
+
+
+
+
         if(typeof this.divFps.innerHTML != 'undefined')this.divFps.innerHTML = this.engine.getFps().toFixed() + " fps";
 
         this.deltaTime = this.engine.getDeltaTime() / 1000.0;

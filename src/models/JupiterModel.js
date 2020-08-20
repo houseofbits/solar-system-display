@@ -1,18 +1,17 @@
 import * as BABYLON from 'babylonjs';
-import PlanetModel from './PlanetModel.js';
+import PlanetWithRingsModel from './PlanetWithRingsModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
-import PlanetRingMaterial from './PlanetRingMaterial.js';
 import PlanetDiffuse from '../resources/img/jupiter/jupiter_lo.jpg'
 import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
 import RingsMap from '../resources/img/saturn_ring_alpha.png';
 
 export default
-class JupiterModel extends PlanetModel{
+class JupiterModel extends PlanetWithRingsModel{
     constructor(engine, scene, canvas, size) {
-        super("jupiter", scene, size);
+        super(engine, scene, canvas, size, "jupiter");
 
         this.createPlanetNode();
-        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name));
+        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {shadowMapEnable:1}));
         this.planetMaterial.setDiffuseMap(PlanetDiffuse);
         this.planetMaterial.setNormalMap(PlanetNormalmap);
         this.planetMaterial.setSpecular(0.1, 1.0);
@@ -22,34 +21,16 @@ class JupiterModel extends PlanetModel{
         this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
         this.rotationAxis.normalize();
 
-        let vertexData = this.createRing(size * 1.35, 4);
-        this.ringMesh = new BABYLON.Mesh(this.name + "Ring", this.scene);
-        this.ringMesh.rotation.x = Math.PI * 0.5;
-        this.ringMesh.parent = this.centerNode;
-        vertexData.applyToMesh(this.ringMesh);
-        
-        this.planetRingMaterial = new PlanetRingMaterial(this.scene, this.name);
-        this.planetRingMaterial.setDiffuseMap(RingsMap);
-        this.planetRingMaterial.setCameraPosition(this.scene.activeCamera.position);
-        this.ringMesh.material = this.planetRingMaterial.shaderMaterial;
+        this.createRingsNode(1.5, 6, RingsMap);
 
         this.transformNode = new BABYLON.TransformNode(this.name + "PlanetTs"); 
         this.sphere.parent = this.transformNode;
         this.ringMesh.parent = this.transformNode;
 
         this.transformNode.parent = this.centerNode;
-    }  
-    getPosition(){
-        return this.transformNode.position;
-    }  
-    setRingsVisible(visibility){
-        this.ringMesh.visibility = visibility;
-    }       
-    setOrbitDistance(distance){
-        this.transformNode.position.x = distance;
-        this.planetMaterial.setObjectPosition(this.transformNode.position);
-        this.planetRingMaterial.setObjectPosition(this.transformNode.position);        
-    }     
+
+        this.initRingRTT(RingsMap);   
+    }      
     update(dt){
        this.transformNode.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);  
     }

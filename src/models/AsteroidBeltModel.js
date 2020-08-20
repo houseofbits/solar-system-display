@@ -60,7 +60,7 @@ class AsteroidBeltModel extends PlanetModel{
 
     }
     setVisible(visible){
-        this.rockMesh.visibility = visible;
+        if(this.rockMesh)this.rockMesh.visibility = visible;
     }
     setSimplifiedShader(set){
 
