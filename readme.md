@@ -1,20 +1,66 @@
-WIP - Solar System Model for Educational display
+## [The Latvian Museum of Natural History](https://www.dabasmuzejs.gov.lv/) - Solar System
+
+Web application for 1280x800 touchscreen device. Complementing Solar system showcase with animated representation of our solar system and short description of each planet.
+
+How to set up and build this project:
+
+**Set up development environment**
+
+1) Install docker, docker-compose, Node.js/npm
+2) Clone repo
+```
+git clone https://github.com/houseofbits/solar-system-display
+```
+
+3) Install dependencies
+```
+npm install
+```
+
+4) Run dev server
+```
+npm run serve
+```
+
+**Build and test production version**
+1) Run build
+```
+npm run build
+```
+
+2) Create hosts file entry
+```
+0.0.0.0 docker.local
+```
+
+3) Start docker container
+```
+docker-compose up -d
+```
+
+3) Enjoy some of the finest planets found in our solar system:  http://docker.local:81
+
+**Dependencies**
+- Babylon.js
+- React
+
+[https://github.com/houseofbits/solar-system-display](https://github.com/houseofbits/solar-system-display)
+
+Krists Pudzens©2020
+
+kpudzens@gmail.com
+
 
 TODO:
 
-1. Atmosphere shader
-3) Planet rotation axis and speeds
-4) Animated asteroids
-5) Symbol font loading issue
-6) Texturing for rest of unfinished planets
-7) Optimize sun rays shader
+* [x] Planet rings shadows
+* [ ] Atmosphere shader
+* [ ] Planet rotation axis and relative speeds
+* [x] Animated asteroids
+* [ ] Symbol font loading issue
+* [ ] Texturing for rest of unfinished planets
+* [ ] Optimize sun rays shader
 
-Run dev server
 
-``npm install npm run serve``
+Quick normal map tool: [https://cpetry.github.io/NormalMap-Online/](https://cpetry.github.io/NormalMap-Online/)
 
-Build production version
-
-``npm run build``
-
-Quick normal map tool: https://cpetry.github.io/NormalMap-Online/

@@ -60,7 +60,7 @@ class SolarSystemModel {
         this.models.marsModel.setOrbitDistance(410);
         this.models.marsModel.setAngle(-4.0);
 
-        this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 450, 50);
+        this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 450, 30);
 
         //Set up Asteroid belt
         
@@ -91,11 +91,6 @@ class SolarSystemModel {
         
         this.divFps = document.getElementById("fps");
         this.deltaTime = 0.0;
-
-
-
-
-
     }
 
     renderLoop(){

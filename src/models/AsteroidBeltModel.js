@@ -32,6 +32,8 @@ class AsteroidBeltModel extends PlanetModel{
 
         let orbit = size;
 
+        this.meshInstances = [];
+
         BABYLON.SceneLoader.ImportMesh("", "./", "./objects/rock1.obj", this.scene, function (newMeshes) {
             parent.rockMesh = newMeshes[0];
             parent.rockMesh.material = parent.shaderMaterial;
@@ -54,10 +56,17 @@ class AsteroidBeltModel extends PlanetModel{
                 newInstance.rotation.x = Math.random() * Math.PI;
                 newInstance.rotation.y = Math.random() * Math.PI;
                 newInstance.rotation.z = Math.random() * Math.PI;
+
+                newInstance._rotationAxis = new BABYLON.Vector3(Math.random(), Math.random(), Math.random());
+                newInstance._rotationAxis.normalize();
+                newInstance._rotationSpeed = 0.1 + (Math.random() * 0.5);
+                newInstance._orbitSpeed = 0.005 + (Math.random() * 0.02);
+
                 newInstance.position = new BABYLON.Vector3(pos.x, pos.y, pos.z);
+
+                parent.meshInstances.push(newInstance);
             }
         });
-
     }
     setVisible(visible){
         if(this.rockMesh)this.rockMesh.visibility = visible;
@@ -65,8 +74,12 @@ class AsteroidBeltModel extends PlanetModel{
     setSimplifiedShader(set){
 
     }       
-    update(){
-
+    update(dt){
+        for (const key of Object.keys(this.meshInstances)) {
+            let inst = this.meshInstances[key];
+            inst.rotate(inst._rotationAxis, dt * inst._rotationSpeed, BABYLON.Space.LOCAL);
+            inst.rotateAround(BABYLON.Vector3.Zero(), BABYLON.Vector3.Up(), dt * inst._orbitSpeed);
+        }         
     }
   }
 
