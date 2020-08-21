@@ -58,9 +58,7 @@ kpudzens@gmail.com
 * [ ] Planet rotation axis and relative speeds
 * [x] Animated asteroids
 * [ ] Symbol font loading issue
-* [ ] Texturing for rest of unfinished planets
-* [ ] Optimize sun rays shader
-
+* [x] Texturing for rest of unfinished planets
 
 Quick normal map tool: [https://cpetry.github.io/NormalMap-Online/](https://cpetry.github.io/NormalMap-Online/)
 
