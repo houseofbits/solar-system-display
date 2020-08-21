@@ -8,8 +8,6 @@ export default
 class PlanetWithRingsModel extends PlanetModel{
     constructor(engine, scene, canvas, size, name) {
         super(name, scene, size);
-
-
     }
     createRingsNode(scale, width, ringsMap){
         let vertexData = this.createRing(this.size * scale, width);
@@ -20,8 +18,7 @@ class PlanetWithRingsModel extends PlanetModel{
 
         this.planetRingMaterial = new PlanetRingMaterial(this.scene, this.name);
         this.planetRingMaterial.setDiffuseMap(ringsMap);
-        this.planetRingMaterial.setCameraPosition(this.scene.activeCamera.position);
-        this.ringMesh.material = this.planetRingMaterial.shaderMaterial;        
+        this.ringMesh.material = this.planetRingMaterial.getMaterial();        
     }
     getPosition(){
         return this.transformNode.position;

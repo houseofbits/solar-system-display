@@ -22,16 +22,8 @@ class PlanetModel{
     }
     setPlanetMaterial(material){
         this.planetMaterial = material;
-        this.sphere.material = this.planetMaterial.shaderMaterial; 
+        this.sphere.material = this.planetMaterial.getMaterial(); 
         this.planetMaterial.setObjectPosition(this.sphere.position);
-        this.planetMaterial.setCameraPosition(this.scene.activeCamera.position);
-    }
-    setSimplifiedShader(set){
-        if(set){
-            this.sphere.material = this.planetMaterial.shaderMaterial;
-        }else{
-            this.sphere.material = this.planetMaterial.shaderMaterialLo;
-        }
     }
     setOrbitDistance(distance){
         this.sphere.position.x = distance;

@@ -54,7 +54,7 @@ kpudzens@gmail.com
 **TODO:**
 
 * [x] Planet rings shadows
-* [ ] Atmosphere shader
+* [x] Atmosphere shader
 * [ ] Planet rotation axis and relative speeds
 * [x] Animated asteroids
 * [ ] Symbol font loading issue

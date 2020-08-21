@@ -1,21 +1,14 @@
 import * as BABYLON from 'babylonjs';
+import CustomMaterial from './CustomMaterial.js';
 import PlanetVertexShader from '../resources/shaders/planet.vertex.fx';
 import PlanetFragmentShader from '../resources/shaders/planet.fragment.fx';
-import SimplePlanetVertexShader from '../resources/shaders/simple.vertex.fx';
-import SimpleFragmentShader from '../resources/shaders/simple.fragment.fx';
 
 export default 
-class PlanetMaterial {
+class PlanetMaterial extends CustomMaterial {
     constructor(scene, name, options) {
+        super(scene, name);
 
-        this.scene = scene;
-
-        if(typeof BABYLON.Effect.ShadersStore["planetVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["planetVertexShader"] = PlanetVertexShader;
-        if(typeof BABYLON.Effect.ShadersStore["planetFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["planetFragmentShader"] = PlanetFragmentShader;
-
-        if(typeof BABYLON.Effect.ShadersStore["planetloVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["planetloVertexShader"] = SimplePlanetVertexShader;
-        if(typeof BABYLON.Effect.ShadersStore["planetloFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["planetloFragmentShader"] = SimpleFragmentShader;
-
+        this.loadShaderData("planet", PlanetVertexShader, PlanetFragmentShader);
 
         let defines = [];
         if(typeof options != 'undefined'){
@@ -27,29 +20,18 @@ class PlanetMaterial {
             if(typeof options['shadowMapEnable'] != 'undefined')defines.push("#define SHADOW_MAP_ENABLE 1");                
         }
         this.shaderMaterial = new BABYLON.ShaderMaterial(name+"Shader", this.scene, 
-            { vertex: "planet",fragment: "planet" },            
+            { vertex: this.getShaderName(),fragment: this.getShaderName() },            
             {   
                 defines:defines,
                 attributes: ["position", "normal", "uv"],
                 uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
             });
         
-        this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));
+        this.setSunPosition(new BABYLON.Vector3(0,0,0));  
+        this.setCameraPosition(this.scene.activeCamera.position);
         this.setSpecular(1.0, 10.0);
         this.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.8), 3.0);
-        this.setLightBleedPow(2.0);
-
-        this.shaderMaterialLo = new BABYLON.ShaderMaterial(name+"ShaderLo", this.scene, 
-            { vertex: "planetlo",fragment: "planetlo" },            
-            {   
-                attributes: ["position", "normal", "uv"],
-                uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
-            }); 
-        this.shaderMaterialLo.setVector3("sunPosition", new BABYLON.Vector3(0,0,0));                   
-    }
-    setDiffuseMap(map){
-        this.shaderMaterial.setTexture("diffuseMap", new BABYLON.Texture(map, this.scene));  
-        this.shaderMaterialLo.setTexture("diffuseMap", new BABYLON.Texture(map, this.scene));        
+        this.setLightBleedPow(2.0);                 
     }
     setDiffuseNightMap(map){
         this.shaderMaterial.setTexture("diffuseNightMap", new BABYLON.Texture(map, this.scene));        
@@ -65,15 +47,7 @@ class PlanetMaterial {
     }
     setCloudsMap(map){
         this.shaderMaterial.setTexture("cloudsMap", new BABYLON.Texture(map, this.scene));        
-    }
-    setCameraPosition(pos){
-        this.shaderMaterial.setVector3("cameraPosition", pos);
-        this.shaderMaterialLo.setVector3("cameraPosition", pos);
-    }
-    setObjectPosition(pos){
-        this.shaderMaterial.setVector3("objectPosition", pos);
-        this.shaderMaterialLo.setVector3("objectPosition", pos);
-    }    
+    }  
     setSpecular(mult, pow){
         this.shaderMaterial.setFloat("specularMult", mult);    
         this.shaderMaterial.setFloat("specularPow", pow); 

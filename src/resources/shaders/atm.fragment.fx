@@ -13,7 +13,8 @@ uniform mat4 world;
 
 // Refs
 uniform vec3 cameraPosition;
-
+uniform vec3 atmosphereColor;
+uniform float atmosphereDensity;
 
 void main(void) {
 
@@ -23,9 +24,10 @@ void main(void) {
 
     // Fresnel
 	float fresnelTerm = dot(viewDirectionW, vNormalW);
-	float fresnelTermPow = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
 
     float ndlFren = max(0., dot(vNormalW + (lightVectorW * 0.4), lightVectorW));
+
+    float ft1 = pow(clamp(fresnelTerm + fresnelTerm + (fresnelTerm * 0.5), 0., 1.), 5.);
 
     // specular
     vec3 angleW = normalize(viewDirectionW + lightVectorW);
@@ -33,24 +35,12 @@ void main(void) {
     specComp = pow(specComp, max(1., 12.)) * 2.;
 
     //Blue atmosferic effect
-    fresnelTermPow = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
-    vec3 atmosphere = 0.5 * fresnelTermPow * vec3(0,0,1);
+    float fresnelTermPow = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
+    vec3 atmosphere = (atmosphereColor + ft1 * ndlFren); 
 
     vec3 color = vec3(specComp) + vec3(fresnelTermPow * ndlFren) + atmosphere;
 
-    float ft1 = pow(clamp(fresnelTerm, 0., 1.), 2.);
-    //float ft2 = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
+    float inte = (specComp + ndlFren) * atmosphereDensity + (1.0 - ndlFren) * 0.4;
 
-    float ftfin = (ft1 + ft1 + ft1);
-    //if(ftfin > 0.65)ftfin = 0.;
-
-    // float dotl = dot(viewDirectionW, lightVectorW);
-
-    // vec3 pn = (vPositionW);
-
-    // float dotv = dot(pn, viewDirectionW);
-
-   // gl_FragColor = vec4(vec3(dotv), 1.);
-
-    gl_FragColor = vec4(color, ftfin);
+    gl_FragColor = vec4(vec3(color), inte * ft1);
 }

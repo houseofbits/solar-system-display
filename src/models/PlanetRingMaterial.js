@@ -1,35 +1,24 @@
 import * as BABYLON from 'babylonjs';
+import CustomMaterial from './CustomMaterial.js';
 import PlanetRingVertexShader from '../resources/shaders/ring.vertex.fx';
 import PlanetRingFragmentShader from '../resources/shaders/ring.fragment.fx';
 
 export default 
-class PlanetRingMaterial {
+class PlanetRingMaterial extends CustomMaterial {
     constructor(scene, name) {
+        super(scene, name);
 
-        this.scene = scene;
+        this.loadShaderData("ring", PlanetRingVertexShader, PlanetRingFragmentShader);
 
-        if(typeof BABYLON.Effect.ShadersStore["ringVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["ringVertexShader"] = PlanetRingVertexShader;
-        if(typeof BABYLON.Effect.ShadersStore["ringFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["ringFragmentShader"] = PlanetRingFragmentShader;
-
-        this.shaderMaterial = new BABYLON.ShaderMaterial(name+"RingShader", this.scene, 
-            { vertex: "ring",fragment: "ring" },            
+        this.shaderMaterial = new BABYLON.ShaderMaterial(name + this.getShaderName(), this.scene, 
+            { vertex: this.getShaderName(),fragment: this.getShaderName() },            
             {   
                 needAlphaBlending: true,
                 attributes: ["position", "normal", "uv"],
                 uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
             });
 
-        this.shaderMaterial.setVector3("sunPosition", new BABYLON.Vector3(0,0,0)); 
-
-
+        this.setSunPosition(new BABYLON.Vector3(0,0,0));  
+        this.setCameraPosition(this.scene.activeCamera.position);
     }
-    setObjectPosition(pos){
-        this.shaderMaterial.setVector3("objectPosition", pos);
-    }  
-    setDiffuseMap(map){
-        this.shaderMaterial.setTexture("diffuseMap", new BABYLON.Texture(map, this.scene));       
-    }   
-    setCameraPosition(pos){
-        this.shaderMaterial.setVector3("cameraPosition", pos);
-    }     
 }
