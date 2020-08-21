@@ -52,6 +52,7 @@ class SunModel extends PlanetModel{
         this.shaderRaysMaterial.setTexture("diffuseMap", new BABYLON.Texture(SunMap, this.scene));
         this.shaderRaysMaterial.setTexture("diffuseMap2", new BABYLON.Texture(SunMapTile, this.scene));
         this.shaderRaysMaterial.setTexture("diffuseMap3", new BABYLON.Texture(SunMapTile2, this.scene));
+        
         this.shaderRaysMaterial.setVector3("cameraPosition", this.scene.activeCamera.position);        
         this.shaderRaysMaterial.setVector2("animation", this.animation);
 
@@ -71,6 +72,7 @@ class SunModel extends PlanetModel{
         this.centerNode.rotate(this.rotationAxis, dt * 0.05, BABYLON.Space.LOCAL);
         this.animation.x += anim;
         this.animation.y += anim;
+        this.shaderRaysMaterial.setTexture("depthMap", this.scene._depthTexture);
     }
     setSimplifiedShader(set){
 

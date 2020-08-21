@@ -5,10 +5,11 @@ precision highp float;
 
 // Varying
 varying vec3 vPosition;
-varying vec3 vPositionW;
+varying vec4 vPositionW;
 varying vec3 vNormal;
 varying vec3 vNormalW;
 varying vec2 vUV;
+varying vec4 vUV2;
 varying vec4 vColor;
 
 // Uniforms
@@ -20,6 +21,7 @@ uniform vec3 cameraPosition;
 uniform sampler2D diffuseMap;
 uniform sampler2D diffuseMap2;
 uniform sampler2D diffuseMap3;
+uniform sampler2D depthMap;
 
 uniform vec2 animation;
 
@@ -69,7 +71,7 @@ void main(void) {
     vec3 map21 = texture2D(diffuseMap2, uv2 * 6.).xyz;
     vec3 map3 = texture2D(diffuseMap3, (uv3 * 6.)).xyz;
 
-    vec3 viewDirectionW = normalize(cameraPosition - vPositionW);
+    vec3 viewDirectionW = normalize(cameraPosition - vPositionW.xyz);
     float fresnelTerm = dot(viewDirectionW, vNormalW);
     float fresnelTermPow = pow(clamp(1.0 - fresnelTerm, 0., 1.), 2.);
     float fresnelTermPow2 = pow(clamp(1.0 - fresnelTerm, 0., 1.), 1.);
@@ -86,10 +88,29 @@ void main(void) {
         float alphaMap = (map.x + map.y + map.z) * 0.33;
         alpha = decay * pow(alphaMap, 2.);
         float glow = fresnelTermPow3 * exponentialEasing(vColor.a, 0.99);
-        gl_FragColor = vec4(vec3(color), glow+alpha);
+
+        //Current depth of fragment
+        float currD = (1./gl_FragCoord.w) / 9999.;
+        
+        //Scene depth
+        vec3 projCoords = (vUV2.xyz / vUV2.w)*0.5+0.5;
+        vec4 depthm = texture2D(depthMap, projCoords.xy);
+        
+        //Compute intersection fade val
+        float val = clamp(abs(float(depthm.r - currD)) * 1000., 0.0, 1.0);
+
+        //Fade geometry near camera clipping plane
+        float distance = length(cameraPosition - vPositionW.xyz);
+        float opacity = clamp(distance / 5., 0., 1.);
+
+        val = val * opacity;
+
+        gl_FragColor = vec4(vec3(color), val * (glow+alpha));
+
         return;
 
     #endif
+  
 
     gl_FragColor = vec4(vec3(color), alpha);
 }

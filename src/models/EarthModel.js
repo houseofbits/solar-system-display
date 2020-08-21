@@ -35,12 +35,18 @@ class EarthModel extends PlanetModel{
         this.rotationAxis.normalize();
 
         this.animatedCameraAngles.push(-30);
-        this.animatedCameraAngles.push(35);        
+        this.animatedCameraAngles.push(35);     
+        
+        
+
+
+
+
     }
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);
 
-        this.atmosphereMesh.position.x = distance;        
+        this.atmosphereMesh.position.x = distance;          
         this.atmosphereMesh.position.y = 0;        
         this.atmosphereMesh.position.z = 0;        
     }      
@@ -50,7 +56,6 @@ class EarthModel extends PlanetModel{
     }
     setVisible(visibility){
         super.setVisible(visibility);
-        //this.atmosphereMesh.visibility = visibility;
     }
 
   }

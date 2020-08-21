@@ -7,8 +7,8 @@ class PlanetModel{
         this.scene = scene;
         this.size = size;
         this.defaultCameraAngle = 20;        
-        this.animatedCameraAngles = [];  
-        this.transitionSpeed = 5.0;      
+        this.animatedCameraAngles = []; 
+        this.transitionSpeed = 5.0;    
     }
     createPlanetNode(){
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
@@ -30,8 +30,19 @@ class PlanetModel{
     setOrbitDistance(distance){
         this.sphere.position.x = distance;
         this.sphere.position.y = 0;
-        this.sphere.position.z = 0;
-    }      
+        this.sphere.position.z = 0;    
+        
+        this.createOrbitLine(distance);
+    }    
+    setOrbitLineVisible(val){
+        if(typeof this.orbitMesh != 'undefined')this.orbitMesh.visibility = val;
+    }
+    createOrbitLine(distance){
+        this.orbitMesh = BABYLON.Mesh.CreateTorus(this.name + "OrbitMesh", distance*2, 1.0, 100, this.scene, false, BABYLON.Mesh.FRONTSIDE);
+        this.orbitMesh.material = new BABYLON.StandardMaterial("OrbitMaterial", this.scene);
+        this.orbitMesh.material.emissiveColor = new BABYLON.Vector3(1,1,1);        
+        this.orbitMesh.material.alpha = 0.2;  
+    }  
     createAtmosphericMesh(size, thickness){
         this.atmosphereMesh = BABYLON.Mesh.CreateSphere(this.name + "Sphere2", 26, size * thickness, this.scene, false, BABYLON.Mesh.BACKSIDE);   
         this.atmosphereMesh.parent = this.centerNode;     

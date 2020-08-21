@@ -29,7 +29,7 @@ class SolarSystemModel {
         
         arcCamera.setPosition(new BABYLON.Vector3(280,138,-168));
         arcCamera.target = new BABYLON.Vector3(735,-353,332);          
-        arcCamera.fov = 50. * (Math.PI/180.);
+        arcCamera.fov = 53. * (Math.PI/180.);
 
         //arcCamera.attachControl(this.canvas, false); 
 
@@ -95,6 +95,22 @@ class SolarSystemModel {
         
         this.divFps = document.getElementById("fps");
         this.deltaTime = 0.0;
+
+        this.scene._depthTexture = this.scene.enableDepthRenderer().getDepthMap();//.getInternalTexture();
+
+        var parentr = this.scene;
+
+        // BABYLON.Effect.ShadersStore['depthbufferPixelShader'] =
+        // "#ifdef GL_ES\nprecision highp float;\n#endif\n\nvarying vec2 vUV;\nuniform sampler2D textureSampler;\n\nvoid main(void)\n{\nvec4 depth = texture2D(textureSampler, vUV);\ngl_FragColor = vec4(depth.r, depth.r, depth.r, 1.0);\n}";
+    
+        // var post_process = new BABYLON.PostProcess('depth_display', 'depthbuffer', null, null, 1.0, null, null, this.engine, true);
+        // //post_process.activate(camera, depth_renderer.getDepthMap());
+        // post_process.onApply = function(effect) {
+        //     effect._bindTexture("textureSampler", parentr._depthTexture);
+        // }
+        
+        // arcCamera.attachPostProcess(post_process);
+        
     }
 
     renderLoop(){
@@ -177,11 +193,19 @@ class SolarSystemModel {
             this.cameraTargetTarget = cameraConf.target;
             this.cameraFovDegTarget = cameraConf.fovDeg;
 
+            for (const key of Object.keys(this.models)) {
+                this.models[key].setOrbitLineVisible(false);
+            }             
+
         }else{
             this.selectedPlanet = null;
             this.cameraPositionTarget = new BABYLON.Vector3(280,138,-168);
             this.cameraTargetTarget = new BABYLON.Vector3(735,-353,332);
-            this.cameraFovDegTarget = 50.;               
+            this.cameraFovDegTarget = 53.;                  
+            
+            for (const key of Object.keys(this.models)) {
+                this.models[key].setOrbitLineVisible(true);
+            }                         
         }
         this.transitionSpeed = 350.0;
     }

@@ -30,6 +30,8 @@ class PlanetWithRingsModel extends PlanetModel{
         this.transformNode.position.x = distance;
         this.planetMaterial.setObjectPosition(this.transformNode.position);
         this.planetRingMaterial.setObjectPosition(this.transformNode.position);
+
+        this.createOrbitLine(distance);
     }     
     initRingRTT(ringsMap){
 
