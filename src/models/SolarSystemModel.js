@@ -28,10 +28,10 @@ class SolarSystemModel {
         // arcCamera.fov = 50. * (Math.PI/180.);   //Radians
         
         arcCamera.setPosition(new BABYLON.Vector3(280,138,-168));
-        arcCamera.target = new BABYLON.Vector3(714,-353,332);          
+        arcCamera.target = new BABYLON.Vector3(735,-353,332);          
         arcCamera.fov = 50. * (Math.PI/180.);
 
-        arcCamera.attachControl(this.canvas, false); 
+        //arcCamera.attachControl(this.canvas, false); 
 
         this.cameraTargetTarget = arcCamera.target.clone();
         this.cameraPositionTarget = arcCamera.position.clone();
@@ -49,15 +49,15 @@ class SolarSystemModel {
         this.models.mercuryModel.setAngle(4.0);
         
         this.models.venusModel = new VenusModel(this.engine, this.scene, this.canvas, 26);
-        this.models.venusModel.setOrbitDistance(324);
+        this.models.venusModel.setOrbitDistance(316);
         this.models.venusModel.setAngle(0.0);
 
         this.models.earthModel = new EarthModel(this.engine, this.scene, this.canvas, 39);
-        this.models.earthModel.setOrbitDistance(367);
+        this.models.earthModel.setOrbitDistance(360);
         this.models.earthModel.setAngle(-3.0);
 
         this.models.marsModel = new MarsModel(this.engine, this.scene, this.canvas, 27);
-        this.models.marsModel.setOrbitDistance(410);
+        this.models.marsModel.setOrbitDistance(405);
         this.models.marsModel.setAngle(-4.0);
 
         this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 450, 30);
@@ -84,6 +84,10 @@ class SolarSystemModel {
         
         this.models.asteroidBelt2 = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 900, 100);
 
+        this.selectedPlanet = null;
+
+        this.transitionSpeed = 350.0;
+
         let self = this;
         this.engine.runRenderLoop(function(){
             self.renderLoop();
@@ -95,17 +99,6 @@ class SolarSystemModel {
 
     renderLoop(){
         
-        // for (const key of Object.keys(this.models)) {
-        //     this.models[key].setVisible(false);
-        //     this.models[key].setRingsVisible(false);
-        // } 
-        // //this.models.sunModel.setVisible(true);
-        // this.models.saturnModel.setVisible(true);
-        // this.models.saturnModel.setRingsVisible(true);
-
-
-
-
         if(typeof this.divFps.innerHTML != 'undefined')this.divFps.innerHTML = this.engine.getFps().toFixed() + " fps";
 
         this.deltaTime = this.engine.getDeltaTime() / 1000.0;
@@ -123,7 +116,7 @@ class SolarSystemModel {
 
     updateCamera(){
 
-        let velocity = this.deltaTime * 350.0;
+        let velocity = this.deltaTime * this.transitionSpeed;
 
         let cameraFovDeg = this.scene.activeCamera.fov * (180/Math.PI);
 
@@ -136,6 +129,8 @@ class SolarSystemModel {
 
         let stepsCount = Math.ceil(Math.max(posl, targetl, Math.abs(fovv)) / velocity);
         
+        let transtitionActive = false;
+
         if(posl > 1.0){
             posv.normalize();
             let posStep = posl / stepsCount;
@@ -143,6 +138,7 @@ class SolarSystemModel {
             let pos2 = this.scene.activeCamera.position.clone();
             pos2.addInPlace(posv);
             this.scene.activeCamera.setPosition(pos2);
+            transtitionActive = true;
         }
 
         if(targetl > 1.0){
@@ -152,45 +148,42 @@ class SolarSystemModel {
             let pos = this.scene.activeCamera.target.clone();
             pos.addInPlace(targetv);
             this.scene.activeCamera.target = pos;
+            transtitionActive = true;
         }
         if(Math.abs(fovv) > 0.5){
             let fovStep = fovv / stepsCount;
             let resultfov = cameraFovDeg + fovStep;
             this.scene.activeCamera.fov = resultfov * (Math.PI/180.);
+            transtitionActive = true;
         }
+
+        if(!transtitionActive && this.selectedPlanet){
+            let cameraConf = this.selectedPlanet.getCameraConfiguration(false);
+            this.cameraPositionTarget = cameraConf.position;
+            this.cameraTargetTarget = cameraConf.target;
+            this.cameraFovDegTarget = cameraConf.fovDeg;
+            this.transitionSpeed = this.selectedPlanet.transitionSpeed;
+        }
+
         this.scene.activeCamera.update();
     }
 
     action(planetName){
         let model = this.getPlanetModel(planetName);
         if(model){
-            // for (const key of Object.keys(this.models)) {
-            //     this.models[key].setVisible(false);
-            // }      
-            // model.setVisible(true);
-            // this.models.sunModel.setVisible(true);
-            // this.models.spaceModel.setVisible(true);
-            
-            //model.focusCameraOnPlanet();    
-
-            let cameraConf = model.getCameraConfiguration();
+            this.selectedPlanet = model;
+            let cameraConf = model.getCameraConfiguration(true);
             this.cameraPositionTarget = cameraConf.position;
             this.cameraTargetTarget = cameraConf.target;
-            this.cameraFovDegTarget = cameraConf.fovDeg;    
+            this.cameraFovDegTarget = cameraConf.fovDeg;
 
         }else{
-            // for (const key of Object.keys(this.models)) {
-            //     this.models[key].setVisible(true);
-            // }       
-            
-            // this.scene.activeCamera.setPosition(new BABYLON.Vector3(280,138,-168));
-            // this.scene.activeCamera.target = new BABYLON.Vector3(714,-353,332);          
-            // this.scene.activeCamera.fov = 50. * (Math.PI/180.); 
-            
+            this.selectedPlanet = null;
             this.cameraPositionTarget = new BABYLON.Vector3(280,138,-168);
-            this.cameraTargetTarget = new BABYLON.Vector3(714,-353,332);
+            this.cameraTargetTarget = new BABYLON.Vector3(735,-353,332);
             this.cameraFovDegTarget = 50.;               
         }
+        this.transitionSpeed = 350.0;
     }
 
     getPlanetModel(name){

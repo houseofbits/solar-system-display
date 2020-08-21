@@ -14,14 +14,15 @@ class Button extends React.Component {
 
         let buttonClass = Style.buttonOuter;
         let buttonInnerClass = Style.buttonInner + ' ' + Style[this.props.name];
-
+        let buttonTextClass = Style.buttonTextGradient;
         if(this.props.selectedDetail == this.props.name || (this.props.name == 'all' && this.props.selectedDetail == null)){
             buttonClass += ' ' + Style.selectedButton;
+            buttonTextClass = Style.buttonTextGradientSelected;
         }
 
         return <div className={buttonClass} onClick={this.click}>
                 <div className={buttonInnerClass}></div>
-                <span className={Style.buttonTextGradient}>{this.props.title}</span>
+                <span className={buttonTextClass}>{this.props.title}</span>
             </div>;
     }
 }

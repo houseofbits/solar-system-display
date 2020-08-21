@@ -13,6 +13,9 @@ class SunModel extends PlanetModel{
         super("sun", scene, size);
         
         this.defaultCameraAngle = -60.;
+        this.animatedCameraAngles.push(-70);
+        this.animatedCameraAngles.push(-50); 
+        this.transitionSpeed = 20.0;   
 
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
 

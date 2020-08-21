@@ -33,6 +33,9 @@ class EarthModel extends PlanetModel{
 
         this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
         this.rotationAxis.normalize();
+
+        this.animatedCameraAngles.push(-30);
+        this.animatedCameraAngles.push(35);        
     }
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);
@@ -42,6 +45,7 @@ class EarthModel extends PlanetModel{
         this.atmosphereMesh.position.z = 0;        
     }      
     update(dt){ 
+        super.update(dt);
         this.sphere.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);
     }
     setVisible(visibility){

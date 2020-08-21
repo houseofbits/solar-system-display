@@ -2,6 +2,7 @@
     display:block;
     position: absolute;
     background-color: rgba(50, 50, 50, 0.5);
+    background: linear-gradient(128deg, rgba(50,50,50,0.5) 0%, rgba(10,10,20,0.74) 40%, rgba(2,0,75,0.6) 100%);
     top:15px;
     bottom:140px;
     left:500px;
@@ -10,7 +11,6 @@
     border-top-left-radius: 0;
     opacity:0;
     visibility: hidden;
-    /*transition: opacity 500ms linear, visibility 500ms;*/
  }
  .detailsFrameVisible{
      opacity:1;

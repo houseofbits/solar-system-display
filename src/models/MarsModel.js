@@ -28,6 +28,10 @@ class MarsModel extends PlanetModel{
 
         this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
         this.rotationAxis.normalize();      
+
+        this.animatedCameraAngles.push(-30);
+        this.animatedCameraAngles.push(40);   
+        this.transitionSpeed = 1.0;          
     }  
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);

@@ -30,7 +30,11 @@ class VenusModel extends PlanetModel{
         this.atmosphereMesh.material = this.atmShaderMaterial.getMaterial();
 
         this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();        
+        this.rotationAxis.normalize();   
+        
+        this.animatedCameraAngles.push(-30);
+        this.animatedCameraAngles.push(35);   
+        this.transitionSpeed = 2.0;             
     }
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);

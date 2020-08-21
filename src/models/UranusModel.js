@@ -2,7 +2,7 @@ import * as BABYLON from 'babylonjs';
 import PlanetWithRingsModel from './PlanetWithRingsModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
 import PlanetDiffuse from '../resources/img/uranus/uranus_lo.jpg'
-import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
+import PlanetNormalmap from '../resources/img/uranus/NormalMap.png'
 import RingsMap from '../resources/img/saturn_ring_alpha.png';
 
 export default
@@ -30,6 +30,10 @@ class UranusModel extends PlanetWithRingsModel{
         this.transformNode.parent = this.centerNode;  
         
         this.initRingRTT(RingsMap); 
+
+        this.animatedCameraAngles.push(0);
+        this.animatedCameraAngles.push(-20);   
+        this.transitionSpeed = 3.0;           
     }    
     update(dt){
        this.transformNode.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);  

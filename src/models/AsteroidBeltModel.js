@@ -50,7 +50,7 @@ class AsteroidBeltModel extends PlanetModel{
 
                 pos.normalize();
                 pos.scaleInPlace(orbit + zvar);
-                pos.y = 10.0 - (Math.random() * 20.0);
+                pos.y = -10 - (Math.random() * 20.0);
 
                 newInstance.scaling = new BABYLON.Vector3(scale, scale, scale);
                 newInstance.rotation.x = Math.random() * Math.PI;

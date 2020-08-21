@@ -6,7 +6,9 @@ class PlanetModel{
         this.name = name;
         this.scene = scene;
         this.size = size;
-        this.defaultCameraAngle = 20;
+        this.defaultCameraAngle = 20;        
+        this.animatedCameraAngles = [];  
+        this.transitionSpeed = 5.0;      
     }
     createPlanetNode(){
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
@@ -42,14 +44,18 @@ class PlanetModel{
         let global_position = BABYLON.Vector3.TransformCoordinates(this.getPosition(), worldMatrix);
         return global_position;
     }
-    getCameraConfiguration(){
+    getCameraConfiguration(getDefault){
+        let cameraAngle = this.defaultCameraAngle;
 
+        if(!getDefault && this.animatedCameraAngles.length > 0){
+            let index = Math.floor(Math.random() * (this.animatedCameraAngles.length + 1));
+            if(typeof this.animatedCameraAngles[index] != 'undefined')cameraAngle = this.animatedCameraAngles[index];
+        }
         let fov = 60.;
-        let angle = this.defaultCameraAngle;
 
-        let target = new BABYLON.Vector3(this.size * 0.5, 0., 0);
+        let target = new BABYLON.Vector3(this.size * 0.6, -(this.size * 0.15), 0);
 
-        let matrix = BABYLON.Matrix.RotationAxis(BABYLON.Axis.Y, angle * (Math.PI/180.));
+        let matrix = BABYLON.Matrix.RotationAxis(BABYLON.Axis.Y, cameraAngle * (Math.PI/180.));
         let v2 = BABYLON.Vector3.TransformCoordinates(target, matrix);
 
         let vd = v2.cross(BABYLON.Axis.Y);
@@ -58,7 +64,7 @@ class PlanetModel{
         
         let dst = this.size * Math.tan((fov * 0.5) * (Math.PI/180.));
 
-        vd.scaleInPlace(dst * 2.4);
+        vd.scaleInPlace(dst * 2.6);
         vd.y += (dst * 0.2);
 
         let worldMatrix = this.centerNode.getWorldMatrix();
@@ -73,7 +79,26 @@ class PlanetModel{
             fovDeg: 60.
         };
     }
-
+    update(dt){
+        // if(this.animateDetailView){
+        //     let add = 0.0;
+        //     if(this.cameraAnimationDirection){
+        //         if(this.animatedCameraAngle < this.minCameraAngle){
+        //             this.cameraAnimationDirection = !this.cameraAnimationDirection;
+        //         }
+        //         add = dt * -10;
+        //     }else{
+        //         if(this.animatedCameraAngle > this.maxCameraAngle){
+        //             this.cameraAnimationDirection = !this.cameraAnimationDirection;
+        //         }
+        //         add = dt * 10;
+        //     }
+        //     this.animatedCameraAngle += add;
+        // }else{
+        //     this.animatedCameraAngle = this.defaultCameraAngle;
+        // }
+        //console.log(this.animatedCameraAngle);
+    }
     setVisible(visibility){
         this.sphere.visibility = visibility;
     }
