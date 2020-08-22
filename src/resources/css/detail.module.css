@@ -1,3 +1,9 @@
+@font-face {
+    font-family: 'planetSymbols';
+    src: url('../fonts/symbols.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 .detailsFrame{
     display:block;
     position: absolute;
@@ -37,6 +43,15 @@
      vertical-align: middle;
      text-align: center;     
  }
+.detailSymbol:before{
+	display: inline-block;
+   font-family: 'planetSymbols';
+   font-style: normal;
+   font-weight: normal;
+   line-height: 1;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale
+}
  .symbolFrame{
     display:block;
     position: absolute;
@@ -120,3 +135,12 @@
 .detailsList li span sup{
     font-size: 13px;
 }
+.icon-sun:before{content:'\0041';}
+.icon-mercury:before{content:'\0042';}
+.icon-venus:before{content:'\0043';}
+.icon-earth:before{content:'\0044';}
+.icon-mars:before{content:'\0045';}
+.icon-jupiter:before{content:'\0046';}
+.icon-saturn:before{content:'\0047';}
+.icon-uranus:before{content:'\0048';}
+.icon-neptune:before{content:'\0049';}

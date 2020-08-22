@@ -1,6 +1,5 @@
 import React from 'react';
 import Style from '../resources/css/detail.module.css';
-import '../resources/css/symbols.css';
 
 export default
 class Details extends React.Component {
@@ -18,7 +17,7 @@ class Details extends React.Component {
             detailsClass += ' ' + Style.detailsFrameVisible;
         }
 
-        let planetIcon = [Style.iconGradient, Style.detailSymbol, " icon-" + this.props.selectedDetail].join(' ');
+        let planetIcon = [Style.iconGradient, Style.detailSymbol, Style["icon-" + this.props.selectedDetail]].join(' ');
 
         let distanceItem = null;
         if(planetText.distance){

@@ -38,7 +38,7 @@ npm run build
 docker-compose up -d
 ```
 
-4) Enjoy some of the finest planets found in our solar system:  http://docker.local:81/
+4) Enjoy some of the finest planets found in our galaxy:  http://docker.local:81/
 
 **Dependencies**
 - Babylon.js
@@ -49,16 +49,3 @@ docker-compose up -d
 Krists Pudzens©2020
 
 kpudzens@gmail.com
-
-
-**TODO:**
-
-* [x] Planet rings shadows
-* [x] Atmosphere shader
-* [ ] Planet rotation axis and relative speeds
-* [x] Animated asteroids
-* [ ] Symbol font loading issue
-* [x] Texturing for rest of unfinished planets
-
-Quick normal map tool: [https://cpetry.github.io/NormalMap-Online/](https://cpetry.github.io/NormalMap-Online/)
-
