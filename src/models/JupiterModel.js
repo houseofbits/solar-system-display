@@ -3,7 +3,8 @@ import PlanetWithRingsModel from './PlanetWithRingsModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
 import PlanetDiffuse from '../resources/img/jupiter/jupiter_lo.jpg'
 import PlanetNormalmap from '../resources/img/jupiter/NormalMap.png'
-import RingsMap from '../resources/img/saturn_ring_alpha.png';
+import RingsMap from '../resources/img/jupiter/ring.png';
+import PlanetSpecular from '../resources/img/jupiter/jupiter_specular.jpg'
 
 export default
 class JupiterModel extends PlanetWithRingsModel{
@@ -11,10 +12,11 @@ class JupiterModel extends PlanetWithRingsModel{
         super(engine, scene, canvas, size, "jupiter");
 
         this.createPlanetNode();
-        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {shadowMapEnable:1}));
+        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {shadowMapEnable:1, specularMapEnable:1}));
         this.planetMaterial.setDiffuseMap(PlanetDiffuse);
         this.planetMaterial.setNormalMap(PlanetNormalmap);
-        this.planetMaterial.setSpecular(0.1, 1.0);
+        this.planetMaterial.setSpecularMap(PlanetSpecular);
+        this.planetMaterial.setSpecular(0.8, 8.0);
         this.planetMaterial.setLightBleedPow(5.0);
         this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 1.0), new BABYLON.Vector3(0.9, 0.6, 0.8), 4.0);   
         

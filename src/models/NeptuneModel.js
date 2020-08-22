@@ -3,7 +3,8 @@ import PlanetWithRingsModel from './PlanetWithRingsModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
 import PlanetDiffuse from '../resources/img/neptune/neptune_lo.jpg'
 import PlanetNormalmap from '../resources/img/neptune/NormalMap.png'
-import RingsMap from '../resources/img/saturn_ring_alpha.png';
+import RingsMap from '../resources/img/neptune/rings.png';
+import PlanetSpecular from '../resources/img/neptune/neptune_specular.jpg'
 
 export default
 class NeptuneModel extends PlanetWithRingsModel{
@@ -11,12 +12,13 @@ class NeptuneModel extends PlanetWithRingsModel{
         super(engine, scene, canvas, size, "neptune");
 
         this.createPlanetNode();
-        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {shadowMapEnable:1}));
+        this.setPlanetMaterial(new PlanetMaterial(this.scene, this.name, {shadowMapEnable:1, specularMapEnable:1}));
         this.planetMaterial.setDiffuseMap(PlanetDiffuse);
         this.planetMaterial.setNormalMap(PlanetNormalmap);
-        this.planetMaterial.setSpecular(0.1, 1.0);
+        this.planetMaterial.setSpecularMap(PlanetSpecular);
+        this.planetMaterial.setSpecular(0.6, 1.0);
         this.planetMaterial.setLightBleedPow(5.0);
-        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.0), 8.0);   
+        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.7, 0.6, 1.0), 2.0);   
         
         this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
         this.rotationAxis.normalize();         

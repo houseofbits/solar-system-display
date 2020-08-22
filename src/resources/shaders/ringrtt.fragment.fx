@@ -23,5 +23,5 @@ void main(void) {
     vec4 map = texture2D(diffuseMap, vUV); 
     float val = (map.x + map.y + map.z) * 0.333;
     vec3 color = mix(vec3(val), vec3(1.), 1. - map.w);
-    gl_FragColor = vec4(color, map.w);
+    gl_FragColor = vec4(vec3(color*color*color), map.w);
 }
