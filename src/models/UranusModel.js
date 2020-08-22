@@ -31,7 +31,7 @@ class UranusModel extends PlanetWithRingsModel{
         this.initRingRTT(RingsMap); 
 
         this.animatedCameraAngles.push(0);
-        this.animatedCameraAngles.push(-20);   
+        this.animatedCameraAngles.push(-25);   
         this.transitionSpeed = 3.0;       
         
         this.setInclination(97.0);

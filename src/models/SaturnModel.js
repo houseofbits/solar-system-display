@@ -30,6 +30,10 @@ class SaturnModel extends PlanetWithRingsModel{
 
         this.initRingRTT(RingsMap);  
         
+        this.animatedCameraAngles.push(0);
+        this.animatedCameraAngles.push(-20);   
+        this.transitionSpeed = 5.0;  
+
         this.setInclination(26.0);
         this.planetRotationSpeed = 0.6;           
     }   

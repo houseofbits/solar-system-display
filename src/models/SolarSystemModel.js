@@ -171,9 +171,11 @@ class SolarSystemModel {
             this.transitionSpeed = this.selectedPlanet.transitionSpeed;
         }
 
-        if(Math.abs(this.helpersOpacityCurrent - this.helpersOpacityTarget) > 0.1){
+        if(Math.abs(this.helpersOpacityCurrent - this.helpersOpacityTarget) > 0.0){
             let diff = this.helpersOpacityTarget - this.helpersOpacityCurrent;
-            this.helpersOpacityCurrent += (this.deltaTime * diff * 2.0);
+            let step = this.deltaTime * diff * 2.0;
+            if(Math.abs(diff) < Math.abs(step))step = diff;
+            this.helpersOpacityCurrent += step;
         }
 
         for (const key of Object.keys(this.models)) {
