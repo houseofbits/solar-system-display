@@ -36,6 +36,8 @@ class SolarSystemModel {
         this.cameraTargetTarget = arcCamera.target.clone();
         this.cameraPositionTarget = arcCamera.position.clone();
         this.cameraFovDegTarget = arcCamera.fov * (180/Math.PI);
+        this.helpersOpacityTarget = 1.0;
+        this.helpersOpacityCurrent = 1.0;
 
         this.models = {};
 
@@ -98,24 +100,12 @@ class SolarSystemModel {
 
         this.scene._depthTexture = this.scene.enableDepthRenderer().getDepthMap();//.getInternalTexture();
 
-        var parentr = this.scene;
-
-        // BABYLON.Effect.ShadersStore['depthbufferPixelShader'] =
-        // "#ifdef GL_ES\nprecision highp float;\n#endif\n\nvarying vec2 vUV;\nuniform sampler2D textureSampler;\n\nvoid main(void)\n{\nvec4 depth = texture2D(textureSampler, vUV);\ngl_FragColor = vec4(depth.r, depth.r, depth.r, 1.0);\n}";
-    
-        // var post_process = new BABYLON.PostProcess('depth_display', 'depthbuffer', null, null, 1.0, null, null, this.engine, true);
-        // //post_process.activate(camera, depth_renderer.getDepthMap());
-        // post_process.onApply = function(effect) {
-        //     effect._bindTexture("textureSampler", parentr._depthTexture);
-        // }
-        
-        // arcCamera.attachPostProcess(post_process);
-        
+        var parentr = this.scene;        
     }
 
     renderLoop(){
         
-        if(typeof this.divFps.innerHTML != 'undefined')this.divFps.innerHTML = this.engine.getFps().toFixed() + " fps";
+        //if(typeof this.divFps.innerHTML != 'undefined')this.divFps.innerHTML = this.engine.getFps().toFixed() + " fps";
 
         this.deltaTime = this.engine.getDeltaTime() / 1000.0;
 
@@ -181,6 +171,15 @@ class SolarSystemModel {
             this.transitionSpeed = this.selectedPlanet.transitionSpeed;
         }
 
+        if(Math.abs(this.helpersOpacityCurrent - this.helpersOpacityTarget) > 0.1){
+            let diff = this.helpersOpacityTarget - this.helpersOpacityCurrent;
+            this.helpersOpacityCurrent += (this.deltaTime * diff * 2.0);
+        }
+
+        for (const key of Object.keys(this.models)) {
+            this.models[key].setOrbitLineOpacity(this.helpersOpacityCurrent);
+        }  
+
         this.scene.activeCamera.update();
     }
 
@@ -192,20 +191,13 @@ class SolarSystemModel {
             this.cameraPositionTarget = cameraConf.position;
             this.cameraTargetTarget = cameraConf.target;
             this.cameraFovDegTarget = cameraConf.fovDeg;
-
-            for (const key of Object.keys(this.models)) {
-                this.models[key].setOrbitLineVisible(false);
-            }             
-
+            this.helpersOpacityTarget = 0.0;
         }else{
             this.selectedPlanet = null;
             this.cameraPositionTarget = new BABYLON.Vector3(280,138,-168);
             this.cameraTargetTarget = new BABYLON.Vector3(735,-353,332);
             this.cameraFovDegTarget = 53.;                  
-            
-            for (const key of Object.keys(this.models)) {
-                this.models[key].setOrbitLineVisible(true);
-            }                         
+            this.helpersOpacityTarget = 1.0;
         }
         this.transitionSpeed = 350.0;
     }

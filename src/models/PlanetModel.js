@@ -9,16 +9,21 @@ class PlanetModel{
         this.defaultCameraAngle = 20;        
         this.animatedCameraAngles = []; 
         this.transitionSpeed = 5.0;    
+        this.rotationAxis = null;
+        this.planetRotationSpeed = 0.1;
     }
     createPlanetNode(){
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
         this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 36, this.size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.sphere.parent = this.centerNode;
-        this.sphere.rotation.z = Math.PI;
     }
     setAngle(angle){
         this.centerNode.rotation.y = angle * (Math.PI/180.);
-    }      
+    }     
+    setInclination(angle){
+        this.sphere.rotation.z = Math.PI - (-angle * (Math.PI/180.));
+        this.rotationAxis = BABYLON.Axis.Y; 
+    } 
     getCenterNode(){
         return this.centerNode;
     }
@@ -35,8 +40,15 @@ class PlanetModel{
         this.createOrbitLine(distance);
     }    
     setOrbitLineVisible(val){
-        if(typeof this.orbitMesh != 'undefined')this.orbitMesh.visibility = val;
+        if(typeof this.orbitMesh != 'undefined'){
+            this.orbitMesh.visibility = val;
+        }
     }
+    setOrbitLineOpacity(val){
+        if(typeof this.orbitMesh != 'undefined'){
+            this.orbitMesh.material.alpha = val * 0.2;
+        }
+    }    
     createOrbitLine(distance){
         this.orbitMesh = BABYLON.Mesh.CreateTorus(this.name + "OrbitMesh", distance*2, 1.0, 100, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.orbitMesh.material = new BABYLON.StandardMaterial("OrbitMaterial", this.scene);
@@ -64,7 +76,7 @@ class PlanetModel{
         }
         let fov = 60.;
 
-        let target = new BABYLON.Vector3(this.size * 0.6, -(this.size * 0.15), 0);
+        let target = new BABYLON.Vector3(this.size * 0.7, -(this.size * 0.15), 0);
 
         let matrix = BABYLON.Matrix.RotationAxis(BABYLON.Axis.Y, cameraAngle * (Math.PI/180.));
         let v2 = BABYLON.Vector3.TransformCoordinates(target, matrix);
@@ -75,7 +87,7 @@ class PlanetModel{
         
         let dst = this.size * Math.tan((fov * 0.5) * (Math.PI/180.));
 
-        vd.scaleInPlace(dst * 2.6);
+        vd.scaleInPlace(dst * 2.9);
         vd.y += (dst * 0.2);
 
         let worldMatrix = this.centerNode.getWorldMatrix();
@@ -91,24 +103,7 @@ class PlanetModel{
         };
     }
     update(dt){
-        // if(this.animateDetailView){
-        //     let add = 0.0;
-        //     if(this.cameraAnimationDirection){
-        //         if(this.animatedCameraAngle < this.minCameraAngle){
-        //             this.cameraAnimationDirection = !this.cameraAnimationDirection;
-        //         }
-        //         add = dt * -10;
-        //     }else{
-        //         if(this.animatedCameraAngle > this.maxCameraAngle){
-        //             this.cameraAnimationDirection = !this.cameraAnimationDirection;
-        //         }
-        //         add = dt * 10;
-        //     }
-        //     this.animatedCameraAngle += add;
-        // }else{
-        //     this.animatedCameraAngle = this.defaultCameraAngle;
-        // }
-        //console.log(this.animatedCameraAngle);
+        if(this.rotationAxis)this.sphere.rotate(this.rotationAxis,  dt * this.planetRotationSpeed, BABYLON.Space.LOCAL);
     }
     setVisible(visibility){
         this.sphere.visibility = visibility;

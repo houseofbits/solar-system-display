@@ -26,8 +26,8 @@ class MarsModel extends PlanetModel{
         this.atmShaderMaterial.setDensity(0.4);
         this.atmosphereMesh.material = this.atmShaderMaterial.getMaterial();
 
-        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();      
+        this.setInclination(25.0);
+        this.planetRotationSpeed = 0.3;
 
         this.animatedCameraAngles.push(-30);
         this.animatedCameraAngles.push(40);   
@@ -41,7 +41,7 @@ class MarsModel extends PlanetModel{
         this.atmosphereMesh.position.z = 0;        
     }          
     update(dt){
-        this.sphere.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);
+        super.update(dt);
     }
   }
 

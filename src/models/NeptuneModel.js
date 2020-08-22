@@ -18,10 +18,7 @@ class NeptuneModel extends PlanetWithRingsModel{
         this.planetMaterial.setSpecularMap(PlanetSpecular);
         this.planetMaterial.setSpecular(0.6, 1.0);
         this.planetMaterial.setLightBleedPow(5.0);
-        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.7, 0.6, 1.0), 2.0);   
-        
-        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();         
+        this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.7, 0.6, 1.0), 2.0);         
 
         this.createRingsNode(1.3, 18, RingsMap);
 
@@ -35,10 +32,13 @@ class NeptuneModel extends PlanetWithRingsModel{
 
         this.animatedCameraAngles.push(0);
         this.animatedCameraAngles.push(-20);   
-        this.transitionSpeed = 3.0;           
+        this.transitionSpeed = 3.0;   
+        
+        this.setInclination(28.0);
+        this.planetRotationSpeed = 0.4;           
     }   
     update(dt){
-       this.transformNode.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);  
+       super.update(dt);
     }
   }
 

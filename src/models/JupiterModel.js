@@ -19,9 +19,6 @@ class JupiterModel extends PlanetWithRingsModel{
         this.planetMaterial.setSpecular(0.8, 8.0);
         this.planetMaterial.setLightBleedPow(5.0);
         this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 1.0), new BABYLON.Vector3(0.9, 0.6, 0.8), 4.0);   
-        
-        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();
 
         this.createRingsNode(1.5, 6, RingsMap);
 
@@ -35,10 +32,13 @@ class JupiterModel extends PlanetWithRingsModel{
 
         this.animatedCameraAngles.push(0);
         this.animatedCameraAngles.push(-20);   
-        this.transitionSpeed = 5.0;          
+        this.transitionSpeed = 5.0;  
+        
+        this.setInclination(3.0);
+        this.planetRotationSpeed = 0.6;          
     }      
     update(dt){
-       this.transformNode.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);  
+        super.update(dt);
     }
   }
 

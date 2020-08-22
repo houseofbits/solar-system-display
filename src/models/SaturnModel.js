@@ -19,10 +19,7 @@ class SaturnModel extends PlanetWithRingsModel{
         this.planetMaterial.setSpecular(0.6, 6.0);
         this.planetMaterial.setLightBleedPow(5.0);
         this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.0), 4.0);   
-        
-        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();      
-
+           
         this.createRingsNode(1.2, 18, RingsMap);
 
         this.transformNode = new BABYLON.TransformNode(this.name + "PlanetTs"); 
@@ -31,10 +28,13 @@ class SaturnModel extends PlanetWithRingsModel{
 
         this.transformNode.parent = this.centerNode;
 
-        this.initRingRTT(RingsMap);     
+        this.initRingRTT(RingsMap);  
+        
+        this.setInclination(26.0);
+        this.planetRotationSpeed = 0.6;           
     }   
     update(dt){
-       this.transformNode.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);  
+       super.update(dt);
     }
   }
 

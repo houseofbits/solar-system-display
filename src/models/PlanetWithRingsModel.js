@@ -23,6 +23,12 @@ class PlanetWithRingsModel extends PlanetModel{
     getPosition(){
         return this.transformNode.position;
     }    
+    setInclination(angle){
+        this.transformNode.rotation.z = Math.PI - (-angle * (Math.PI/180.));
+        //let matrix = BABYLON.Matrix.RotationAxis(BABYLON.Axis.Z, (angle * (Math.PI/180.)));        
+        this.rotationAxis = BABYLON.Axis.Y;         //BABYLON.Vector3.TransformCoordinates(BABYLON.Axis.Y, matrix);   
+        //this.rotationAxis.normalize();        
+    }     
     setRingsVisible(visibility){
         this.ringMesh.visibility = visibility;
     }      
@@ -33,6 +39,9 @@ class PlanetWithRingsModel extends PlanetModel{
 
         this.createOrbitLine(distance);
     }     
+    update(dt){
+        this.transformNode.rotate(this.rotationAxis,  dt * this.planetRotationSpeed, BABYLON.Space.LOCAL);
+    }    
     initRingRTT(ringsMap){
 
         if(typeof BABYLON.Effect.ShadersStore["ringrttVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["ringrttVertexShader"] = RingRTTVertexShader;

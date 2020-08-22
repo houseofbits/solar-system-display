@@ -28,23 +28,23 @@ class VenusModel extends PlanetModel{
         this.atmShaderMaterial.setColor(new BABYLON.Vector3(1.,1.,0));
         this.atmShaderMaterial.setDensity(0.);
         this.atmosphereMesh.material = this.atmShaderMaterial.getMaterial();
-
-        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();   
         
-        this.animatedCameraAngles.push(-30);
-        this.animatedCameraAngles.push(35);   
+        this.setInclination(177.0);
+        this.planetRotationSpeed = 0.05;
+
+        this.animatedCameraAngles.push(-20);
+        this.animatedCameraAngles.push(25);   
         this.transitionSpeed = 2.0;             
     }
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);
 
-        this.atmosphereMesh.position.x = distance;        
+        this.atmosphereMesh.position.x = distance;
         this.atmosphereMesh.position.y = 0;        
         this.atmosphereMesh.position.z = 0;        
     }      
     update(dt){
-        this.sphere.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);    
+        super.update(dt);
     }
   }
 

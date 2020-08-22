@@ -31,17 +31,11 @@ class EarthModel extends PlanetModel{
         this.atmShaderMaterial.setColor(new BABYLON.Vector3(0,0,0.5));
         this.atmosphereMesh.material = this.atmShaderMaterial.getMaterial();
 
-        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();
+        this.setInclination(24.0);
+        this.planetRotationSpeed = 0.3;
 
         this.animatedCameraAngles.push(-30);
         this.animatedCameraAngles.push(35);     
-        
-        
-
-
-
-
     }
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);
@@ -52,7 +46,6 @@ class EarthModel extends PlanetModel{
     }      
     update(dt){ 
         super.update(dt);
-        this.sphere.rotate(this.rotationAxis,  dt * 0.1, BABYLON.Space.LOCAL);
     }
     setVisible(visibility){
         super.setVisible(visibility);

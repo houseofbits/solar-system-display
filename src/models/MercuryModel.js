@@ -17,15 +17,15 @@ class MercuryModel extends PlanetModel{
         this.planetMaterial.setSpecularMap(PlanetSpecular);
         this.planetMaterial.setAoMap(PlanetOcclusion);
 
-        this.rotationAxis = new BABYLON.Vector3(0.4,1,0);
-        this.rotationAxis.normalize();   
+        this.setInclination(1.0);
+        this.planetRotationSpeed = 0.1;
         
-        this.animatedCameraAngles.push(-30);
+        this.animatedCameraAngles.push(-20);
         this.animatedCameraAngles.push(35);   
         this.transitionSpeed = 1.0;       
     } 
     update(dt){ 
-        this.sphere.rotate(this.rotationAxis, dt * 0.1, BABYLON.Space.LOCAL);
+        super.update(dt);
     }
   }
 
