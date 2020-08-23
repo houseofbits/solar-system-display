@@ -39,6 +39,8 @@ class AsteroidBeltModel extends PlanetModel{
             parent.rockMesh.material = parent.shaderMaterial;
             parent.rockMesh.isVisible = false;
 
+            parent.rockMesh.isPickable = false; 
+
             for (let index = 0; index < 500; index++) {
 
                 var newInstance = newMeshes[0].createInstance("i" + index);               
@@ -63,6 +65,7 @@ class AsteroidBeltModel extends PlanetModel{
                 newInstance._orbitSpeed = 0.005 + (Math.random() * 0.02);
 
                 newInstance.position = new BABYLON.Vector3(pos.x, pos.y, pos.z);
+                newInstance.isPickable = false; 
 
                 parent.meshInstances.push(newInstance);
             }

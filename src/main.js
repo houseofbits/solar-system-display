@@ -5,5 +5,5 @@ import SolarSystemModel from './models/SolarSystemModel.js';
 
 let solarSystemModel = new SolarSystemModel(document.getElementById('renderCanvas'));
 
-ReactDOM.render(<GuiOverlay ssModel={solarSystemModel} />, document.getElementById('gui'));
+ReactDOM.render(<GuiOverlay ssModel={solarSystemModel}/>, document.getElementById('gui'));
 

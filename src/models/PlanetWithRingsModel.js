@@ -18,7 +18,8 @@ class PlanetWithRingsModel extends PlanetModel{
 
         this.planetRingMaterial = new PlanetRingMaterial(this.scene, this.name);
         this.planetRingMaterial.setDiffuseMap(ringsMap);
-        this.ringMesh.material = this.planetRingMaterial.getMaterial();        
+        this.ringMesh.material = this.planetRingMaterial.getMaterial();  
+        this.ringMesh._planetName = this.name;        
     }
     getPosition(){
         return this.transformNode.position;

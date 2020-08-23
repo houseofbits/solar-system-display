@@ -29,6 +29,7 @@ class SpaceModel extends PlanetModel{
         this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 8, size, this.scene, false, BABYLON.Mesh.BACKSIDE);
         this.sphere.parent = this.centerNode;    
         this.sphere.material = this.shaderMaterial;
+        this.sphere.isPickable = false;  
 
         this.shaderMaterialInner2 = new BABYLON.ShaderMaterial(this.name+"Shader3", this.scene, 
             { vertex: "space",fragment: "space" },            
@@ -43,8 +44,8 @@ class SpaceModel extends PlanetModel{
         this.shaderMaterialInner2.setVector3("objectPosition", this.centerNode.position);
         this.sphereInner = BABYLON.Mesh.CreateSphere(this.name+"SphereInner2", 8, size*0.8, this.scene, false, BABYLON.Mesh.BACKSIDE);
         this.sphereInner.parent = this.centerNode; 
-        this.sphereInner.material = this.shaderMaterialInner2;        
-
+        this.sphereInner.material = this.shaderMaterialInner2;   
+        this.sphereInner.isPickable = false;     
     } 
     setVisible(visible){
         this.sphere.visibility = visible;

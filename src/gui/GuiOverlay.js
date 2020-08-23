@@ -16,6 +16,9 @@ class GuiOverlay extends React.Component {
             selectedDetail:null,
             language:'lv'
         };
+        this.props.ssModel.guiSelectDetailCallback = (selectedPlanet) => {
+            this.selectDetail(selectedPlanet);          
+        }
     }
     selectDetail = (name) => {
         if(name == 'all')name = null;

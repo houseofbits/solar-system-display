@@ -16,6 +16,7 @@ class PlanetModel{
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
         this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 36, this.size, this.scene, false, BABYLON.Mesh.FRONTSIDE);
         this.sphere.parent = this.centerNode;
+        this.sphere._planetName = this.name;
     }
     setAngle(angle){
         this.centerNode.rotation.y = angle * (Math.PI/180.);
@@ -54,10 +55,12 @@ class PlanetModel{
         this.orbitMesh.material = new BABYLON.StandardMaterial("OrbitMaterial", this.scene);
         this.orbitMesh.material.emissiveColor = new BABYLON.Vector3(1,1,1);        
         this.orbitMesh.material.alpha = 0.2;  
+        this.orbitMesh.isPickable = false; 
     }  
     createAtmosphericMesh(size, thickness){
         this.atmosphereMesh = BABYLON.Mesh.CreateSphere(this.name + "Sphere2", 26, size * thickness, this.scene, false, BABYLON.Mesh.BACKSIDE);   
-        this.atmosphereMesh.parent = this.centerNode;     
+        this.atmosphereMesh.parent = this.centerNode;   
+        this.atmosphereMesh._planetName = this.name;  
     }
     getPosition(){
         return this.sphere.position;

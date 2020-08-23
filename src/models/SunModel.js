@@ -59,6 +59,8 @@ class SunModel extends PlanetModel{
         this.sphere = BABYLON.Mesh.CreateSphere(this.name+"Sphere", 46, size, this.scene, false, BABYLON.Mesh.FRONTSIDE);    
         this.sphere.material = this.shaderMaterial;       
         this.sphere.parent = this.centerNode;
+        
+        this.sphere._planetName = this.name; 
 
         let vertexData = this.createLightRays(this.size, 8, 450., true);
 
@@ -66,6 +68,7 @@ class SunModel extends PlanetModel{
         vertexData.applyToMesh(this.rays);
         this.rays.parent = this.centerNode;
         this.rays.material = this.shaderRaysMaterial;
+        this.rays.isPickable = false; 
     } 
     update(dt){
         let anim = dt * 0.5;

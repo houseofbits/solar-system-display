@@ -98,9 +98,23 @@ class SolarSystemModel {
         this.divFps = document.getElementById("fps");
         this.deltaTime = 0.0;
 
-        this.scene._depthTexture = this.scene.enableDepthRenderer().getDepthMap();//.getInternalTexture();
+        this.scene._depthTexture = this.scene.enableDepthRenderer().getDepthMap();
 
-        var parentr = this.scene;        
+        var parentr = this.scene;
+        
+        this.guiSelectDetailCallback = null;
+
+        window.addEventListener("click", function () {
+            var pickResult = parentr.pick(parentr.pointerX, parentr.pointerY);
+            if(pickResult.hit 
+                && pickResult.pickedMesh
+                && typeof pickResult.pickedMesh._planetName != 'undefined'
+                && self.selectedPlanet == null){
+                
+                self.action(pickResult.pickedMesh._planetName);
+                self.guiSelectDetailCallback(pickResult.pickedMesh._planetName);
+            }
+         });
     }
 
     renderLoop(){
