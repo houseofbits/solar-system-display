@@ -113,7 +113,7 @@ class SolarSystemModel {
          });
 
          this.userInputTimer = null;
-         this.userInputTimeout = 30000;
+         this.userInputTimeout = 50000;
     }
 
     renderLoop(){
