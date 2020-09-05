@@ -6,7 +6,7 @@ import PlanetDiffuse from '../resources/img/venus/venus.jpg'
 import PlanetNormalmap from '../resources/img/venus/NormalMap.png'
 import PlanetSpecular from '../resources/img/venus/SpecularMap_lo.png'
 import PlanetOcclusion from '../resources/img/venus/AmbientOcclusionMap.png'
-import PlanetClouds from '../resources/img/venus/venus_atmosphere_lo.jpg'
+import PlanetClouds from '../resources/img/venus/venus_atmosphere_b.png'
 
 export default
 class VenusModel extends PlanetModel{
@@ -19,14 +19,15 @@ class VenusModel extends PlanetModel{
         this.planetMaterial.setSpecularMap(PlanetSpecular);
         this.planetMaterial.setAoMap(PlanetOcclusion);
         this.planetMaterial.setCloudsMap(PlanetClouds);
-        this.planetMaterial.setLightBleedPow(5.0);
+        this.planetMaterial.setLightBleedPow(3.0);
+        this.planetMaterial.setSpecular(1.6, 1.0);
         this.planetMaterial.setAtmospheric(new BABYLON.Vector3(1.0, 1.0, 0.2), new BABYLON.Vector3(0.9, 0.6, 0.0), 8.0);   
         
-        this.createAtmosphericMesh(size, 1.1);
+        this.createAtmosphericMesh(size, 1.08);
         this.atmShaderMaterial = new AtmosphereMaterial(this.scene, this.name);
         this.atmShaderMaterial.setObjectPosition(this.sphere.position);
         this.atmShaderMaterial.setColor(new BABYLON.Vector3(1.,1.,0));
-        this.atmShaderMaterial.setDensity(0.);
+        this.atmShaderMaterial.setDensity(0.5);
         this.atmosphereMesh.material = this.atmShaderMaterial.getMaterial();
         
         this.setInclination(177.0);

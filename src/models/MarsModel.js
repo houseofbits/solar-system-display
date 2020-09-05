@@ -2,7 +2,7 @@ import * as BABYLON from 'babylonjs';
 import PlanetModel from './PlanetModel.js';
 import PlanetMaterial from './PlanetMaterial.js';
 import AtmosphereMaterial from './AtmosphereMaterial.js';
-import PlanetDiffuse from '../resources/img/mars/mars.jpg'
+import PlanetDiffuse from '../resources/img/mars/mars_b.jpg'
 import PlanetNormalmap from '../resources/img/mars/mars_normal.jpg'
 import PlanetSpecular from '../resources/img/mars/specularmap_lo.png'
 

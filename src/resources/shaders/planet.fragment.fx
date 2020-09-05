@@ -144,26 +144,37 @@ void main(void) {
     vec3 angleW = normalize(viewDirectionW + lightVectorW);
     float specComp = max(0., dot(normalW, angleW));
     specComp = pow(specComp, max(1., specularPow)) * specularMult * specular;       //specularPow, specularMult
-    
+
+    #ifdef THICK_CLOUDS_OVERLAY_ENABLE
+        float cloudsFresnelTerm = 1. - dot(viewDirectionW, vNormalW);
+        specComp = specComp * ndl * cloudsFresnelTerm;    
+    #endif
+
     // Fresnel
 	float fresnelTerm = dot(viewDirectionW, normalW);
 	float fresnelTermPow = pow(clamp(1.0 - fresnelTerm, 0., 1.), frensnelPow);       //frensnelPow
 
     float ndlFren = max(0., dot(normalW + (lightVectorW * 0.2), lightVectorW));
 
+    vec3 sunFragColor = color * ndl + vec3(specComp) + (fresnelTermPow * ndlFren);
+
     //Clouds
     vec3 clouds = vec3(0,0,0);    
     #ifdef THICK_CLOUDS_OVERLAY_ENABLE
         clouds = texture2D(cloudsMap, vUV).rgb;
-        clouds = (clouds * clouds * clouds * clouds * clouds * clouds);
 
         float cloudsNdl = max(0., dot(vNormalW + (lightVectorW * 0.5), lightVectorW));
-        float cloudsFresnelTerm = 1. - dot(viewDirectionW, vNormalW);
 
-        clouds = (clouds+clouds) * cloudsFresnelTerm * cloudsNdl;
+        //ndl = ndl * (1.0 - (cl.w * 0.2));
+
+        clouds = clouds * cloudsFresnelTerm * cloudsNdl;
+
+        sunFragColor = color * ndl + (fresnelTermPow * ndlFren);
+
+        sunFragColor = clouds + vec3(pow(1.0 - cloudsFresnelTerm, 3.)) * sunFragColor;
+
+        sunFragColor = sunFragColor + vec3(specComp);
     #endif
-
-    vec3 sunFragColor = color * ndl + vec3(specComp) + clouds + (fresnelTermPow * ndlFren);
 
     // Fake ambient light
     lightVectorW = -normalize(vSunDirection);
