@@ -12,7 +12,7 @@
     "planets":{
         "sun":{
             "title":"Saule",
-            "description":"Saule ir zvaigzne - milzīga, kvēlojoša plazmas lode, lielāka par visām planētām. Tā mums ir galvenais siltuma un gaismas avots. <br/><br/>Saule galvenokārt sastāv no ūdeņraža un hēlija. Tās enerģijas avots ir kodoltermiskās reakcijas, kurās ūdeņradis pārvēršas hēlijā. Tā ir ļoti karsta - Saules virsmas temperatūra ir aptuveni + 6000 °C, bet tās centrā temperatūra sasniedz pat 15 miljonus °C. <br/><br/>Saule nav tukša. Tai izdala iekšējos reģionus un atmosfēru. Iekšējie reģioni ir kodols, starojuma pārneses zona un konvektīvā zona. Atmosfēru veido trīs slāņi – fotosfēra, hromosfēra un Saules vainags. <br/><br/>Saules redzamo virsu veido fotosfēra, no kuras nāk gaisma, ultravioletais un infrasarkanais starojums. Uz Saules virsmas redzamajos plankumos temperatūra ir zemāka.",
+            "description":"Saule ir zvaigzne - milzīga, kvēlojoša plazmas lode, lielāka par visām planētām. Tā mums ir galvenais siltuma un gaismas avots. <br/><br/>Saule galvenokārt sastāv no ūdeņraža un hēlija. Tās enerģijas avots ir kodoltermiskās reakcijas, kurās ūdeņradis pārvēršas hēlijā. Tā ir ļoti karsta - Saules virsmas temperatūra ir aptuveni +6000 °C, bet tās centrā temperatūra sasniedz pat 15 miljonus °C. <br/><br/>Saule nav tukša. Tai izdala iekšējos reģionus un atmosfēru. Iekšējie reģioni ir kodols, starojuma pārneses zona un konvektīvā zona. Atmosfēru veido trīs slāņi – fotosfēra, hromosfēra un Saules vainags. <br/><br/>Saules redzamo virsu veido fotosfēra, no kuras nāk gaisma, ultravioletais un infrasarkanais starojums. Uz Saules virsmas redzamajos plankumos temperatūra ir zemāka.",
             "distance":null,
             "period":"25,05 dienas",
             "radius":"695,508 km",
@@ -23,7 +23,7 @@
         },        
         "mercury":{
             "title":"Merkurs",
-            "description":"Merkurs ir mazākā un Saulei tuvākā planēta. Savas ātrās kustības dēļ nosaukta romiešu tirdzniecības dieva un dievu ziņneša Merkura vārdā. <br/><br/>Merkuram praktiski nav atmosfēras, kas dienā uzkrāto siltumu nakts laikā pasargātu no aizplūšanas kosmiskajā telpā. Dienā planētas virsma sasilst līdz +430 °C, bet naktī atdziest līdz –180 °C. <br/><br/>Merkura virsmu klāj daudzi krāteri.",
+            "description":"Merkurs ir mazākā un Saulei tuvākā planēta. Savas ātrās kustības dēļ nosaukta romiešu tirdzniecības dieva un dievu ziņneša <i>Merkura</i> vārdā. <br/><br/>Merkuram praktiski nav atmosfēras, kas dienā uzkrāto siltumu nakts laikā pasargātu no aizplūšanas kosmiskajā telpā. Dienā planētas virsma sasilst līdz +430 °C, bet naktī atdziest līdz -180 °C. <br/><br/>Merkura virsmu klāj daudzi krāteri.",
             "distance":"57,909,227 km",
             "period":"58,646 dienas",
             "radius":"2440 km",
@@ -34,7 +34,7 @@
         },
         "venus":{
             "title":"Venēra",
-            "description":"Venēra ir karstākā planēta Saules sistēmā. Sava izskata dēļ planēta nosaukta mīlestības un skaistuma dievietes Veneras vārdā. Tā ir Zemei tuvākā planēta, kas var pietuvoties līdz 39 miljoniem kilometru attālumam. <br/><br/>Temperatūra uz planētas virsmas sasniedz +470 °C. Venērai ir blīva atmosfēra, kas sastāv galvenokārt no oglekļa dioksīda, sēra un ūdens tvaikiem. Blīvā atmosfēra rada augstu atmosfēras spiedienu. <br/><br/>Planēta rotē pretējā virzienā. Uz Venēras ir daudz plašu līdzenumu ar krāteriem, ielejām un kalnu apvidiem, kā arī vulkāniem, kas var būt aktīvi.",
+            "description":"Venēra ir karstākā planēta Saules sistēmā. Sava izskata dēļ planēta nosaukta mīlestības un skaistuma dievietes <i>Veneras</i> vārdā. Tā ir Zemei tuvākā planēta, kas var pietuvoties līdz 39 miljoniem kilometru attālumam. <br/><br/>Temperatūra uz planētas virsmas sasniedz +470 °C. Venērai ir blīva atmosfēra, kas sastāv galvenokārt no oglekļa dioksīda, sēra un ūdens tvaikiem. Blīvā atmosfēra rada augstu atmosfēras spiedienu. <br/><br/>Planēta rotē pretējā virzienā. Uz Venēras ir daudz plašu līdzenumu ar krāteriem, ielejām un kalnu apvidiem, kā arī vulkāniem, kas var būt aktīvi.",
             "distance":"108,209,475 km",
             "period":"–243,018 dienas",
             "radius":"6052 km",
@@ -45,18 +45,18 @@
         },
         "earth":{
             "title":"Zeme",
-            "description":"Zeme ir Saules sistēmas trešā planēta, kas radusies pirms 4,6 mljrd. gadu, sablīvējoties kosmiskajiem putekļiem un gāzēm. <br/><br/>Zeme ir vienīgā no Saules sistēmas planētām, uz kuras ir daudz ūdens. Tas klāj vairāk nekā 2/3 Zemes virsmas. Planētas atmosfēra ir vidēji blīva un samērā caurspīdīga, kas sastāv galvenokārt no slāpekļa un skābekļa. Tā ir unikāla planēta ar to, ka uz tās pastāv dzīvība. <br/><br/>Temperatūra uz Zemes virsmas no –88 °C līdz +58 °C, vidēji +15 °C. Zemei ir elektriskais, magnētiskais, gravitācijas un ģeotermālais lauks. <br/><br/>Zemei ir viens dabiskais pavadonis – Mēness.",
+            "description":"Zeme ir Saules sistēmas trešā planēta, kas radusies pirms 4,6 mljrd. gadu, sablīvējoties kosmiskajiem putekļiem un gāzēm. <br/><br/>Zeme ir vienīgā no Saules sistēmas planētām, uz kuras ir daudz ūdens. Tas klāj vairāk nekā 2/3 Zemes virsmas. Planētas atmosfēra ir vidēji blīva un samērā caurspīdīga, kas sastāv galvenokārt no slāpekļa un skābekļa. Tā ir unikāla planēta ar to, ka uz tās pastāv dzīvība. <br/><br/>Temperatūra uz Zemes virsmas no -88 °C līdz +58 °C, vidēji +15 °C. Zemei ir elektriskais, magnētiskais, gravitācijas un ģeotermālais lauks. <br/><br/>Zemei ir viens dabiskais pavadonis – Mēness.",
             "distance":"149,598,262 km",
-            "period":"0.9973 dienas",
+            "period":"0,9973 dienas",
             "radius":"6371 km",
-            "mass":"5,972 · 10<sup>23</sup> kg",
+            "mass":"5,972 · 10<sup>24</sup> kg",
             "density":"5,51 g/cm<sup>3</sup>",
             "satelites":"1",
             "rings":"Nav"                                 
         }, 
         "mars":{
             "title":"Marss",
-            "description":"Marss ir Zemei līdzīgākā planēta. To veido sarkanīgi ieži. Sarkanās krāsas dēļ senie astronomi to nosauca romiešu kara dieva Marsa vārdā. <br/><br/>Marsam ir caurspīdīga, retināta atmosfēra, kas sastāv galvenokārt no oglekļa dioksīda. Atmosfēras spiediens uz Marsa virsmas ir tāds, kāds ir uz Zemes 40 km augstumā. <br/><br/>Planētas polus klāj polu cepures, kas sastāv no ledus un sasaluša oglekļa dioksīda. Temperatūra uz Marsa virsmas no –125 °C līdz +24 °C, vidēji –60 °C. <br/><br/>Uz Marsa ir milzīgi, vējaini rūsas tuksneši un augstas vulkāniskās grēdas. Uz planētas atrodas lielākais zināmais kalns Saules sistēmā – Olimps (augstums 26 km, pakājes diametrs 600 km).",
+            "description":"Marss ir Zemei līdzīgākā planēta. To veido sarkanīgi ieži. Sarkanās krāsas dēļ senie astronomi to nosauca romiešu kara dieva <i>Marsa</i> vārdā. <br/><br/>Marsam ir caurspīdīga, retināta atmosfēra, kas sastāv galvenokārt no oglekļa dioksīda. Atmosfēras spiediens uz Marsa virsmas ir tāds, kāds ir uz Zemes 40 km augstumā. <br/><br/>Planētas polus klāj polu cepures, kas sastāv no ledus un sasaluša oglekļa dioksīda. Temperatūra uz Marsa virsmas no -125 °C līdz +24 °C, vidēji -60 °C. <br/><br/>Uz Marsa ir milzīgi, vējaini rūsas tuksneši un augstas vulkāniskās grēdas. Uz planētas atrodas lielākais zināmais kalns Saules sistēmā – Olimps (augstums 26 km, pakājes diametrs 600 km).",
             "distance":"227,943,824 km",
             "period":"1,026 dienas",
             "radius":"3390 km",
@@ -67,7 +67,7 @@
         },              
         "jupiter":{
             "title":"Jupiters",
-            "description":"Jupiters ir Saules sistēmas lielākā planēta. Iespaidīgo izmēru dēļ tai piešķirts bargā romiešu dievu valdnieka Jupitera vārds. <br/><br/>Jupiters ļoti ātri griežas ap savu asi. Planētai ir bieza un blīva atmosfēra. Pēc ķīmiskā sastāva tā ir līdzīga zvaigznēm. Jupiters sastāv galvenokārt no hēlija un ūdeņraža. Planētai nav cietas virsmas. <br/><br/>Jupiteram ir plāns un caurspīdīgs gredzens. Temperatūra uz Jupitera mākoņu segas līmenī ir –130 °C. <br/><br/>Viens no Jupitera pavadoņiem – Ganimēds ir vislielākais pavadonis Saules sistēmā. Tas ir lielāks par planētu Merkuru.",
+            "description":"Jupiters ir Saules sistēmas lielākā planēta. Iespaidīgo izmēru dēļ tai piešķirts bargā romiešu dievu valdnieka <i>Jupitera</i> vārds. <br/><br/>Jupiters ļoti ātri griežas ap savu asi. Planētai ir bieza un blīva atmosfēra. Pēc ķīmiskā sastāva tā ir līdzīga zvaigznēm. Jupiters sastāv galvenokārt no hēlija un ūdeņraža. Planētai nav cietas virsmas. <br/><br/>Jupiteram ir plāns un caurspīdīgs gredzens. Temperatūra uz Jupitera mākoņu segas līmenī ir -130 °C. <br/><br/>Viens no Jupitera pavadoņiem – Ganimēds ir vislielākais pavadonis Saules sistēmā. Tas ir lielāks par planētu Merkuru.",
             "distance":"778,340,821 km",
             "period":"0,4135 dienas",
             "radius":"69 911 km",
@@ -78,7 +78,7 @@
         }, 
         "saturn":{
             "title":"Saturns",
-            "description":"Saturns ir otra lielākā Saules sistēmas planēta. Tā ir pēdējā planēta, kuru pazina senatnē, tāpēc to nosauca seno romiešu lauksaimniecības aizbildņa Saturna vārdā. <br/><br/>Citu planētu vidū izceļas ar izteikto gredzenu. Gredzenu sistēma ir ļoti sarežģīta. Saturna gredzens ir plats, bet ļoti plāns. Lielākā daļa gredzenu sastāv no dažāda izmēra ledus daļiņām. <br/><br/>Pēc fizikālajām īpašībām Saturns ir līdzīgs Jupiteram. Mākoņu virsmas temperatūra –140 °C. Saturns ļoti strauji griežas ap savu asi. <br/><br/>Saturna pavadonis Titāns ir vienīgais Saules sistēmā, kam ir blīva atmosfēra.",
+            "description":"Saturns ir otra lielākā Saules sistēmas planēta. Tā ir pēdējā planēta, kuru pazina senatnē, tāpēc to nosauca seno romiešu lauksaimniecības aizbildņa <i>Saturna vārdā</i>. <br/><br/>Citu planētu vidū izceļas ar izteikto gredzenu. Gredzenu sistēma ir ļoti sarežģīta. Saturna gredzens ir plats, bet ļoti plāns. Lielākā daļa gredzenu sastāv no dažāda izmēra ledus daļiņām. <br/><br/>Pēc fizikālajām īpašībām Saturns ir līdzīgs Jupiteram. Mākoņu virsmas temperatūra -140 °C. Saturns ļoti strauji griežas ap savu asi. <br/><br/>Saturna pavadonis Titāns ir vienīgais Saules sistēmā, kam ir blīva atmosfēra.",
             "distance":"1,426,666,422 km",
             "period":"0,444 dienas",
             "radius":"58 232 km",
@@ -89,7 +89,7 @@
         },      
         "uranus":{
             "title":"Urāns",
-            "description":"Urāns ir trešā lielākā planēta Saules sistēmā. Planēta ir nosaukta grieķu dievu ciltstēva, debess valdnieka Urāna vārdā. <br/><br/>Urānam ir neparasti izvietota rotācijas ass – tā ir gandrīz horizontāla, tāpēc planēta it kā \"veļas\" pa orbītu. Planēta ap savu asi griežas pretējā virzienā. <br/><br/>Urānu klāj blīva, viendabīga dūmaka, kuru veido metāna ledus kristāli. Metāns piešķir Urānam zilganzaļu krāsu. Virsmas temperatūra ir –210 °C. <br/><br/>Planētu apņem 13 gredzeni. Tie ir ļoti šauri un grūti saskatāmi no Zemes.",
+            "description":"Urāns ir trešā lielākā planēta Saules sistēmā. Planēta ir nosaukta grieķu dievu ciltstēva, debess valdnieka <i>Urāna vārdā</i>. <br/><br/>Urānam ir neparasti izvietota rotācijas ass – tā ir gandrīz horizontāla, tāpēc planēta it kā \"veļas\" pa orbītu. Planēta ap savu asi griežas pretējā virzienā. <br/><br/>Urānu klāj blīva, viendabīga dūmaka, kuru veido metāna ledus kristāli. Metāns piešķir Urānam zilganzaļu krāsu. Virsmas temperatūra ir -210 °C. <br/><br/>Planētu apņem 13 gredzeni. Tie ir ļoti šauri un grūti saskatāmi no Zemes.",
             "distance":"2,870,658,186 km",
             "period":"–0,718 dienas",
             "radius":"25 362 km",
@@ -100,7 +100,7 @@
         },  
         "neptune":{
             "title":"Neptūns",
-            "description":"Neptūns ir ceturtā lielākā no Saules sistēmas planētām. Planēta ir nosaukta romiešu jūras dieva Neptūna vārdā. <br/><br/>Neptūns pēc fizikālajām īpašībām ir līdzīgs Urānam.  Tas sastāv galvenokārt no ledus. Virsmas temperatūra ir –195 °C. <br/><br/>Neptūna atmosfēra sastāv no ūdeņraža, hēlija, metāna un amonjaka. Atmosfērā esošās gāzes tam piešķir zilo krāsu. <br/><br/>Planētas kodols ir karsts, šis siltums nokļūst arī planētas atmosfērā, izraisot mākoņus, stiprus vējus un mainīgus laikapstākļus. Planētai ir seši gredzeni, kurus no Zemes ir grūti saskatīt. <br/><br/>Viens no Neptūna pavadoņiem – Tritons riņķo ap planētu pretēji tās rotācijas virzienam.",
+            "description":"Neptūns ir ceturtā lielākā Saules sistēmas planēta. Tā ir nosaukta romiešu jūras dieva <i>Neptūna</i> vārdā. <br/><br/>Neptūns pēc fizikālajām īpašībām ir līdzīgs Urānam.  Tas sastāv galvenokārt no ledus. Virsmas temperatūra ir -195 °C. <br/><br/>Neptūna atmosfēra sastāv no ūdeņraža, hēlija, metāna un amonjaka. Atmosfērā esošās gāzes tam piešķir zilo krāsu. <br/><br/>Planētas kodols ir karsts, šis siltums nokļūst arī planētas atmosfērā, izraisot mākoņus, stiprus vējus un mainīgus laikapstākļus. Planētai ir seši gredzeni, kurus no Zemes ir grūti saskatīt. <br/><br/>Viens no Neptūna pavadoņiem – Tritons riņķo ap planētu pretēji tās rotācijas virzienam.",
             "distance":"4,498,396,441 km",
             "period":"0,671 dienas",
             "radius":"24 622 km",

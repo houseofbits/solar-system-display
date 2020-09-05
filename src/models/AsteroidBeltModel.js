@@ -7,8 +7,8 @@ import Diffuse from '../resources/img/rock/rock_diffuse_sm.png'
 
 export default
 class AsteroidBeltModel extends PlanetModel{
-    constructor(engine, scene, canvas, size, width) {
-        super("asteroidBelt", scene, size);
+    constructor(engine, scene, canvas, size, width, name) {
+        super(name, scene, size);
 
         if(typeof BABYLON.Effect.ShadersStore["rockVertexShader"] == 'undefined')BABYLON.Effect.ShadersStore["rockVertexShader"] = RockVertexShader;
         if(typeof BABYLON.Effect.ShadersStore["rockFragmentShader"] == 'undefined')BABYLON.Effect.ShadersStore["rockFragmentShader"] = RockFragmentShader;
@@ -16,6 +16,7 @@ class AsteroidBeltModel extends PlanetModel{
         this.shaderMaterial = new BABYLON.ShaderMaterial(name+"Shader", this.scene, 
             { vertex: "rock",fragment: "rock" },            
             {   
+                needAlphaBlending: true,
                 attributes: ["position", "normal", "uv"],
                 uniforms: ["world", "worldView", "worldViewProjection", "view", "projection"]
             });
@@ -37,9 +38,10 @@ class AsteroidBeltModel extends PlanetModel{
         BABYLON.SceneLoader.ImportMesh("", "./", "./objects/rock1.obj", this.scene, function (newMeshes) {
             parent.rockMesh = newMeshes[0];
             parent.rockMesh.material = parent.shaderMaterial;
-            parent.rockMesh.isVisible = false;
-
             parent.rockMesh.isPickable = false; 
+            parent.rockMesh.visibility = true;
+            //parent.rockMesh.position = new BABYLON.Vector3(orbit, 0, 0);
+            parent.rockMesh.alwaysSelectAsActiveMesh = true;
 
             for (let index = 0; index < 500; index++) {
 
@@ -69,20 +71,33 @@ class AsteroidBeltModel extends PlanetModel{
 
                 parent.meshInstances.push(newInstance);
             }
+            parent.setOrbitLineOpacity(1.0);
         });
     }
     setVisible(visible){
-        if(this.rockMesh)this.rockMesh.visibility = visible;
+       if(this.rockMesh)this.rockMesh.visibility = visible;
     }
     setSimplifiedShader(set){
 
-    }       
+    }   
+    setOrbitLineOpacity(val){
+        if(this.rockMesh && typeof this.rockMesh != 'undefined'){
+            if(val < 0.01){
+                this.rockMesh.visibility = false;
+            }else{
+                this.rockMesh.visibility = true;
+            }
+            this.shaderMaterial.setFloat("alphaFade", val); 
+        }
+    }           
     update(dt){
-        for (const key of Object.keys(this.meshInstances)) {
-            let inst = this.meshInstances[key];
-            inst.rotate(inst._rotationAxis, dt * inst._rotationSpeed, BABYLON.Space.LOCAL);
-            inst.rotateAround(BABYLON.Vector3.Zero(), BABYLON.Vector3.Up(), dt * inst._orbitSpeed);
-        }         
+        if(this.rockMesh && this.rockMesh.visibility) {
+            for (const key of Object.keys(this.meshInstances)) {
+                let inst = this.meshInstances[key];
+                inst.rotate(inst._rotationAxis, dt * inst._rotationSpeed, BABYLON.Space.LOCAL);
+                inst.rotateAround(BABYLON.Vector3.Zero(), BABYLON.Vector3.Up(), dt * inst._orbitSpeed);
+            }         
+        }
     }
   }
 

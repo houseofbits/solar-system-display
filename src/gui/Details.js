@@ -30,9 +30,7 @@ class Details extends React.Component {
 
         return <div className={detailsClass}>
             <div className={Style.detailsTitle}>
-                <div className={Style.symbolFrame}></div>                
                 <span className={Style.titleGradient}>{planetText.title}</span>
-                <div className={planetIcon}></div>
             </div>
             <div className={Style.detailsDescription}><span dangerouslySetInnerHTML={{__html: planetText.description}}></span></div>
             <ul className={[Style.detailsList, Style.detailsListLeft].join(' ')}>

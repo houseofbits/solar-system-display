@@ -14,7 +14,6 @@
     left:500px;
     right:15px; 
     border-radius: 30px;
-    border-top-left-radius: 0;
     opacity:0;
     visibility: hidden;
  }
@@ -25,7 +24,7 @@
  }
  .detailsTitle{
     margin-top:10px;
-    margin-left:50px;
+    margin-left:30px;
     font-size: 60px;
     width:600px;
     line-height: 60px;
@@ -66,11 +65,11 @@
 }
  .titleGradient{
     display: inline;
-    background: linear-gradient(to top, #81cdff, white);
+    background: linear-gradient(to bottom, #f8ffe8 0%,#e3f5ab 33%,#b7df2d 100%); 
     -webkit-background-clip: text;
     background-clip: text; 
     -webkit-text-fill-color: transparent;      
-    filter: drop-shadow(2px 4px 3px rgba(0, 0, 0, 0.452));    
+    filter: drop-shadow(2px 4px 1px rgba(0, 0, 0, 1));    
 }
 .iconGradient{
     display: inline;

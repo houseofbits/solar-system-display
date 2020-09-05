@@ -62,10 +62,6 @@ class SolarSystemModel {
         this.models.marsModel.setOrbitDistance(405);
         this.models.marsModel.setAngle(-4.0);
 
-        this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 450, 30);
-
-        //Set up Asteroid belt
-        
         this.models.jupiterModel = new JupiterModel(this.engine, this.scene, this.canvas, 105);
         this.models.jupiterModel.setOrbitDistance(516);
         this.models.jupiterModel.setAngle(-8.0);
@@ -82,9 +78,9 @@ class SolarSystemModel {
         this.models.neptuneModel.setOrbitDistance(832);
         this.models.neptuneModel.setAngle(1.0);        
 
-        //Set up Kuiper belt     
-        
-        this.models.asteroidBelt2 = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 900, 100);
+        this.models.asteroidBelt2 = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 900, 100, "Belt2");
+
+        this.models.asteroidBelt = new AsteroidBeltModel(this.engine, this.scene, this.canvas, 450, 30, "Belt1");
 
         this.selectedPlanet = null;
 
@@ -115,6 +111,9 @@ class SolarSystemModel {
                 self.guiSelectDetailCallback(pickResult.pickedMesh._planetName);
             }
          });
+
+         this.userInputTimer = null;
+         this.userInputTimeout = 30000;
     }
 
     renderLoop(){
@@ -123,7 +122,9 @@ class SolarSystemModel {
 
         this.deltaTime = this.engine.getDeltaTime() / 1000.0;
 
-        this.models.spaceModel.setPosition(this.scene.activeCamera.target);
+        if(typeof this.models.spaceModel !== 'undefined') {
+            this.models.spaceModel.setPosition(this.scene.activeCamera.target);
+        }
 
         for (const key of Object.keys(this.models)) {
             this.models[key].update(this.deltaTime);
@@ -200,6 +201,9 @@ class SolarSystemModel {
     }
 
     action(planetName){
+
+        if(planetName != "all")this.userInputActivated();
+
         let model = this.getPlanetModel(planetName);
         if(model){
             this.selectedPlanet = model;
@@ -217,7 +221,16 @@ class SolarSystemModel {
         }
         this.transitionSpeed = 350.0;
     }
+    userInputActivated(){
+        //console.log('set timeout '+this.userInputTimeout);
+        var parent = this;
+        clearTimeout(this.userInputTimer);
+        this.userInputTimer = setTimeout(function(){
+            parent.action("all");
+            parent.guiSelectDetailCallback("all");
+        }, this.userInputTimeout);
 
+    }    
     getPlanetModel(name){
         if(name){
             let key = name.toLowerCase() + "Model";

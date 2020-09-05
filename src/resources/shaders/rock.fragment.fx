@@ -15,6 +15,8 @@ uniform vec3 cameraPosition;
 
 uniform sampler2D diffuseMap;
 
+uniform float alphaFade;
+
 void main(void) {
 
     vec3 lightVectorW = normalize(vSunDirection);
@@ -39,5 +41,5 @@ void main(void) {
 
     color = color + (ldv * ((1. - color) * vec3(1.,1.,0.5) * 0.2));
 
-    gl_FragColor = vec4(vec3(color), 1.);
+    gl_FragColor = vec4(vec3(color), alphaFade);
 }
