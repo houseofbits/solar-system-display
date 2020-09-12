@@ -12,7 +12,7 @@
     "planets":{
         "sun":{
             "title":"Saule",
-            "description":"Saule ir zvaigzne - milzīga, kvēlojoša plazmas lode, lielāka par visām planētām. Tā mums ir galvenais siltuma un gaismas avots. <br/><br/>Saule galvenokārt sastāv no ūdeņraža un hēlija. Tās enerģijas avots ir kodoltermiskās reakcijas, kurās ūdeņradis pārvēršas hēlijā. Tā ir ļoti karsta - Saules virsmas temperatūra ir aptuveni +6000 °C, bet tās centrā temperatūra sasniedz pat 15 miljonus °C. <br/><br/>Saule nav tukša. Tai izdala iekšējos reģionus un atmosfēru. Iekšējie reģioni ir kodols, starojuma pārneses zona un konvektīvā zona. Atmosfēru veido trīs slāņi – fotosfēra, hromosfēra un Saules vainags. <br/><br/>Saules redzamo virsu veido fotosfēra, no kuras nāk gaisma, ultravioletais un infrasarkanais starojums. Uz Saules virsmas redzamajos plankumos temperatūra ir zemāka.",
+            "description":"Saule ir zvaigzne - milzīga, kvēlojoša plazmas lode, lielāka par visām planētām. Tā mums ir galvenais siltuma un gaismas avots. <br/><br/>Saule galvenokārt sastāv no ūdeņraža un hēlija. Tās enerģijas avots ir kodoltermiskās reakcijas, kurās ūdeņradis pārvēršas hēlijā. Tā ir ļoti karsta - Saules virsmas temperatūra ir aptuveni +6000 °C, bet tās centrā temperatūra sasniedz pat 15 miljonus °C. <br/><br/>Saule nav tukša. Tai izdala iekšējos reģionus un atmosfēru. Iekšējie reģioni ir kodols, starojuma pārneses zona un konvektīvā zona. Atmosfēru veido trīs slāņi – fotosfēra, hromosfēra un Saules vainags. <br/><br/>Saules redzamo virsmu veido fotosfēra, no kuras nāk gaisma, ultravioletais un infrasarkanais starojums. Uz Saules virsmas redzamajos plankumos temperatūra ir zemāka.",
             "distance":null,
             "period":"25,05 dienas",
             "radius":"695,508 km",
@@ -34,7 +34,7 @@
         },
         "venus":{
             "title":"Venēra",
-            "description":"Venēra ir karstākā planēta Saules sistēmā. Sava izskata dēļ planēta nosaukta mīlestības un skaistuma dievietes <i>Veneras</i> vārdā. Tā ir Zemei tuvākā planēta, kas var pietuvoties līdz 39 miljoniem kilometru attālumam. <br/><br/>Temperatūra uz planētas virsmas sasniedz +470 °C. Venērai ir blīva atmosfēra, kas sastāv galvenokārt no oglekļa dioksīda, sēra un ūdens tvaikiem. Blīvā atmosfēra rada augstu atmosfēras spiedienu. <br/><br/>Planēta rotē pretējā virzienā. Uz Venēras ir daudz plašu līdzenumu ar krāteriem, ielejām un kalnu apvidiem, kā arī vulkāniem, kas var būt aktīvi.",
+            "description":"Venēra ir karstākā planēta Saules sistēmā. Sava izskata dēļ planēta nosaukta mīlestības un skaistuma dievietes <i>Veneras</i> vārdā. Tā ir Zemei tuvākā planēta, kas var pietuvoties līdz 39 miljoniem kilometru attālumā. <br/><br/>Temperatūra uz planētas virsmas sasniedz +470 °C. Venērai ir blīva atmosfēra, kas sastāv galvenokārt no oglekļa dioksīda, sēra un ūdens tvaikiem. Blīvā atmosfēra rada augstu atmosfēras spiedienu. <br/><br/>Planēta rotē pretējā virzienā. Uz Venēras ir daudz plašu līdzenumu ar krāteriem, ielejām un kalnu apvidiem, kā arī vulkāniem, kas var būt aktīvi.",
             "distance":"108,209,475 km",
             "period":"–243,018 dienas",
             "radius":"6052 km",

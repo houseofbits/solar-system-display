@@ -31,7 +31,9 @@ class MarsModel extends PlanetModel{
 
         this.animatedCameraAngles.push(-30);
         this.animatedCameraAngles.push(40);   
-        this.transitionSpeed = 1.0;          
+        this.transitionSpeed = 1.0;
+        
+        this.setDetailPosition(30, 60);
     }  
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);

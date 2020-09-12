@@ -11,6 +11,13 @@ class PlanetModel{
         this.transitionSpeed = 5.0;    
         this.rotationAxis = null;
         this.planetRotationSpeed = 0.1;
+        this.target = new BABYLON.Vector3(this.size * 0.7, -(this.size * 0.15), 0);
+        this.fov = 60.;
+        this.distanceScale = (this.size * Math.tan((this.fov * 0.5) * (Math.PI/180.))) * 2.9;
+    }
+    setDetailPosition(x, z){
+        this.target.x = x;
+        this.distanceScale = z;
     }
     createPlanetNode(){
         this.centerNode = new BABYLON.TransformNode(this.name + "Center"); 
@@ -77,21 +84,16 @@ class PlanetModel{
             let index = Math.floor(Math.random() * (this.animatedCameraAngles.length + 1));
             if(typeof this.animatedCameraAngles[index] != 'undefined')cameraAngle = this.animatedCameraAngles[index];
         }
-        let fov = 60.;
-
-        let target = new BABYLON.Vector3(this.size * 0.7, -(this.size * 0.15), 0);
 
         let matrix = BABYLON.Matrix.RotationAxis(BABYLON.Axis.Y, cameraAngle * (Math.PI/180.));
-        let v2 = BABYLON.Vector3.TransformCoordinates(target, matrix);
+        let v2 = BABYLON.Vector3.TransformCoordinates(this.target, matrix);
 
         let vd = v2.cross(BABYLON.Axis.Y);
         vd.normalize();
         vd.negateInPlace();
-        
-        let dst = this.size * Math.tan((fov * 0.5) * (Math.PI/180.));
 
-        vd.scaleInPlace(dst * 2.9);
-        vd.y += (dst * 0.2);
+        vd.scaleInPlace(this.distanceScale);
+        vd.y += (this.distanceScale * 0.1);
 
         let worldMatrix = this.centerNode.getWorldMatrix();
         let global_position = BABYLON.Vector3.TransformCoordinates(this.getPosition(), worldMatrix);
@@ -102,7 +104,7 @@ class PlanetModel{
         return {
             position: vd,
             target: v2,
-            fovDeg: 60.
+            fovDeg: this.fov
         };
     }
     update(dt){

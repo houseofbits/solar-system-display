@@ -35,7 +35,9 @@ class NeptuneModel extends PlanetWithRingsModel{
         this.transitionSpeed = 3.0;   
         
         this.setInclination(28.0);
-        this.planetRotationSpeed = 0.4;           
+        this.planetRotationSpeed = 0.4;    
+
+        this.setDetailPosition(45, 100);
     }   
     update(dt){
        super.update(dt);

@@ -44,23 +44,23 @@ class SolarSystemModel {
         this.models.spaceModel = new SpaceModel(this.engine, this.scene, this.canvas, 2000);
         this.models.spaceModel.setPosition(this.scene.activeCamera.target);
 
-        this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 532);
+        this.models.sunModel = new SunModel(this.engine, this.scene, this.canvas, 500);
 
         this.models.mercuryModel = new MercuryModel(this.engine, this.scene, this.canvas, 14);
-        this.models.mercuryModel.setOrbitDistance(292);
-        this.models.mercuryModel.setAngle(4.0);
+        this.models.mercuryModel.setOrbitDistance(284);
+        this.models.mercuryModel.setAngle(-5.0);
         
         this.models.venusModel = new VenusModel(this.engine, this.scene, this.canvas, 26);
         this.models.venusModel.setOrbitDistance(316);
-        this.models.venusModel.setAngle(0.0);
+        this.models.venusModel.setAngle(-6.0);
 
         this.models.earthModel = new EarthModel(this.engine, this.scene, this.canvas, 39);
         this.models.earthModel.setOrbitDistance(360);
-        this.models.earthModel.setAngle(-3.0);
+        this.models.earthModel.setAngle(-6.0);
 
         this.models.marsModel = new MarsModel(this.engine, this.scene, this.canvas, 27);
         this.models.marsModel.setOrbitDistance(405);
-        this.models.marsModel.setAngle(-4.0);
+        this.models.marsModel.setAngle(-5.0);
 
         this.models.jupiterModel = new JupiterModel(this.engine, this.scene, this.canvas, 105);
         this.models.jupiterModel.setOrbitDistance(516);

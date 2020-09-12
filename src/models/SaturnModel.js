@@ -35,7 +35,9 @@ class SaturnModel extends PlanetWithRingsModel{
         this.transitionSpeed = 5.0;  
 
         this.setInclination(26.0);
-        this.planetRotationSpeed = 0.6;           
+        this.planetRotationSpeed = 0.6;         
+        
+        this.setDetailPosition(55, 130);
     }   
     update(dt){
        super.update(dt);

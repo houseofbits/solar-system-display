@@ -35,7 +35,9 @@ class JupiterModel extends PlanetWithRingsModel{
         this.transitionSpeed = 5.0;  
         
         this.setInclination(3.0);
-        this.planetRotationSpeed = 0.6;          
+        this.planetRotationSpeed = 0.6;       
+        
+        this.setDetailPosition(48, 145);
     }      
     update(dt){
         super.update(dt);

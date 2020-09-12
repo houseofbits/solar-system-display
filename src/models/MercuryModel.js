@@ -23,6 +23,8 @@ class MercuryModel extends PlanetModel{
         this.animatedCameraAngles.push(-20);
         this.animatedCameraAngles.push(35);   
         this.transitionSpeed = 1.0;       
+
+        this.setDetailPosition(19, 35);
     } 
     update(dt){ 
         super.update(dt);

@@ -34,8 +34,10 @@ class VenusModel extends PlanetModel{
         this.planetRotationSpeed = 0.05;
 
         this.animatedCameraAngles.push(-20);
-        this.animatedCameraAngles.push(25);   
-        this.transitionSpeed = 2.0;             
+        this.animatedCameraAngles.push(20);   
+        this.transitionSpeed = 2.0; 
+        
+        this.setDetailPosition(22, 50);
     }
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);

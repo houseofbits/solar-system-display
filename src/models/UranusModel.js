@@ -35,7 +35,9 @@ class UranusModel extends PlanetWithRingsModel{
         this.transitionSpeed = 3.0;       
         
         this.setInclination(97.0);
-        this.planetRotationSpeed = 0.5;   
+        this.planetRotationSpeed = 0.5; 
+        
+        this.setDetailPosition(60, 120);
     }    
     update(dt){
        super.update(dt);

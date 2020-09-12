@@ -36,6 +36,8 @@ class EarthModel extends PlanetModel{
 
         this.animatedCameraAngles.push(-30);
         this.animatedCameraAngles.push(35);     
+
+        this.setDetailPosition(35, 75);
     }
     setOrbitDistance(distance){
         super.setOrbitDistance(distance);
